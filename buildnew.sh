@@ -1,5 +1,6 @@
 #!/bin/bash
 
+git fetch
 
 echo "Removing existing .o files"
 cd ./Build/
