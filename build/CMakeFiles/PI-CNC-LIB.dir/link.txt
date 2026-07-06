@@ -1,0 +1,2 @@
+/usr/bin/ar qc libPI-CNC-LIB.a "CMakeFiles/PI-CNC-LIB.dir/gcode.cpp.o" "CMakeFiles/PI-CNC-LIB.dir/gcodeparse.cpp.o" "CMakeFiles/PI-CNC-LIB.dir/iocontroller.cpp.o" "CMakeFiles/PI-CNC-LIB.dir/positioncalc.cpp.o" "CMakeFiles/PI-CNC-LIB.dir/programrun.cpp.o" "CMakeFiles/PI-CNC-LIB.dir/stepper.cpp.o" "CMakeFiles/PI-CNC-LIB.dir/vfdcontrol.cpp.o"
+/usr/bin/ranlib libPI-CNC-LIB.a
