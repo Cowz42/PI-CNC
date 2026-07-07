@@ -12,7 +12,7 @@ g++ -c stepper.cpp -Wall
 g++ -c vfdcontrol.cpp -Wall
 
 if [ "$1" = "main" ] || [ "$1" = "" ]; then
-	echo "Building main.cpp"
+	echo "Building wtih main.cpp"
 	g++ -c main.cpp -Wall
 	cd ./Build/
 	rm tests.o
@@ -21,7 +21,7 @@ if [ "$1" = "main" ] || [ "$1" = "" ]; then
 fi
 
 if [ "$1" = "tests" ]; then
-	echo "Building tests.cpp"
+	echo "Building with tests.cpp"
 	g++ -c tests.cpp -Wall
 	cd ./Build/
 	rm main.o
