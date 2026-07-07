@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/PI-CNC.dir/main.cpp.o -o PI-CNC  libPI-CNC-LIB.a 
