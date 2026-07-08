@@ -1,5 +1,8 @@
-#include<iostream>
 
+
+
+#include<iostream>
+#include"displaycontroller.h"
 
 
 
