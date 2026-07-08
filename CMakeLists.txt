@@ -7,14 +7,14 @@ set(SOURCE_FILES
     gcodeparse.cpp
     iocontroller.cpp
     positioncalc.cpp
-    programrun.cp
+    programrun.cpp
     stepper.cpp
     vfdcontrol.cpp
     main.cpp
 )
 
-add_subdirectory(./lib/glfw-3.4/)
-target_link_libraries(${PROJECT_NAME} glfw)
+#add_subdirectory(./lib/glfw-3.4/)
+#target_link_libraries(${PROJECT_NAME} glfw)
 
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
