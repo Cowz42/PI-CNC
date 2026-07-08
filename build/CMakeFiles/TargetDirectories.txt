@@ -1,0 +1,3 @@
+/home/colin/Documents/PI-CNC/build/CMakeFiles/pi-cnc.dir
+/home/colin/Documents/PI-CNC/build/CMakeFiles/edit_cache.dir
+/home/colin/Documents/PI-CNC/build/CMakeFiles/rebuild_cache.dir
