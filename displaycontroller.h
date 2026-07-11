@@ -9,8 +9,8 @@
 #include<iostream>
 
 #define GLFW_INCLUDE_NONE
-#include <GLFW/glfw3.h>
-#include <glad/gl.h>
+#include "./lib/glfw-3.4/include/GLFW/glfw3.h"
+
 
 
 GLFWwindow* window;

@@ -10,7 +10,7 @@
 #include<F:\Network Share Colin\Code\Libraries\WiringPi\WiringPi\wiringPi.h>
 #endif
 
-#ifdef x86_64
+#ifdef __linux__
 #include<wiringPi.h>
 #endif
 
