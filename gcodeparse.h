@@ -57,7 +57,7 @@ public:
     // Function that reads the next command in the file, parses it, and outputs a GCodeInstruction with the data, 
     // and writes the pointers it has for more direct access
     // will also parse a string directly
-    GCodeInstruction* read_command(std::string parse = "");
+    GCodeInstruction read_command(std::string parse = "");
 
     // for pointer stuff if you don't want to deal with the class for the output
     void write_simple_values(float* x_out, float* y_out, float* z_out, float* f_out, float* i_out, float* j_out, float* s_out);

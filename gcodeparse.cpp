@@ -19,7 +19,11 @@ int GCodeParse::set_working_file(string filename) {
 // Function that reads the next command in the file, parses it, and outputs a GCodeInstruction with the data, 
 // and writes the pointers it has for more direct access
 // will also parse a string directly
-GCodeInstruction* GCodeParse::read_command(string parse) {
+GCodeInstruction GCodeParse::read_command(string parse) {
+    GCodeInstruction command;
+    command.reset();
+
+
     float x = 0, y = 0, z = 0, f = 0, i = 0, j = 0, s = 0;
 
     // gets working line of gcode if there isn't an input and there is no need to recheck the previous line
@@ -33,7 +37,7 @@ GCodeInstruction* GCodeParse::read_command(string parse) {
 
     // if the line is empty, then it just returns nullptr as their is no data
     if (current_command.empty()) {
-        return nullptr;
+        return command;
     }
 
     // cuts off the command at the comment marker
@@ -65,9 +69,7 @@ GCodeInstruction* GCodeParse::read_command(string parse) {
     command_number = current_command[2] - 48;
     command_number += (current_command[1] - 48) * 10;
 
-    // allocate a GCodeInstruction, the calling function is responsible for freeing the memory, and it could cause memory leaks
-    GCodeInstruction* out = (GCodeInstruction*)malloc(sizeof(GCodeInstruction));
-    out->reset();
+    command.reset();
 
     // subtracted one cause I only need the length -1, and so it just does the math once
     int length = current_command.length() - 1;
@@ -80,37 +82,37 @@ GCodeInstruction* GCodeParse::read_command(string parse) {
     int x_crawl = crawl_too(current_command, 'X');
     if (x_crawl != length && x_crawl < g && x_crawl < m) {
         x = crawl_too_number(current_command, 'X');
-        out->_x = true;
+        command._x = true;
     }
     int y_crawl = crawl_too(current_command, 'Y');
     if (y_crawl != length && y_crawl < g && y_crawl < m) {
         y = crawl_too_number(current_command, 'Y');
-        out->_y = true;
+        command._y = true;
     }
     int z_crawl = crawl_too(current_command, 'Z');
     if (z_crawl != length && z_crawl < g && z_crawl < m) {
         z = crawl_too_number(current_command, 'Z');
-        out->_z = true;
+        command._z = true;
     }
     int f_crawl = crawl_too(current_command, 'F');
     if (f_crawl != length && f_crawl < g && f_crawl < m) {
         f = crawl_too_number(current_command, 'F');
-        out->_f = true;
+        command._f = true;
     }
     int i_crawl = crawl_too(current_command, 'I');
     if (i_crawl != length && i_crawl < g && i_crawl < m) {
         i = crawl_too_number(current_command, 'I');
-        out->_i = true;
+        command._i = true;
     }
     int j_crawl = crawl_too(current_command, 'J');
     if (j_crawl != length && j_crawl < g && j_crawl < m) {
         j = crawl_too_number(current_command, 'J');
-        out->_j = true;
+        command._j = true;
     }
     int s_crawl = crawl_too(current_command, 'S');
     if (s_crawl != length && s_crawl < g && s_crawl < m) {
         s = crawl_too_number(current_command, 'S');
-        out->_s = true;
+        command._s = true;
     }
 
     // writes the values to the local stored in the class
@@ -124,21 +126,21 @@ GCodeInstruction* GCodeParse::read_command(string parse) {
 
     // stores the values to the output GCodeInstruction
     // cout << "X: " << to_string(x) << "\tY: " << to_string(y) << "\tZ: " << to_string(z) << "\tF: " << to_string(f) << "\n";
-    out->x = x;
-    out->y = y;
-    out->z = z;
-    out->f = f;
-    out->i = i;
-    out->j = j;
-    out->s = s;
+    command.x = x;
+    command.y = y;
+    command.z = z;
+    command.f = f;
+    command.i = i;
+    command.j = j;
+    command.s = s;
 
 
     
     // default for G commands, with x,y,z,f,i,j all recorded by default, and will mark it if it isn't present
     // IDK how other commands work, but this should work for reading them all
-    out->command_char = current_command[0];
-    out->command_number = command_number;
-    return out;
+    command.command_char = current_command[0];
+    command.command_number = command_number;
+    return command;
 };
 
 // converts a given string into a float, WARNING: will not check if there are only number chars, will just subtract the ascii values

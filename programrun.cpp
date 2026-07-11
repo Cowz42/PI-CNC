@@ -19,6 +19,8 @@
 #endif
 
 
+#include"programrun.h"
+
 
 
 
@@ -26,8 +28,8 @@ bool exit_flag = false;
 
 GCodeParse g;
 
-GCodeInstruction* buffer;
-Cmd* ins;
+GCodeInstruction buffer;
+Cmd ins;
 
 long long prev;
 
@@ -67,20 +69,27 @@ void step() {
 
 
 void runIns() {
-    gantry.setInstruction(*ins);
+    gantry.setInstruction(ins);
 
+    
+    while(gantry.step((int)deltaTime())) {
+        if (exit_flag) {
+            return;
+        }
+        x.setPosition(gantry.getX());
+        y.setPosition(gantry.getY());
+        z.setPosition(gantry.getZ());
+        step();
+    }
+    
     x.setPosition(gantry.getX());
     y.setPosition(gantry.getY());
     z.setPosition(gantry.getZ());
-    
-    while(gantry.step((int)deltaTime())) {
-        step();
-    }
     step();
 }
 
 void GCodes() {
-    switch (ins->num) {
+    switch (ins.num) {
         case 0:
             runIns();
             break;
@@ -109,7 +118,7 @@ void GCodes() {
             gantry.setRelativeCoordinate();
             break;
         case 94:
-            gantry.setF(ins->f);
+            gantry.setF(ins.f);
             break;
         default:
             std::cout << "Un-supported G Code detected, ignoring\n";
@@ -118,7 +127,7 @@ void GCodes() {
 }
 
 void MCodes() {
-    switch (ins->num) {
+    switch (ins.num) {
         case 0:
             // Need io controller
             break;
@@ -127,44 +136,36 @@ void MCodes() {
 }
 
 
-void runProgram(std::string name) {
+void CNC::startProgram(std::string name) {
+    gantry.setMetric();
+
+    g.set_working_file(name);
+
+
+    // iterate throgh the commands in the given file
+    
+}
+
+void CNC::start() {
     x.start();
     y.start();
     z.start();
     gantry.setAbsoluteCoordinate();
     gantry.home();
-    gantry.setMetric();
+}
 
-    g.set_working_file(name);
+void CNC::run() {
     buffer = g.read_command();
-
-    // iterate throgh the commands in the given file
-    while (buffer != nullptr && !exit_flag) {
-        
-        if (ins != nullptr) {
-            free(ins);
-            ins = nullptr;
-        }
-        
-        ins = convert(buffer);
-        
-        if (ins->letter == 'G') {
-            GCodes();
-        } else if (ins->letter == 'M') {
-            MCodes();
-        } else {
-            std::cout << "Unknown Command, ignoring\n";
-        }
-
-
-        free(buffer);
-        buffer = g.read_command();
-
+    if (!(buffer._x || buffer._y || buffer._z || buffer._i || buffer._j || buffer._f || buffer._s)) {
+        return;
     }
-    if (buffer != nullptr) {
-        free(buffer);
+    ins = convert(buffer);
+    if (ins.letter == 'G') {
+        GCodes();
+    } else if (ins.letter == 'M') {
+        MCodes();
+    } else {
+        std::cout << "Invalid GCode\n";
     }
-    if (ins != nullptr) {
-        free(ins);
-    }
+    
 }
