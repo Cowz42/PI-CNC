@@ -2,8 +2,8 @@
 
 
 #include<iostream>
-#include"displaycontroller.h"
-
+// #include"displaycontroller.h"
+#include"clidisplay.h"
 
 
 int main(int argc, char** argv) {
