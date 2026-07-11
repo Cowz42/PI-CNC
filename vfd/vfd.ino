@@ -49,7 +49,7 @@ void updateControl() {
     return;
   } else if (p.code == findCode(PING)) {
     // If this device gets pinged, we send a message back
-    Serial.println(packetStrBuilder((packet){findCode(ACK) == -1 ? 0 : findCode(ACK),0}));
+    Serial.println(packetStrBuilder((packet){findCode(ACK),0}));
   } else if (p.code == findCode(A_CH_START)) {
     a.start();
   } else if (p.code == findCode(A_CH_STOP)) {
@@ -83,7 +83,7 @@ void updateControl() {
   } else if (p.code == findCode(B_OVER_A_SYNC)) {
     relatedRate = p.num;
   } else {
-    Serial.println(packetStrBuilder((packet){0,0}));
+    Serial.println(packetStrBuilder((packet){findCode(ERROR),0}));
   }
 }
 
