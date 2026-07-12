@@ -10,19 +10,27 @@ set(SOURCE_FILES
     programrun.cpp
     stepper.cpp
     vfdcontrol.cpp
+    globalcommunication.cpp
+    clidisplay.cpp
     main.cpp
 )
-
-#add_subdirectory(./lib/glfw-3.4/)
-#target_link_libraries(${PROJECT_NAME} glfw)
 
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 
+
+#add_subdirectory(./lib/glfw-3.4/)
+#target_link_libraries(${PROJECT_NAME} glfw)
+
+
+find_package(Curses REQUIRED)
+target_link_libraries(${CURSES_LIBRARIES})
+target_include_directories(${CURSES_INCLUDE_DIR})
+
+
 target_link_libraries(
 	${PROJECT_NAME}
-
 	PRIVATE wiringPi
 )
 
