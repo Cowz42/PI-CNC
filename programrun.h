@@ -23,6 +23,7 @@
 #endif
 
 class CNC {
+public:
     static void start();
     static void startProgram(std::string name);
     static void run();
@@ -31,7 +32,7 @@ class CNC {
 };
 
 
-
+CNC cnc;
 
 
 

@@ -15,7 +15,7 @@ class CLI {
     int start();
     void end();
     void update();
-}
+};
 
 
 
