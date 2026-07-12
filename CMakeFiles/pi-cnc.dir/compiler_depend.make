@@ -632,6 +632,7 @@ CMakeFiles/pi-cnc.dir/programrun.cpp.o: programrun.cpp \
   gcodeparse.h \
   machine.h \
   positioncalc.h \
+  programrun.h \
   stepper.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
@@ -1084,6 +1085,8 @@ CMakeFiles/pi-cnc.dir/vfdcontrol.cpp.o: vfdcontrol.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/termios-misc.h:
 
+/usr/include/x86_64-linux-gnu/bits/termios-c_oflag.h:
+
 /usr/include/x86_64-linux-gnu/bits/wchar.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:
@@ -1502,6 +1505,8 @@ machine.h:
 
 /usr/include/x86_64-linux-gnu/bits/time.h:
 
+programrun.h:
+
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h:
@@ -1575,8 +1580,6 @@ positioncalc.cpp:
 gcodeinterface.h:
 
 stepper.h:
-
-/usr/include/x86_64-linux-gnu/bits/termios-c_oflag.h:
 
 vfdcontrol.cpp:
 
