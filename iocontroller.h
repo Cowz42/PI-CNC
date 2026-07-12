@@ -13,10 +13,14 @@
 #endif
 
 
-
 #include"raspi-io.h"
 
-
+#ifndef __x86_64__
+#include<pcf8574.h>
+#else
+#define wiringPiSetup()
+#define pcf8574Setup(x, y)
+#endif
 
 #include"buttoninfo.h"
 
