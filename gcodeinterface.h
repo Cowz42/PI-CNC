@@ -10,7 +10,7 @@
 #include"commands.h"
 
 // interfaces different command storage methods, converts a GCodeInstruction to a Cmd
-Cmd convert(GCodeInstruction a) {
+Cmd convertGCode(GCodeInstruction a) {
     Cmd out;
     out.x = a.x;
     out.y = a.y;

@@ -24,14 +24,14 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 #target_link_libraries(${PROJECT_NAME} glfw)
 
 
-find_package(Curses)
-target_include_directories(${CURSES_INCLUDE_DIR})
+#find_package(Curses)
+#target_include_directories(${CURSES_INCLUDE_DIR})
 
 
 target_link_libraries(
 	${PROJECT_NAME}
 
-    ${CURSES_LIBRARIES}
+	PRIVATE ${CURSES_LIBRARIES}
 
 	PRIVATE wiringPi
     

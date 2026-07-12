@@ -15,12 +15,12 @@
 
 
 
-StepperControl* gantry;
+StepperControl* gantryCLI;
 
 
 int CLI::start() {
-    gantry = cnc.getGantry();
-    if (gantry == nullptr) {
+    gantryCLI = cnc.getGantry();
+    if (gantryCLI == nullptr) {
         std::cerr << "No gantry detected\n";
         return -1;
     }
