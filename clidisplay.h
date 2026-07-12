@@ -10,15 +10,12 @@
 
 
 
-
-
-
-
-class CLIDisplay {
-    
-};
-
-
+class CLI {
+    // starts the cli display, returns -1 if something fails
+    int start();
+    void end();
+    void update();
+}
 
 
 

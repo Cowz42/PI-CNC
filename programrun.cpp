@@ -153,3 +153,8 @@ void CNC::run() {
     }
     
 }
+
+
+StepperControl* CNC::getGantry() {
+    return &gantry;
+}

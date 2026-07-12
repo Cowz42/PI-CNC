@@ -26,6 +26,8 @@ class CNC {
     static void start();
     static void startProgram(std::string name);
     static void run();
+    // allows external functions to read information on the gantry
+    static StepperControl* getGantry();
 };
 
 
