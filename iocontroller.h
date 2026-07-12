@@ -12,10 +12,10 @@
 #define pcf8574Setup() 
 #endif
 
-#ifdef __linux__
-#include<wiringPi.h>
-#include<pcf8574.h>
-#endif
+
+
+#include"raspi-io.h"
+
 
 
 #include"buttoninfo.h"

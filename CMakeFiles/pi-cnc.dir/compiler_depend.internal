@@ -340,6 +340,7 @@ CMakeFiles/pi-cnc.dir/gcodeparse.cpp.o
 
 CMakeFiles/pi-cnc.dir/main.cpp.o
  /home/colin/Documents/PI-CNC/main.cpp
+ /home/colin/Documents/PI-CNC/clidisplay.h
  /usr/include/alloca.h
  /usr/include/asm-generic/errno-base.h
  /usr/include/asm-generic/errno.h

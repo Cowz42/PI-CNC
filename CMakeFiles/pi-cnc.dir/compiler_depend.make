@@ -337,6 +337,7 @@ CMakeFiles/pi-cnc.dir/gcodeparse.cpp.o: gcodeparse.cpp \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h
 
 CMakeFiles/pi-cnc.dir/main.cpp.o: main.cpp \
+  clidisplay.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
@@ -1087,6 +1088,8 @@ CMakeFiles/pi-cnc.dir/vfdcontrol.cpp.o: vfdcontrol.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/termios-c_oflag.h:
 
+/usr/include/x86_64-linux-gnu/bits/termios-c_lflag.h:
+
 /usr/include/x86_64-linux-gnu/bits/wchar.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:
@@ -1327,8 +1330,6 @@ commands.h:
 
 /usr/include/c++/13/bits/alloc_traits.h:
 
-/usr/include/x86_64-linux-gnu/bits/termios-c_lflag.h:
-
 /usr/include/stdio.h:
 
 /usr/include/c++/13/bits/stl_iterator_base_types.h:
@@ -1408,6 +1409,8 @@ commands.h:
 /usr/include/x86_64-linux-gnu/bits/fcntl-linux.h:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+
+clidisplay.h:
 
 /usr/include/x86_64-linux-gnu/sys/cdefs.h:
 

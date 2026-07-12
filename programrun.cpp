@@ -143,7 +143,7 @@ void CNC::run() {
     if (!(buffer._x || buffer._y || buffer._z || buffer._i || buffer._j || buffer._f || buffer._s)) {
         return;
     }
-    ins = convert(buffer);
+    ins = convertGCode(buffer);
     if (ins.letter == 'G') {
         GCodes();
     } else if (ins.letter == 'M') {
