@@ -8,8 +8,8 @@
 
 
 
-vector<std::string> errArr;
-vector<std::string> msgArr;
+std::vector<std::string> errArr;
+std::vector<std::string> msgArr;
 
 
 
@@ -26,12 +26,16 @@ void pushMessage(std::string msg) {
 
 
 std::string getMessage() {
-    return msgArr.pop_back();
+    std::string msg = msgArr.at(msgArr.size() - 1);
+    msgArr.pop_back();
+    return msg;
 }
 
 
 std::string getError() {
-    return errArr.pop_back();;
+    std::string err = errArr.at(errArr.size() - 1);
+    errArr.pop_back();
+    return err;
 }
 
 

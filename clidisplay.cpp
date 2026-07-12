@@ -10,4 +10,3 @@
 #include<curses.h>
 
 
-

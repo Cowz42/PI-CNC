@@ -9,6 +9,7 @@
 #ifndef GLOBAL_COM_H
 #define GLOBAL_COM_H
 
+#include<iostream>
 #include<string>
 
 
