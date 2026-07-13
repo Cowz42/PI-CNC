@@ -14,6 +14,7 @@ set(SOURCE_FILES
     vfdcontrol.cpp
     globalcommunication.cpp
     clidisplay.cpp
+    gcodeinterface.cpp
     main.cpp
 )
 
