@@ -17,6 +17,10 @@ class CLI {
     void update();
 };
 
+std::string WorkingFileGlobal;
+
+void FileLoadGlobal(std::string filename);
+
 
 
 
