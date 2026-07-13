@@ -5,7 +5,7 @@
 
 #include"programrun.h"
 
-
+CNC cnc;
 
 
 bool exit_flag = false;

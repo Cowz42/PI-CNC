@@ -19,7 +19,7 @@
 
 namespace fs = std::filesystem;
 
-
+std::string WorkingFileGlobal;
 
 std::vector<std::string> files;
 
