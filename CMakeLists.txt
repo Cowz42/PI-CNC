@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.18)
 
 project(pi-cnc)
 
+set(CMAKE_CXX_STANDARD 17)
+
 set(SOURCE_FILES
     gcode.cpp
     gcodeparse.cpp
@@ -16,6 +18,14 @@ set(SOURCE_FILES
 )
 
 
+find_package(Curses REQUIRED)
+
+
+
+
+include_directories(${CURSES_INCLUDE_DIR})
+
+
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 
@@ -24,9 +34,6 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 #target_link_libraries(${PROJECT_NAME} glfw)
 
 
-#find_package(Curses)
-#target_include_directories(${CURSES_INCLUDE_DIR})
-
 
 target_link_libraries(
 	${PROJECT_NAME}
@@ -34,7 +41,6 @@ target_link_libraries(
 	PRIVATE ${CURSES_LIBRARIES}
 
 	PRIVATE wiringPi
-    
 )
 
 

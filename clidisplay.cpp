@@ -7,15 +7,17 @@
 
 
 #include"clidisplay.h"
+#include<string>
 #include<iostream>
 #include<curses.h>
 #include"globalcommunication.h"
 #include"programrun.h"
 #include<vector>
-#include<string>
 #include<fstream>
 #include<iostream>
 #include<filesystem>
+
+namespace fs = std::filesystem;
 
 
 
@@ -51,7 +53,7 @@ int CLI::start() {
     std::string path = "/home/cnc/Downloads/";
     
     int i = 0;
-    for (const auto & entry : std::filesystem::directory_iterator(path)) {
+    for (const auto & entry : fs::directory_iterator(path)) {
         files.push_back(entry.path());
     }
 

@@ -6,6 +6,8 @@
 
 #IncludeRegexTransform: 
 
+/home/colin/Documents/PI-CNC/buttoninfo.h
+
 /home/colin/Documents/PI-CNC/clidisplay.cpp
 clidisplay.h
 /home/colin/Documents/PI-CNC/clidisplay.h
@@ -34,6 +36,12 @@ string
 
 /home/colin/Documents/PI-CNC/commands.h
 
+/home/colin/Documents/PI-CNC/gcode.cpp
+gcode.h
+/home/colin/Documents/PI-CNC/gcode.h
+string
+-
+
 /home/colin/Documents/PI-CNC/gcode.h
 string
 -
@@ -44,10 +52,28 @@ gcode.h
 commands.h
 /home/colin/Documents/PI-CNC/commands.h
 
+/home/colin/Documents/PI-CNC/gcodeparse.cpp
+fstream
+-
+string
+-
+iostream
+-
+gcodeparse.h
+/home/colin/Documents/PI-CNC/gcodeparse.h
+gcode.h
+/home/colin/Documents/PI-CNC/gcode.h
+
 /home/colin/Documents/PI-CNC/gcodeparse.h
 gcode.h
 /home/colin/Documents/PI-CNC/gcode.h
 fstream
+-
+
+/home/colin/Documents/PI-CNC/globalcommunication.cpp
+globalcommunication.h
+/home/colin/Documents/PI-CNC/globalcommunication.h
+vector
 -
 
 /home/colin/Documents/PI-CNC/globalcommunication.h
@@ -56,7 +82,31 @@ iostream
 string
 -
 
+/home/colin/Documents/PI-CNC/iocontroller.cpp
+iocontroller.h
+/home/colin/Documents/PI-CNC/iocontroller.h
+
+/home/colin/Documents/PI-CNC/iocontroller.h
+F:/Network Share Colin/Code/Libraries/WiringPi/WiringPi/wiringPi.h
+-
+raspi-io.h
+/home/colin/Documents/PI-CNC/raspi-io.h
+pcf8574.h
+-
+buttoninfo.h
+/home/colin/Documents/PI-CNC/buttoninfo.h
+
 /home/colin/Documents/PI-CNC/machine.h
+
+/home/colin/Documents/PI-CNC/main.cpp
+iostream
+-
+clidisplay.h
+/home/colin/Documents/PI-CNC/clidisplay.h
+
+/home/colin/Documents/PI-CNC/positioncalc.cpp
+positioncalc.h
+/home/colin/Documents/PI-CNC/positioncalc.h
 
 /home/colin/Documents/PI-CNC/positioncalc.h
 machine.h
@@ -65,6 +115,10 @@ math.h
 -
 commands.h
 /home/colin/Documents/PI-CNC/commands.h
+
+/home/colin/Documents/PI-CNC/programrun.cpp
+programrun.h
+/home/colin/Documents/PI-CNC/programrun.h
 
 /home/colin/Documents/PI-CNC/programrun.h
 iostream
@@ -94,6 +148,10 @@ sys/time.h
 wiringPi.h
 -
 
+/home/colin/Documents/PI-CNC/stepper.cpp
+stepper.h
+/home/colin/Documents/PI-CNC/stepper.h
+
 /home/colin/Documents/PI-CNC/stepper.h
 F:/Network Share Colin/Code/Libraries/WiringPi/WiringPi/wiringPi.h
 -
@@ -104,5 +162,33 @@ raspi-io.h
 Winsock2.h
 -
 stdint.h
+-
+
+/home/colin/Documents/PI-CNC/vfdcommands.h
+cstring
+-
+cstdio
+-
+stdlib.h
+-
+
+/home/colin/Documents/PI-CNC/vfdcontrol.cpp
+vfdcontrol.h
+/home/colin/Documents/PI-CNC/vfdcontrol.h
+
+/home/colin/Documents/PI-CNC/vfdcontrol.h
+vfdcommands.h
+/home/colin/Documents/PI-CNC/vfdcommands.h
+cstring
+-
+errno.h
+-
+fcntl.h
+-
+iostream
+-
+termios.h
+-
+unistd.h
 -
 
