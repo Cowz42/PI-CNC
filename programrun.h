@@ -32,7 +32,7 @@ public:
 };
 
 
-CNC cnc;
+extern CNC cnc;
 
 
 
