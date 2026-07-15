@@ -11,7 +11,9 @@ int main(int argc, char** argv) {
 
     std::cerr << "Starting cli\n";
 
-    cli.start();
+    if (cli.start() == -1) {
+        exit(EXIT_FAILURE);
+    }
 	bool a = false;
     std::cerr << "Started Successfully\n";
 

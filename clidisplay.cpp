@@ -62,15 +62,14 @@ int CLI::start() {
     keypad(stdscr, TRUE);
     noecho();
 
-	timeout(0);
+	timeout(500);
 
     printw("Starting up CNC\n");
-    printw("");
 
     printw("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     refresh();
 
-
+    getch();
 
     
     int i = 0;
@@ -138,6 +137,7 @@ void CLI::update() {
     if (cliMode== 0) {
         filePicker();
     } else if (cliMode == 1) {
+        std::cerr << "edit mode enabled\n";
         nonRunning();
     } else if (cliMode == 2) {
         running();
