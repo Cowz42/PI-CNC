@@ -11,7 +11,7 @@
 
 #include<iostream>
 #include<string>
-
+#include<vector>
 
 void pushError(std::string err);
 void pushMessage(std::string msg);
@@ -22,7 +22,8 @@ std::string getError();
 bool checkError();
 bool checkMessage();
 
-
+extern std::vector<std::string> errArr;
+extern std::vector<std::string> msgArr;
 
 
 #endif

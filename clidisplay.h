@@ -7,22 +7,22 @@
 #define COMMAND_LINE_INTERFACE_DISPLAY_H
 
 #include<string>
+#include<vector>
 
 
 
 class CLI {
     // starts the cli display, returns -1 if something fails
+    public:
     int start();
     void end();
     void update();
 };
 
-extern std::string WorkingFileGlobal;
+#define LINES_A 25
 
-void FileLoadGlobal(std::string filename);
-
-
-
+extern std::vector<std::string> errArr;
+extern std::vector<std::string> msgArr;
 
 
 #endif

@@ -16,14 +16,26 @@
 #include<fstream>
 #include<iostream>
 #include<filesystem>
+#include"file.h"
 
 namespace fs = std::filesystem;
 
 std::string WorkingFileGlobal;
 
+std::vector<std::string> file;
+
 std::vector<std::string> files;
 
-int cursorLine;
+std::vector<std::string> fileBuffer;
+
+
+
+unsigned int cursorLine;
+
+// 0 = file picker
+// 1 = non run
+// 2 = running
+// 3 = error log
 int cliMode = 0;
 
 StepperControl* gantryCLI;
@@ -126,5 +138,29 @@ void updateInfoBuffer() {
 
 
 void FileLoadGlobal(std::string filename) {
-    WorkingFileGlobal = filename;
+    if (filename.compare("") != 0) {
+        WorkingFileGlobal = filename;
+    }
+    file.clear();
+    std::ifstream f(WorkingFileGlobal);
+    std::string line = "";
+    while(!f.eof()) {
+        getline(f, line);
+        file.push_back(line);
+    }
+    f.close();
+    cursorLine = 0;
+}
+
+void loadFileBuffer() {
+    if (cliMode == 1 || cliMode == 2) {
+        fileBuffer.clear();
+        for (uint i = cursorLine; i < cursorLine + LINES_A; i++) {
+            fileBuffer.push_back(file.at(i));
+        }
+    } else if (cliMode == 3) {
+        for (uint i = cursorLine; i < cursorLine + (errArr.size() > LINES_A ? LINES_A : errArr.size()); i++) {
+
+        }
+    }
 }
