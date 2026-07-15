@@ -65,6 +65,9 @@ int CLI::start() {
 	timeout(0);
 
     printw("Starting up CNC\n");
+    printw("");
+
+    printw("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     refresh();
 
 
@@ -80,6 +83,7 @@ int CLI::start() {
 }
 
 void filePicker() {
+    timeout(10);
 
     if (cursorLine > files.size() - 1) {
         cursorLine = 0;
@@ -110,7 +114,7 @@ void filePicker() {
 
 
 void nonRunning() {
-
+    std::cerr << "Hopefully Loaded the file, gotta figure that out too\n";
 }
 
 void running() {
@@ -168,9 +172,7 @@ void FileLoadGlobal(std::string filename) {
 }
 
 void loadFileBuffer() {
-	if (cliMode == 0) {
-		
-	} else if (cliMode == 1 || cliMode == 2) {
+	if (cliMode == 1 || cliMode == 2) {
         fileBuffer.clear();
         for (uint i = cursorLine; i < cursorLine + LINES_A; i++) {
             fileBuffer.push_back(file.at(i));
