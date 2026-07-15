@@ -21,6 +21,8 @@ class CLI {
 
 #define LINES_A 25
 
+extern uint fileposition;
+
 extern std::string WorkingFileGlobal;
 
 extern std::vector<std::string> errArr;
