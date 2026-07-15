@@ -28,6 +28,7 @@ std::vector<std::string> files;
 
 std::vector<std::string> fileBuffer;
 
+#define ENTER_REAL 10
 
 std::string path = "/home/cnc/Downloads/";
 
@@ -99,9 +100,10 @@ void filePicker() {
         cursorLine--;
     } else if (ch == KEY_DOWN) {
         cursorLine++;
-    } else if (ch == KEY_ENTER) {
+    } else if (ch == ENTER_REAL) {
         FileLoadGlobal(files.at(cursorLine));
         cliMode = 1;
+	std::cerr << "Loading file\n";
     }
 }
 

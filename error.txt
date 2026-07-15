@@ -1,3 +1,4 @@
 Starting cli
 Started Successfully
 Update Ran once
+Loading file
