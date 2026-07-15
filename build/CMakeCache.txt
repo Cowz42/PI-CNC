@@ -100,6 +100,9 @@ CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 //Enable/Disable output of compile commands during generation.
 CMAKE_EXPORT_COMPILE_COMMANDS:BOOL=
 
+//Value Computed by CMake.
+CMAKE_FIND_PACKAGE_REDIRECTS_DIR:STATIC=/home/colin/Documents/PI-CNC/build/CMakeFiles/pkgRedirects
+
 //Install path prefix, prepended onto install directories.
 CMAKE_INSTALL_PREFIX:PATH=/usr/local
 
@@ -221,11 +224,17 @@ CURSES_INCLUDE_PATH:PATH=/usr/include
 //Path to a library.
 CURSES_NCURSES_LIBRARY:FILEPATH=/usr/lib/aarch64-linux-gnu/libncurses.so
 
+//Arguments to supply to pkg-config
+PKG_CONFIG_ARGN:STRING=
+
 //pkg-config executable
 PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
 
 //Value Computed by CMake
 pi-cnc_BINARY_DIR:STATIC=/home/colin/Documents/PI-CNC/build
+
+//Value Computed by CMake
+pi-cnc_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 pi-cnc_SOURCE_DIR:STATIC=/home/colin/Documents/PI-CNC
@@ -250,9 +259,9 @@ CMAKE_CACHEFILE_DIR:INTERNAL=/home/colin/Documents/PI-CNC/build
 //Major version of cmake used to create the current loaded cache
 CMAKE_CACHE_MAJOR_VERSION:INTERNAL=3
 //Minor version of cmake used to create the current loaded cache
-CMAKE_CACHE_MINOR_VERSION:INTERNAL=18
+CMAKE_CACHE_MINOR_VERSION:INTERNAL=28
 //Patch version of cmake used to create the current loaded cache
-CMAKE_CACHE_PATCH_VERSION:INTERNAL=4
+CMAKE_CACHE_PATCH_VERSION:INTERNAL=3
 //ADVANCED property for variable: CMAKE_COLOR_MAKEFILE
 CMAKE_COLOR_MAKEFILE-ADVANCED:INTERNAL=1
 //Path to CMake executable.
@@ -353,7 +362,7 @@ CMAKE_RANLIB-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_READELF
 CMAKE_READELF-ADVANCED:INTERNAL=1
 //Path to CMake installation.
-CMAKE_ROOT:INTERNAL=/usr/share/cmake-3.18
+CMAKE_ROOT:INTERNAL=/usr/share/cmake-3.28
 //ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS
 CMAKE_SHARED_LINKER_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_DEBUG
@@ -429,8 +438,12 @@ NCURSES_ncurses_INCLUDEDIR:INTERNAL=
 NCURSES_ncurses_LIBDIR:INTERNAL=
 NCURSES_ncurses_PREFIX:INTERNAL=
 NCURSES_ncurses_VERSION:INTERNAL=
+//ADVANCED property for variable: PKG_CONFIG_ARGN
+PKG_CONFIG_ARGN-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
 PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
+//linker supports push/pop state
+_CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED:INTERNAL=TRUE
 __pkg_config_arguments_NCURSES:INTERNAL=QUIET;ncurses
 __pkg_config_checked_NCURSES:INTERNAL=1
 //ADVANCED property for variable: pkgcfg_lib_NCURSES_ncurses
