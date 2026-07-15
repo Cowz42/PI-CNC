@@ -29,6 +29,9 @@ std::vector<std::string> files;
 std::vector<std::string> fileBuffer;
 
 
+std::string path = "/home/cnc/Downloads/";
+
+
 
 unsigned int cursorLine;
 
@@ -63,7 +66,6 @@ int CLI::start() {
 
 
 
-    std::string path = "/home/cnc/Downloads/";
     
     int i = 0;
     for (const auto & entry : fs::directory_iterator(path)) {
@@ -85,11 +87,9 @@ void filePicker() {
     move(0,0);
     printw("Files list at /home/cnc/Downloads\n");
     printw("Files detected %d\n", files.size());
-	printw("%s\n", files.at(0));
-	std::cerr << files.at(0) << "\n";
 
     for (int i = 0; i < files.size(); i++) {
-        printw("%s  %s\n", i == cursorLine ? "*" : " ", files.at(i).data());
+        printw("%s  %s\n", i == cursorLine ? "*" : " ", files.at(i).substr(path.size()).data());
     }
     printw("%d\n",cursorLine);
     int ch;
@@ -125,6 +125,9 @@ void CLI::update() {
         std::cerr << "CLI Mode error, returning to file select\n";
         cliMode = 0;
     }
+
+    infoDisp();
+
     refresh();
 }
 
@@ -170,4 +173,11 @@ void loadFileBuffer() {
 
         }
     }
+}
+
+
+void infoDisp() {
+    move(LINES_A + 1, 0);
+    printw("CNC system information\n");
+    printw("X: %+8.3f,   Y: %+8.3f,   Z: %+8.3f\n", 5.3, 5.2, 5.1);
 }
