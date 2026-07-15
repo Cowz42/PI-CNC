@@ -9,7 +9,11 @@ CLI cli;
 
 int main(int argc, char** argv) {
 
+    std::cerr << "Starting cli\n";
+    
     cli.start();
+
+    std::cerr << "Started Successfully\n";
 
     while(1) {
         cli.update();
