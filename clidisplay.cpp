@@ -90,9 +90,9 @@ void filePicker() {
     printw("Files detected %d\n", files.size());
 
     for (int i = 0; i < files.size(); i++) {
-        printw("%s  %s\n", i == cursorLine ? "*" : " ", files.at(i).substr(path.size()).data());
+        printw("%d  %s\n",i, files.at(i).substr(path.size()).data());
     }
-    printw("%d\n",cursorLine);
+    move(cursorLine + 2, 0);
     int ch;
     ch = getch();
 
@@ -117,12 +117,12 @@ void running() {
 }
 
 void infoDisp() {
-    move(LINES_A + 1, 0);
     printw("CNC system information\n");
     printw("X: %+8.3f,   Y: %+8.3f,   Z: %+8.3f\n", 5.3, 5.2, 5.1);
 }
 
 void CLI::update() {
+    move(0,0);
     if (cliMode== 0) {
         filePicker();
     } else if (cliMode == 1) {
@@ -143,17 +143,6 @@ void CLI::update() {
 void CLI::end() {
     endwin();
 }
-
-
-void updateCommandBuffer() {
-    move(0,0);
-
-}
-
-void updateInfoBuffer() {
-
-}
-
 
 void FileLoadGlobal(std::string filename) {
     if (filename.compare("") != 0) {
