@@ -114,6 +114,12 @@ void running() {
 
 }
 
+void infoDisp() {
+    move(LINES_A + 1, 0);
+    printw("CNC system information\n");
+    printw("X: %+8.3f,   Y: %+8.3f,   Z: %+8.3f\n", 5.3, 5.2, 5.1);
+}
+
 void CLI::update() {
     if (cliMode== 0) {
         filePicker();
@@ -175,9 +181,3 @@ void loadFileBuffer() {
     }
 }
 
-
-void infoDisp() {
-    move(LINES_A + 1, 0);
-    printw("CNC system information\n");
-    printw("X: %+8.3f,   Y: %+8.3f,   Z: %+8.3f\n", 5.3, 5.2, 5.1);
-}
