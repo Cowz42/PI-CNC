@@ -21,6 +21,8 @@ class CLI {
 
 #define LINES_A 25
 
+extern std::string WorkingFileGlobal;
+
 extern std::vector<std::string> errArr;
 extern std::vector<std::string> msgArr;
 

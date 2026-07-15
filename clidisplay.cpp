@@ -20,7 +20,7 @@
 
 namespace fs = std::filesystem;
 
-std::string WorkingFileGlobal;
+std::string WorkingFileGlobal = "";
 
 std::vector<std::string> file;
 
