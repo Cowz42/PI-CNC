@@ -84,6 +84,7 @@ void filePicker() {
 
     move(0,0);
     printw("Files list at /home/cnc/Downloads\n");
+    printw("Files detected %d\n", files.size());
 
 
     for (int i = 0; i < files.size(); i++) {
