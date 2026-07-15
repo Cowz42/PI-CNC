@@ -12,11 +12,15 @@ int main(int argc, char** argv) {
     std::cerr << "Starting cli\n";
     
     cli.start();
-
+	bool a = false;
     std::cerr << "Started Successfully\n";
 
     while(1) {
-        cli.update();
+        // cli.update();
+	if (a == false) {
+		std::cerr << "Update Ran once\n";
+		a = true;
+	}
     }
 
     std::cout << "I still need to write the main method for this project\n";
