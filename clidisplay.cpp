@@ -42,6 +42,7 @@ StepperControl* gantryCLI;
 
 
 int CLI::start() {
+    cliMode = 0;
     gantryCLI = cnc.getGantry();
     if (gantryCLI == nullptr) {
         std::cerr << "No gantry detected\n";
@@ -82,6 +83,8 @@ void filePicker() {
     }
 
     move(0,0);
+    printw("Files list at /home/cnc/Downloads\n");
+
     
     for (int i = 0; i < files.size(); i++) {
         printw("%s  %s", i == cursorLine ? "*" : " ", files.at(i));
@@ -119,6 +122,7 @@ void CLI::update() {
         std::cerr << "CLI Mode error, returning to file select\n";
         cliMode = 0;
     }
+    refresh();
 }
 
 
