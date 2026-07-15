@@ -4,6 +4,7 @@
 CMakeFiles/pi-cnc.dir/clidisplay.cpp.o: ../clidisplay.cpp
 CMakeFiles/pi-cnc.dir/clidisplay.cpp.o: ../clidisplay.h
 CMakeFiles/pi-cnc.dir/clidisplay.cpp.o: ../commands.h
+CMakeFiles/pi-cnc.dir/clidisplay.cpp.o: ../file.h
 CMakeFiles/pi-cnc.dir/clidisplay.cpp.o: ../gcode.h
 CMakeFiles/pi-cnc.dir/clidisplay.cpp.o: ../gcodeinterface.h
 CMakeFiles/pi-cnc.dir/clidisplay.cpp.o: ../gcodeparse.h

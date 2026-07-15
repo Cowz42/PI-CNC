@@ -5,6 +5,7 @@ CMakeFiles/pi-cnc.dir/clidisplay.cpp.o
  /home/colin/Documents/PI-CNC/clidisplay.cpp
  /home/colin/Documents/PI-CNC/clidisplay.h
  /home/colin/Documents/PI-CNC/commands.h
+ /home/colin/Documents/PI-CNC/file.h
  /home/colin/Documents/PI-CNC/gcode.h
  /home/colin/Documents/PI-CNC/gcodeinterface.h
  /home/colin/Documents/PI-CNC/gcodeparse.h

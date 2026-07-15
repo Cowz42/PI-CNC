@@ -85,10 +85,11 @@ void filePicker() {
     move(0,0);
     printw("Files list at /home/cnc/Downloads\n");
     printw("Files detected %d\n", files.size());
-
+	printw("%s\n", files.at(0));
+	std::cerr << files.at(0) << "\n";
 
     for (int i = 0; i < files.size(); i++) {
-        printw("%s  %s\n", i == cursorLine ? "*" : " ", files.at(i));
+        printw("%s  %s\n", i == cursorLine ? "*" : " ", files.at(i).data());
     }
     printw("%d\n",cursorLine);
     int ch;
