@@ -59,7 +59,7 @@ int CLI::start() {
     keypad(stdscr, TRUE);
     noecho();
 
-
+	timeout(0);
 
     printw("Starting up CNC\n");
     refresh();
