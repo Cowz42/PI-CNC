@@ -28,6 +28,8 @@ std::vector<std::string> files;
 
 std::vector<std::string> fileBuffer;
 
+std::string buffer;
+
 uint fileposition = 0;
 
 #define ENTER_REAL 10
@@ -91,11 +93,20 @@ void filePicker() {
     }
 
 
-    printw("Files list at /home/cnc/Downloads\n");
-
-    for (int i = 0; i < files.size(); i++) {
-        printw("%d  %s\n",i, files.at(i).substr(path.size()).data());
+    buffer.append("Files list at /home/cnc/Downloads\n");
+    int i = 0;
+    for (; i < files.size() || i < LINES_A; i++) {
+        buffer.append(std::to_string(i));
+        buffer.append("  ");
+        buffer.append(files.at(i).substr(path.size()));
+        buffer.append("\n");
+        // printw("%d  %s\n",i, files.at(i).substr(path.size()).data());
     }
+
+    for (;i < LINES_A; i++) {
+        buffer.append("\n");
+    }
+
 
     int ch;
     ch = getch();
@@ -121,18 +132,13 @@ void running() {
 }
 
 void infoDisp() {
-	move(LINES_A, 0);
     printw("CNC system information\n");
     printw("X: %+8.3f,   Y: %+8.3f,   Z: %+8.3f\n", 5.3, 5.2, 5.1);
 }
 
 void CLI::update() {
 	move(0, 0);
-	printw("FILE PICKER");
-	printw("\tFILE");
-	printw("\tERROR\n\n");
-	infoDisp();
-	move(3, 0);
+	buffer = "FILES\tFILE\tERROR\n\n";
 
     if (cliMode== 0) {
         filePicker();
@@ -145,7 +151,9 @@ void CLI::update() {
         std::cerr << "CLI Mode error, returning to file select\n";
         cliMode = 0;
     }
+    printw("%s\n", buffer.data());
 
+    infoDisp();
 
 	move(cursorLine + 3, 0);
     refresh();
