@@ -51,45 +51,6 @@ int cliMode = 0;
 StepperControl* gantryCLI;
 
 
-void filePicker() {
-    wtimeout(list, 1000);
-    wclear(list);
-
-    if (cursorLine > files.size() - 1) {
-        cursorLine = 0;
-    } else if (cursorLine < 0) {
-        cursorLine = files.size() - 1;
-    }
-
-    mvwprintw(list, 0, 0, "Files list at: %s, Cursor at: %d\n", path.data(), cursorLine);
-    // buffer.append("Files list at /home/cnc/Downloads\n");
-    int i = 0;
-    for (; i < files.size() && i < LINES_A; i++) {
-        wprintw(list, "%d  %s\n",i, files.at(i).substr(path.size()).data());
-    }
-
-    for (;i < LINES_A; i++) {
-        wprintw(list, "\n");
-    }
-
-
-    int ch;
-    ch = wgetch(list);
-
-    wmove(list, cursorLine, 0);
-
-    wrefresh(list);
-
-    if (ch == KEY_UP) {
-        cursorLine--;
-    } else if (ch == KEY_DOWN) {
-        cursorLine++;
-    } else if (ch == ENTER_REAL) {
-        FileLoadGlobal(path + files.at(cursorLine));
-        cliMode = 1;
-	    std::cerr << "Loading file\n";
-    }
-}
 
 
 void nonRunning() {
@@ -146,6 +107,50 @@ void loadFileBuffer() {
         for (uint i = cursorLine; i < cursorLine + (errArr.size() > LINES_A ? LINES_A : errArr.size()); i++) {
 
         }
+    }
+}
+
+
+
+void filePicker() {
+    wtimeout(list, 1000);
+    wclear(list);
+
+    if (cursorLine > files.size() - 1) {
+        cursorLine = 0;
+    } else if (cursorLine < 0) {
+        cursorLine = files.size() - 1;
+    }
+
+    mvwprintw(list, 0, 0, "Files list at: %s, Cursor at: %d\n", path.data(), cursorLine);
+    // buffer.append("Files list at /home/cnc/Downloads\n");
+    int i = 0;
+    for (; i < files.size() && i < LINES_A; i++) {
+        wprintw(list, "%d  %s\n",i, files.at(i).substr(path.size()).data());
+    }
+
+    for (;i < LINES_A; i++) {
+        wprintw(list, "\n");
+    }
+
+
+    int ch;
+    ch = wgetch(list);
+
+    wmove(list, cursorLine, 0);
+
+    wrefresh(list);
+    
+    wmove(list, cursorLine, 0);
+
+    if (ch == KEY_UP) {
+        cursorLine--;
+    } else if (ch == KEY_DOWN) {
+        cursorLine++;
+    } else if (ch == ENTER_REAL) {
+        FileLoadGlobal(path + files.at(cursorLine));
+        cliMode = 1;
+	    std::cerr << "Loading file\n";
     }
 }
 
