@@ -28,14 +28,15 @@ std::vector<std::string> files;
 
 std::vector<std::string> fileBuffer;
 
-// std::string buffer;
-
 uint fileposition = 0;
 
 #define ENTER_REAL 10
 
 std::string path = "/home/cnc/Downloads/";
 
+
+WINDOW* list;
+WINDOW* info;
 
 
 unsigned int cursorLine;
@@ -61,17 +62,21 @@ int CLI::start() {
         std::cerr << "Unable to start ncurses\n";
         return -1;
     }
-    keypad(stdscr, TRUE);
+
+    list = newwin(LINES_A, COLS, 0, 0);
+    info = newwin(5, COLS, LINES_A + 1, 0);
+
+    keypad(list, TRUE);
     noecho();
 
 	timeout(500);
 
-    printw("Starting up CNC\n");
+    mvwprintw(list, 0, 0, "Starting up CNC\n");
 
-    printw("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
     refresh();
 
-    getch();
+    wgetch(list);
 
     
     int i = 0;
@@ -84,7 +89,7 @@ int CLI::start() {
 }
 
 void filePicker() {
-    timeout(10);
+    wtimeout(list, 10);
 
     if (cursorLine > files.size() - 1) {
         cursorLine = 0;
@@ -92,7 +97,7 @@ void filePicker() {
         cursorLine = files.size() - 1;
     }
 
-    printw("Files list at: %s, Cursor at: %d\n", path.data(), cursorLine);
+    mvwprintw(list, 3, 0, "Files list at: %s, Cursor at: %d\n", path.data(), cursorLine);
     // buffer.append("Files list at /home/cnc/Downloads\n");
     int i = 0;
     for (; i < files.size() && i < LINES_A; i++) {
@@ -100,12 +105,12 @@ void filePicker() {
         // buffer.append("  ");
         // buffer.append(files.at(i).substr(path.size()));
         // buffer.append("\n");
-        printw("%d  %s\n",i, files.at(i).substr(path.size()).data());
+        wprintw(list, "%d  %s\n",i, files.at(i).substr(path.size()).data());
     }
 
     for (;i < LINES_A; i++) {
         // buffer.append("\n");
-        printw("\n");
+        wprintw(list, "\n");
     }
 
 
@@ -133,14 +138,15 @@ void running() {
 }
 
 void infoDisp() {
-    printw("CNC system information\n");
-    printw("X: %+8.3f,   Y: %+8.3f,   Z: %+8.3f\n", 5.3, 5.2, 5.1);
+    box(info, 0, 0);
+    wmove(info, 1, 1);
+    wprintw(info, "CNC system information\n");
+    wprintw(info, "X: %+8.3f,   Y: %+8.3f,   Z: %+8.3f\n", 5.3, 5.2, 5.1);
 }
 
 void CLI::update() {
-	move(0, 0);
 	// buffer = "FILES\tFILE\tERROR\n\n";
-    printw("FILES\tFILE\tERROR\n");
+    mvwprintw(list, 0, 0, "FILES\tFILE\tERROR\n");
 
     if (cliMode== 0) {
         filePicker();
@@ -156,9 +162,7 @@ void CLI::update() {
     // printw("%s\n", buffer.data());
 
     infoDisp();
-	 refresh();
-	move(cursorLine + 3, 0);
-   refresh();
+	refresh();
 }
 
 
