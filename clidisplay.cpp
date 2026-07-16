@@ -37,6 +37,7 @@ std::string path = "/home/cnc/Downloads/";
 
 WINDOW* list;
 WINDOW* info;
+WINDOW* header;
 
 
 int cursorLine;
@@ -63,13 +64,16 @@ int CLI::start() {
         return -1;
     }
 
-    list = newwin(LINES_A, COLS, 0, 0);
-    info = newwin(5, COLS, LINES_A, 0);
+    header = newwin(3, COLS, 0, 0);
+    list = newwin(LINES_A, COLS, 3, 0);
+    info = newwin(5, COLS, LINES_A + 3, 0);
 
     keypad(list, TRUE);
     noecho();
 
 	wtimeout(list, 500);
+    wtimeout(info,0);
+    wtimeout(header,0);
 
     mvwprintw(list, 0, 0, "Starting up CNC\n");
 
@@ -101,21 +105,18 @@ void filePicker() {
     // buffer.append("Files list at /home/cnc/Downloads\n");
     int i = 0;
     for (; i < files.size() && i < LINES_A; i++) {
-        // buffer.append(std::to_string(i));
-        // buffer.append("  ");
-        // buffer.append(files.at(i).substr(path.size()));
-        // buffer.append("\n");
         wprintw(list, "%d  %s\n",i, files.at(i).substr(path.size()).data());
     }
 
     for (;i < LINES_A; i++) {
-        // buffer.append("\n");
         wprintw(list, "\n");
     }
 
 
     int ch;
     ch = wgetch(list);
+
+    wmove(list, cursorLine, 0);
 
     wrefresh(list);
 
@@ -140,16 +141,15 @@ void running() {
 }
 
 void infoDisp() {
-    wtimeout(info,0);
     box(info, 0, 0);
-    mvwprintw(info, 0, 0, "CNC system information\n");
+    mvwprintw(info, 0, 1, "CNC system information\n");
     wprintw(info, "X: %+8.3f,   Y: %+8.3f,   Z: %+8.3f\n", 5.3, 5.2, 5.1);
     wrefresh(info);
 }
 
 void CLI::update() {
-	// buffer = "FILES\tFILE\tERROR\n\n";
-    mvwprintw(list, 0, 0, "FILES\tFILE\tERROR\n");
+    headerUpdate();
+    infoDisp();
 	
     if (cliMode== 0) {
         filePicker();
@@ -162,10 +162,13 @@ void CLI::update() {
         std::cerr << "CLI Mode error, returning to file select\n";
         cliMode = 0;
     }
-    // printw("%s\n", buffer.data());
 	
-    infoDisp();
 	refresh();
+}
+
+void headerUpdate() {
+    mvwprintw(header, 0, 0, "FILES\tFILE\tERROR\n");
+    wrefresh(header);
 }
 
 
