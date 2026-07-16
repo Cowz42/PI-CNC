@@ -7,6 +7,7 @@
 
 
 #include"positioncalc.h"
+#include<string>
 
 class CNC {
 public:
