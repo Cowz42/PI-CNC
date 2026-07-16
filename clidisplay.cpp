@@ -28,7 +28,7 @@ std::vector<std::string> files;
 
 std::vector<std::string> fileBuffer;
 
-std::string buffer;
+// std::string buffer;
 
 uint fileposition = 0;
 
@@ -92,19 +92,23 @@ void filePicker() {
         cursorLine = files.size() - 1;
     }
 
-
-    buffer.append("Files list at /home/cnc/Downloads\n");
+    printw("Files list at: %s", path.data());
+    // buffer.append("Files list at /home/cnc/Downloads\n");
     int i = 0;
+<<<<<<< HEAD
+=======
     for (; i < files.size() && i < LINES_A; i++) {
-        buffer.append(std::to_string(i));
-        buffer.append("  ");
-        buffer.append(files.at(i).substr(path.size()));
-        buffer.append("\n");
-        // printw("%d  %s\n",i, files.at(i).substr(path.size()).data());
+        // buffer.append(std::to_string(i));
+        // buffer.append("  ");
+        // buffer.append(files.at(i).substr(path.size()));
+        // buffer.append("\n");
+        printw("%d  %s\n",i, files.at(i).substr(path.size()).data());
+>>>>>>> refs/remotes/origin/main
     }
 
     for (;i < LINES_A; i++) {
-        buffer.append("\n");
+        // buffer.append("\n");
+        printw("\n");
     }
 
 
@@ -138,7 +142,8 @@ void infoDisp() {
 
 void CLI::update() {
 	move(0, 0);
-	buffer = "FILES\tFILE\tERROR\n\n";
+	// buffer = "FILES\tFILE\tERROR\n\n";
+    printw("FILES\tFILE\tERROR\n");
 
     if (cliMode== 0) {
         filePicker();
@@ -151,7 +156,7 @@ void CLI::update() {
         std::cerr << "CLI Mode error, returning to file select\n";
         cliMode = 0;
     }
-    printw("%s\n", buffer.data());
+    // printw("%s\n", buffer.data());
 
     infoDisp();
 
