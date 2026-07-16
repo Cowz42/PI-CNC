@@ -89,11 +89,14 @@ int CLI::start() {
     }
 
 
+    headerUpdate();
+
     return 0;
 }
 
 void filePicker() {
     wtimeout(list, 10);
+    wclear(list);
 
     if (cursorLine > files.size() - 1) {
         cursorLine = 0;
@@ -101,7 +104,7 @@ void filePicker() {
         cursorLine = files.size() - 1;
     }
 
-    mvwprintw(list, 3, 0, "Files list at: %s, Cursor at: %d\n", path.data(), cursorLine);
+    mvwprintw(list, 0, 0, "Files list at: %s, Cursor at: %d\n", path.data(), cursorLine);
     // buffer.append("Files list at /home/cnc/Downloads\n");
     int i = 0;
     for (; i < files.size() && i < LINES_A; i++) {
@@ -141,6 +144,7 @@ void running() {
 }
 
 void infoDisp() {
+    wclear(info);
     box(info, 0, 0);
     mvwprintw(info, 0, 1, "CNC system information\n");
     wprintw(info, "X: %+8.3f,   Y: %+8.3f,   Z: %+8.3f\n", 5.3, 5.2, 5.1);
@@ -148,12 +152,12 @@ void infoDisp() {
 }
 
 void headerUpdate() {
+    wclear(header);
     mvwprintw(header, 0, 0, "FILES\tFILE\tERROR\n");
     wrefresh(header);
 }
 
 void CLI::update() {
-    headerUpdate();
     infoDisp();
 	
     if (cliMode== 0) {
