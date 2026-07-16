@@ -101,10 +101,7 @@ void running() {
 }
 
 void infoDisp() {
-    wclear(info);
-    box(info, 0, 0);
-    mvwprintw(info, 0, 1, "CNC system information\n");
-    wprintw(info, "X: %+8.3f,   Y: %+8.3f,   Z: %+8.3f\n", 5.3, 5.2, 5.1);
+    mvwprintw(info, 1, 1, "X: %+8.3f,   Y: %+8.3f,   Z: %+8.3f\n", 5.3, 5.2, 5.1);
     wrefresh(info);
 }
 
@@ -114,29 +111,15 @@ void headerUpdate() {
     wrefresh(header);
 }
 
-void CLI::update() {
-    infoDisp();
-	
-    if (cliMode== 0) {
-        filePicker();
-    } else if (cliMode == 1) {
-        std::cerr << "edit mode enabled\n";
-        nonRunning();
-    } else if (cliMode == 2) {
-        running();
-    } else {
-        std::cerr << "CLI Mode error, returning to file select\n";
-        cliMode = 0;
-    }
-	
-	// refresh();
+void infoStart() {
+    wclear(info);
+    box(info, 0, 0);
+    mvwprintw(info, 0, 1, "CNC system information\n");
+
 }
 
 
 
-void CLI::end() {
-    endwin();
-}
 
 void FileLoadGlobal(std::string filename) {
     if (filename.compare("") != 0) {
@@ -206,6 +189,31 @@ int CLI::start() {
 
 
     headerUpdate();
+    infoStart();
 
     return 0;
+}
+
+
+void CLI::update() {
+    infoDisp();
+	
+    if (cliMode== 0) {
+        filePicker();
+    } else if (cliMode == 1) {
+        std::cerr << "edit mode enabled\n";
+        nonRunning();
+    } else if (cliMode == 2) {
+        running();
+    } else {
+        std::cerr << "CLI Mode error, returning to file select\n";
+        cliMode = 0;
+    }
+	
+	// refresh();
+}
+
+
+void CLI::end() {
+    endwin();
 }
