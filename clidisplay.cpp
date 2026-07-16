@@ -117,6 +117,8 @@ void filePicker() {
     int ch;
     ch = wgetch(list);
 
+    wrefresh(list);
+
     if (ch == KEY_UP) {
         cursorLine--;
     } else if (ch == KEY_DOWN) {
@@ -140,15 +142,15 @@ void running() {
 void infoDisp() {
     wtimeout(info,0);
     box(info, 0, 0);
-    wmove(info, 1, 1);
-    wprintw(info, "CNC system information\n");
+    mvwprintw(info, 0, 0, "CNC system information\n");
     wprintw(info, "X: %+8.3f,   Y: %+8.3f,   Z: %+8.3f\n", 5.3, 5.2, 5.1);
+    wrefresh(info);
 }
 
 void CLI::update() {
 	// buffer = "FILES\tFILE\tERROR\n\n";
     mvwprintw(list, 0, 0, "FILES\tFILE\tERROR\n");
-	std::cerr << "IDK 1\n";
+	
     if (cliMode== 0) {
         filePicker();
     } else if (cliMode == 1) {
@@ -161,7 +163,7 @@ void CLI::update() {
         cliMode = 0;
     }
     // printw("%s\n", buffer.data());
-	std::cerr << "IDK 2\n";
+	
     infoDisp();
 	refresh();
 }

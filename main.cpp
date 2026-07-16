@@ -4,10 +4,16 @@
 #include<iostream>
 // #include"displaycontroller.h"
 #include"clidisplay.h"
+#include"programrun.h"
+
 
 CLI cli;
 
 int main(int argc, char** argv) {
+    std::cerr << "Starting CNC\n";
+
+    cnc.start();
+
 
     std::cerr << "Starting cli\n";
 
