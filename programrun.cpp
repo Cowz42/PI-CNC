@@ -5,6 +5,20 @@
 
 #include"programrun.h"
 
+
+
+#include<wiringPi.h>
+#include<iostream>
+#include<string>
+#include"positioncalc.h"
+#include"stepper.h"
+#include"gcodeparse.h"
+#include"gcodeinterface.h"
+#include"gcode.h"
+#include"machine.h"
+#include"commands.h"
+#include<sys/time.h>
+
 CNC cnc;
 
 
@@ -131,6 +145,7 @@ void CNC::startProgram(std::string name) {
 }
 
 void CNC::start() {
+    wiringPiSetupGpio();
     x.start();
     y.start();
     z.start();
