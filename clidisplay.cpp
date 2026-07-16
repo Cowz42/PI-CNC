@@ -51,49 +51,6 @@ int cliMode = 0;
 StepperControl* gantryCLI;
 
 
-int CLI::start() {
-    cliMode = 0;
-    gantryCLI = cnc.getGantry();
-    if (gantryCLI == nullptr) {
-        std::cerr << "No gantry detected\n";
-        return -1;
-    }
-
-    if (initscr() == NULL) {
-        std::cerr << "Unable to start ncurses\n";
-        return -1;
-    }
-
-    header = newwin(3, COLS, 0, 0);
-    list = newwin(LINES_A, COLS, 3, 0);
-    info = newwin(5, COLS, LINES_A + 3, 0);
-
-    keypad(list, TRUE);
-    noecho();
-
-	wtimeout(list, 500);
-    wtimeout(info,0);
-    wtimeout(header,0);
-
-    mvwprintw(list, 0, 0, "Starting up CNC\n");
-
-
-    refresh();
-
-    wgetch(list);
-
-    
-    int i = 0;
-    for (const auto & entry : fs::directory_iterator(path)) {
-        files.push_back(entry.path());
-    }
-
-
-    headerUpdate();
-
-    return 0;
-}
-
 void filePicker() {
     wtimeout(list, 10);
     wclear(list);
@@ -209,3 +166,46 @@ void loadFileBuffer() {
     }
 }
 
+
+int CLI::start() {
+    cliMode = 0;
+    gantryCLI = cnc.getGantry();
+    if (gantryCLI == nullptr) {
+        std::cerr << "No gantry detected\n";
+        return -1;
+    }
+
+    if (initscr() == NULL) {
+        std::cerr << "Unable to start ncurses\n";
+        return -1;
+    }
+
+    header = newwin(3, COLS, 0, 0);
+    list = newwin(LINES_A, COLS, 3, 0);
+    info = newwin(5, COLS, LINES_A + 3, 0);
+
+    keypad(list, TRUE);
+    noecho();
+
+	wtimeout(list, 500);
+    wtimeout(info,0);
+    wtimeout(header,0);
+
+    mvwprintw(list, 0, 0, "Starting up CNC\n");
+
+
+    refresh();
+
+    wgetch(list);
+
+    
+    int i = 0;
+    for (const auto & entry : fs::directory_iterator(path)) {
+        files.push_back(entry.path());
+    }
+
+
+    headerUpdate();
+
+    return 0;
+}
