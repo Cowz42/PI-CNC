@@ -147,6 +147,11 @@ void infoDisp() {
     wrefresh(info);
 }
 
+void headerUpdate() {
+    mvwprintw(header, 0, 0, "FILES\tFILE\tERROR\n");
+    wrefresh(header);
+}
+
 void CLI::update() {
     headerUpdate();
     infoDisp();
@@ -166,10 +171,6 @@ void CLI::update() {
 	refresh();
 }
 
-void headerUpdate() {
-    mvwprintw(header, 0, 0, "FILES\tFILE\tERROR\n");
-    wrefresh(header);
-}
 
 
 void CLI::end() {
