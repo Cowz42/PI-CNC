@@ -62,7 +62,7 @@ void running() {
 }
 
 void infoDisp() {
-    mvwprintw(info, 1, 1, "X: %+8.3f,   Y: %+8.3f,   Z: %+8.3f\n", 5.3, 5.2, 5.1);
+    mvwprintw(info, 1, 1, "X: %+8.3f,   Y: %+8.3f,   Z: %+8.3f", 5.3, 5.2, 5.1);
     wrefresh(info);
 }
 
@@ -75,7 +75,7 @@ void headerUpdate() {
 void infoStart() {
     wclear(info);
     box(info, 0, 0);
-    mvwprintw(info, 0, 1, "CNC system information\n");
+    mvwprintw(info, 0, 1, "CNC system information");
 
 }
 
@@ -122,7 +122,7 @@ void filePicker() {
         cursorLine = files.size() - 1;
     }
 
-    mvwprintw(list, 0, 0, "Files list at: %s, Cursor at: %d\n", path.data(), cursorLine);
+    mvwprintw(list, 0, 0, "Files list at: %s\n", path.data());
     // buffer.append("Files list at /home/cnc/Downloads\n");
     int i = 0;
     for (; i < files.size() && i < LINES_A; i++) {
@@ -130,18 +130,14 @@ void filePicker() {
     }
 
     for (;i < LINES_A; i++) {
-        wprintw(list, "\n");
+        // wprintw(list, "\n");
     }
 
-
+	wmove(list, cursorLine + 1, 0);
     int ch;
     ch = wgetch(list);
 
-    wmove(list, cursorLine, 0);
-
     wrefresh(list);
-    
-    wmove(list, cursorLine, 0);
 
     if (ch == KEY_UP) {
         cursorLine--;
@@ -214,7 +210,6 @@ void CLI::update() {
         std::cerr << "CLI Mode error, returning to file select\n";
         cliMode = 0;
     }
-	
 	// refresh();
 }
 
