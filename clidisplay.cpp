@@ -95,7 +95,7 @@ void filePicker() {
 
     buffer.append("Files list at /home/cnc/Downloads\n");
     int i = 0;
-    for (; i < files.size() || i < LINES_A; i++) {
+    for (; i < files.size() && i < LINES_A; i++) {
         buffer.append(std::to_string(i));
         buffer.append("  ");
         buffer.append(files.at(i).substr(path.size()));
