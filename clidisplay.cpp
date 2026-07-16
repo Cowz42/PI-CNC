@@ -66,7 +66,7 @@ int CLI::start() {
 
 	timeout(500);
 
-    printw("Starting up CNC\r\n");
+    printw("Starting up CNC\n");
 
     printw("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     refresh();
@@ -92,20 +92,20 @@ void filePicker() {
         cursorLine = files.size() - 1;
     }
 
-    printw("Files list at: %s, Cursor at: %d\r\n", path.data(), cursorLine);
-    // buffer.append("Files list at /home/cnc/Downloads\r\n");
+    printw("Files list at: %s, Cursor at: %d\n", path.data(), cursorLine);
+    // buffer.append("Files list at /home/cnc/Downloads\n");
     int i = 0;
     for (; i < files.size() && i < LINES_A; i++) {
         // buffer.append(std::to_string(i));
         // buffer.append("  ");
         // buffer.append(files.at(i).substr(path.size()));
-        // buffer.append("\r\n");
-        printw("%d  %s\r\n",i, files.at(i).substr(path.size()).data());
+        // buffer.append("\n");
+        printw("%d  %s\n",i, files.at(i).substr(path.size()).data());
     }
 
     for (;i < LINES_A; i++) {
-        // buffer.append("\r\n");
-        printw("\r\n");
+        // buffer.append("\n");
+        printw("\n");
     }
 
 
@@ -119,13 +119,13 @@ void filePicker() {
     } else if (ch == ENTER_REAL) {
         FileLoadGlobal(path + files.at(cursorLine));
         cliMode = 1;
-	    std::cerr << "Loading file\r\n";
+	    std::cerr << "Loading file\n";
     }
 }
 
 
 void nonRunning() {
-    std::cerr << "Hopefully Loaded the file, gotta figure that out too\r\n";
+    std::cerr << "Hopefully Loaded the file, gotta figure that out too\n";
 }
 
 void running() {
@@ -133,14 +133,14 @@ void running() {
 }
 
 void infoDisp() {
-    printw("CNC system information\r\n");
-    printw("X: %+8.3f,   Y: %+8.3f,   Z: %+8.3f\r\n", 5.3, 5.2, 5.1);
+    printw("CNC system information\n");
+    printw("X: %+8.3f,   Y: %+8.3f,   Z: %+8.3f\n", 5.3, 5.2, 5.1);
 }
 
 void CLI::update() {
 	move(0, 0);
-	// buffer = "FILES\tFILE\tERROR\r\n\n";
-    printw("FILES\tFILE\tERROR\r\n");
+	// buffer = "FILES\tFILE\tERROR\n\n";
+    printw("FILES\tFILE\tERROR\n");
 
     if (cliMode== 0) {
         filePicker();
@@ -153,7 +153,7 @@ void CLI::update() {
         std::cerr << "CLI Mode error, returning to file select\n";
         cliMode = 0;
     }
-    // printw("%s\r\n", buffer.data());
+    // printw("%s\n", buffer.data());
 
     infoDisp();
 	 refresh();
