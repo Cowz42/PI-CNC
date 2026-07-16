@@ -35,6 +35,14 @@ uint fileposition = 0;
 std::string path = "/home/cnc/Downloads/";
 
 
+std::string headers[] = {
+    "FILES",
+    "FILE",
+    "CONTROL",
+    "ERROR"
+};
+
+
 WINDOW* list;
 WINDOW* info;
 WINDOW* header;
@@ -68,7 +76,19 @@ void infoDisp() {
 
 void headerUpdate() {
     wclear(header);
-    mvwprintw(header, 0, 0, "FILES\tFILE\tERROR\n");
+    wmove(header, 0, 0);
+    for (int i = 0; i < sizeof(headers) / sizeof(char *); i ++) {
+        if (cliMode == i) {
+            wattron(header, A_BOLD);
+        }
+        wprintw(header, "%15s", headers[i].data());
+        if (cliMode == i) {
+            wattroff(header, A_BOLD);
+        }
+    }
+
+    // mvwprintw(header, 0, 0, "%15s %15s %15s %15s", "FILES", "FILE", "CONTROL", "ERROR");
+    
     wrefresh(header);
 }
 
