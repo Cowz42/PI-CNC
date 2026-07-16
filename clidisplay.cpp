@@ -34,8 +34,9 @@ uint fileposition = 0;
 
 std::string path = "/home/cnc/Downloads/";
 
+#define HEADERS_LIST_SIZE 4
 
-std::string headers[] = {
+std::string headers[HEADERS_LIST_SIZE] = {
     "FILES",
     "FILE",
     "CONTROL",
@@ -77,7 +78,7 @@ void infoDisp() {
 void headerUpdate() {
     wclear(header);
     wmove(header, 0, 0);
-    for (int i = 0; i < sizeof(headers) / sizeof(char *); i ++) {
+    for (int i = 0; i < HEADERS_LIST_SIZE; i ++) {
         if (cliMode == i) {
             wattron(header, A_BOLD);
         }
