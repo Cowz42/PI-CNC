@@ -92,7 +92,7 @@ void filePicker() {
         cursorLine = files.size() - 1;
     }
 
-    printw("Files list at: %s", path.data());
+    printw("Files list at: %s, Cursor at: %d\n", path.data(), cursorLine);
     // buffer.append("Files list at /home/cnc/Downloads\n");
     int i = 0;
     for (; i < files.size() && i < LINES_A; i++) {
@@ -156,9 +156,9 @@ void CLI::update() {
     // printw("%s\n", buffer.data());
 
     infoDisp();
-
+	 refresh();
 	move(cursorLine + 3, 0);
-    refresh();
+   refresh();
 }
 
 

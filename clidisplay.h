@@ -19,7 +19,7 @@ class CLI {
     void update();
 };
 
-#define LINES_A 25
+#define LINES_A 9
 
 extern uint fileposition;
 
