@@ -52,7 +52,7 @@ StepperControl* gantryCLI;
 
 
 void filePicker() {
-    wtimeout(list, 10);
+    wtimeout(list, 1000);
     wclear(list);
 
     if (cursorLine > files.size() - 1) {
@@ -129,7 +129,7 @@ void CLI::update() {
         cliMode = 0;
     }
 	
-	refresh();
+	// refresh();
 }
 
 
