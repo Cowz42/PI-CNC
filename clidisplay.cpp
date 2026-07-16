@@ -138,6 +138,7 @@ void running() {
 }
 
 void infoDisp() {
+    wtimeout(info,0);
     box(info, 0, 0);
     wmove(info, 1, 1);
     wprintw(info, "CNC system information\n");
