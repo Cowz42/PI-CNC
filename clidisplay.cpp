@@ -39,7 +39,7 @@ WINDOW* list;
 WINDOW* info;
 
 
-unsigned int cursorLine;
+int cursorLine;
 
 // 0 = file picker
 // 1 = non run
@@ -64,12 +64,12 @@ int CLI::start() {
     }
 
     list = newwin(LINES_A, COLS, 0, 0);
-    info = newwin(5, COLS, LINES_A + 1, 0);
+    info = newwin(5, COLS, LINES_A, 0);
 
     keypad(list, TRUE);
     noecho();
 
-	timeout(500);
+	wtimeout(list, 500);
 
     mvwprintw(list, 0, 0, "Starting up CNC\n");
 
@@ -115,7 +115,7 @@ void filePicker() {
 
 
     int ch;
-    ch = getch();
+    ch = wgetch(list);
 
     if (ch == KEY_UP) {
         cursorLine--;
@@ -147,7 +147,7 @@ void infoDisp() {
 void CLI::update() {
 	// buffer = "FILES\tFILE\tERROR\n\n";
     mvwprintw(list, 0, 0, "FILES\tFILE\tERROR\n");
-
+	std::cerr << "IDK 1\n";
     if (cliMode== 0) {
         filePicker();
     } else if (cliMode == 1) {
@@ -160,7 +160,7 @@ void CLI::update() {
         cliMode = 0;
     }
     // printw("%s\n", buffer.data());
-
+	std::cerr << "IDK 2\n";
     infoDisp();
 	refresh();
 }

@@ -1,0 +1,62 @@
+[33m3105330[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m I believe I need to replace all \n's with \r's
+[33mf40f890[m I need a better text editor for this next bit
+[33md23939c[m Minor mistake
+[33m450d2cd[m Merge remote-tracking branch 'refs/remotes/origin/main'
+[33m6e0cc20[m Fixed an && being an ||
+[33m06ef261[m Kinda worked
+[33m7f1c9ee[m Moved some CLI things into a buffer
+[33m38de7f0[m Removed the GLFW source files
+[33me63f74e[m Writing some things and such
+[33m768f55d[m Hello there
+[33mac8e62b[m Tee hee
+[33mcbdbbf4[m Working on adding some things
+[33m2202361[m idk, I forgot, but I'm saving it ig
+[33mbac8424[m Found the enter error
+[33m01b4ecd[m Fixed some loading stuff
+[33mfd42825[m Hello
+[33m87fcdbe[m Adding some more text stuff
+[33m3632cac[m Think I fixed it
+[33m4bab7fb[m hello
+[33m17f0ff7[m more stuff
+[33mc8d89cb[m Still debugging
+[33m23589cc[m Still passing files around
+[33me37b0cc[m Passing some files between
+[33m1f19bd2[m Forgot to write this fix on the pi
+[33m3987cac[m Working on the CLI
+[33mfe10f76[m Still working on it
+[33m03c636e[m Maybe fix now?
+[33mf62fc53[m Maybe fix includes?
+[33m5b34a9c[m I am a little confused rn
+[33m40013eb[m Include error with multiple definitions
+[33m067e50f[m Working on adding File picker and various other modes to the cli
+[33m5ac0dec[m Hopefully done with include paths for now
+[33mcc5ffd0[m Updating Include paths
+[33mf58783a[m Fixing some errors
+[33m7166884[m Working on some include and the cli
+[33m7ea371d[m Setting up cli display functionality
+[33meed7d94[m Fixing some errors with vectors
+[33mcc25c4e[m Trying to get curses to link
+[33m01c5759[m Working on using curses for cli
+[33m848c567[m Adding global Error and message stack for ui stuff
+[33md8d7812[m adding some things for global flags
+[33ma98d63c[m Moved some includes into the header file
+[33md610317[m Updated some include paths
+[33m49bb971[m Working on control functions
+[33m67b6589[m Added Hardware plan and adjusted vfd.ino
+[33md745c45[m Working on adding display functionality
+[33mb8dc586[m Moving old build scripts to seperate folder
+[33m42413fb[m Fixed Build File to add linking against wiringPi
+[33m98aea3b[m I Missed a p in a file extension
+[33md30e4ac[m Working on adding CMake back
+[33m6dd5f81[m Added some Cmake stuff back for some reason
+[33mb8f8b97[m Create README.md
+[33m2bfb875[m Checking that I set up the repository right
+[33m7c09943[m Fixing Build script
+[33m7adddd3[m Adjusting build scripts
+[33m1b4a1d6[m I don't think I need cmake for this
+[33m03dcf49[m Adding Cmake to build the project
+[33m8c0c3e3[m Create LICENSE
+[33mf54aed8[m Refixxing Build stuff
+[33m93dc0b9[m Fixxing some build stuff
+[33mf056d8c[m Add .gitIgnore
+[33m333cae1[m Initial Commit
