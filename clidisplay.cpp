@@ -156,6 +156,7 @@ void FileLoadGlobal(std::string filename) {
         WorkingFileGlobal = filename;
     }
     file.clear();
+    std::cerr << "Loading file \"" << WorkingFileGlobal << "\" to the program\n";
     std::ifstream f(WorkingFileGlobal);
     std::string line = "";
     if (!f.is_open()) {
