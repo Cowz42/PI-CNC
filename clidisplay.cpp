@@ -142,9 +142,11 @@ void cursorCheck() {
 
     if (cursorLine < scrollLine) {
         scrollLine = cursorLine;
-    } else if (cursorLine >= scrollLine + (LINES_A - 1)) {
-        scrollLine = cursorLine - (LINES_A - 2);
+    } else if (cursorLine > scrollLine + (LINES_A - 1)) {
+        scrollLine = cursorLine - (LINES_A - 1);
     }
+
+
     if (scrollLine < 0) {
         scrollLine = 0;
     }
@@ -243,11 +245,11 @@ void manual() {
             bool enabled = true;
 
             mvwprintw(list, i + 1, 0, "%s   ", maunualOptions[i].data());
-            if (cursorLine < 7) {
+            if (i < 7) {
                 wprintw(list, "%f", num);
-            } else if (cursorLine == 8) {
+            } else if (i == 8) {
                 wprintw(list, "%s", enabled ? "ON" : "OFF");
-            } else if (cursorLine == 10) {
+            } else if (i == 10) {
                 wprintw(list, "%s", manualCMD.data());
             }
         }
