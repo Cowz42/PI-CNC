@@ -69,6 +69,13 @@ void headerUpdate();
 void infoStart();
 void filePicker();
 void cursorCheck();
+void windowChangeCheck(int charnum) {
+    if (charnum > 0 && charnum < 4) {
+        setMode(charnum);
+        std::cerr << "Switching mode too: " << charnum << "\n";
+        return;
+    }
+}
 
 
 void cursorCheck() {
@@ -77,6 +84,12 @@ void cursorCheck() {
             cursorLine = 0;
         } else if (cursorLine < 0) {
             cursorLine = files.size() - 1;
+        }
+    } else if (cliMode == 1) {
+        if (cursorLine >= file.size()) {
+            cursorLine = 0;
+        } else if (cursorLine < 0) {
+            cursorLine = file.size() - 1;
         }
     }
 
@@ -95,6 +108,10 @@ void cursorCheck() {
         if (scrollLine + LINES_A > files.size()) {
             scrollLine = files.size() - LINES_A;
         }
+    } else if (cliMode == 1) {
+        if (scrollLine + LINES_A > file.size()) {
+            scrollLine = file.size() - LINES_A;
+        }
     }
 }
 
@@ -111,6 +128,36 @@ void setMode(int mode) {
 }
 
 void fileView() {
+    wtimeout(list, 0);
+
+    wclear(list);
+    
+   
+
+    mvwprintw(list, 0, 0, "File %s", WorkingFileGlobal.data());
+    
+    for (int i = 0; i + scrollLine < files.size() && i < LINES_A; i++) {
+        mvwprintw(list, i + 1, 0, "%s %d  %s", fileposition == i+scrollLine ? ">" : " ", i + scrollLine, files.at(i + scrollLine).substr(path.size()).data());
+    }
+
+	wmove(list, cursorLine + 1 - scrollLine, 0);
+    int ch;
+    ch = wgetch(list);
+
+    wrefresh(list);
+
+    if (ch == KEY_UP) {
+        cursorLine--;
+    } else if (ch == KEY_DOWN) {
+        cursorLine++;
+    } else if (ch == ENTER_REAL) {
+        wclear(list);
+        mvwprintw(list, 0, 0, "Loading File %s", files.at(cursorLine).data());
+        FileLoadGlobal(files.at(cursorLine));
+        setMode(1);
+    }
+    
+    cursorCheck();
 
 }
 
@@ -187,7 +234,7 @@ void loadFileBuffer() {
 
 
 void filePicker() {
-    wtimeout(list, -2);
+    wtimeout(list, 50);
 
     wclear(list);
     
@@ -216,6 +263,7 @@ void filePicker() {
         FileLoadGlobal(files.at(cursorLine));
         setMode(1);
     }
+
     cursorCheck();
 }
 
@@ -239,6 +287,7 @@ int CLI::start() {
 
     keypad(list, TRUE);
     noecho();
+    cbreak();
 
 	wtimeout(list, 500);
     wtimeout(info,0);
@@ -280,6 +329,7 @@ void CLI::update() {
         std::cerr << "CLI Mode error, returning to file select\n";
         setMode(0);
     }
+    infoDisp();
 	// refresh();
 }
 
