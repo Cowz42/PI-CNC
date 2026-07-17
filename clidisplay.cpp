@@ -189,6 +189,16 @@ void fileView() {
 
         mvwprintw(list, 0, 0, "File %s", WorkingFileGlobal.data());
 
+        if (file.size() == 0) {
+            mvwprintw(list, 0, 0, "No File Loaded");
+            mvwprintw(list, 1, 0, "Press any key to continue");
+            wtimeout(list, -1);
+            wgetch(list);
+            wtimeout(list, 0);
+            setMode(0);
+            return;
+        }
+
         for (int i = 0; i + scrollLine < files.size() && i < LINES_A; i++) {
             mvwprintw(list, i + 1, 0, "%s %06d  %s", fileposition == i+scrollLine ? ">" : " ", i + scrollLine, file.at(i + scrollLine).data());
         }
@@ -222,9 +232,14 @@ void fileView() {
 }
 
 void manual() {
+    if (cursorChange) {
+        cursorChange = false;
+        wclear(list);
 
-    for (int i = 0; i < MANUAL_OPTIONS_SIZE; i++) {
-        mvwprintw(list, i + 1, 0, "%s", maunualOptions[i].data());
+        for (int i = 0; i < MANUAL_OPTIONS_SIZE; i++) {
+            mvwprintw(list, i + 1, 0, "%s", maunualOptions[i].data());
+        }
+
     }
 
     wmove(list, cursorLine, 0);
