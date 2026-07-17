@@ -205,7 +205,7 @@ void fileView() {
 
         
 
-        for (int i = 0; i + scrollLine < files.size() && i < LINES_A; i++) {
+        for (int i = 0; i + scrollLine < file.size() && i < LINES_A; i++) {
             mvwprintw(list, i + 1, 0, "%s %06d  %s", fileposition == i+scrollLine ? ">" : " ", i + scrollLine, file.at(i + scrollLine).data());
         }
 
