@@ -49,6 +49,9 @@ WINDOW* list;
 WINDOW* info;
 WINDOW* header;
 
+bool cursorChange;
+bool infoChange;
+
 
 int cursorLine;
 int scrollLine;
@@ -69,6 +72,11 @@ void headerUpdate();
 void infoStart();
 void filePicker();
 void cursorCheck();
+void windowChangeCheck(int charnum);
+
+
+
+
 void windowChangeCheck(int charnum) {
     if (charnum > 0 && charnum < 4) {
         setMode(charnum);
@@ -124,6 +132,8 @@ void setMode(int mode) {
     infoDisp();
     scrollLine = 0;
     cursorLine = 0;
+    infoChange = true;
+    cursorChange = true;
 
 }
 
@@ -137,7 +147,7 @@ void fileView() {
     mvwprintw(list, 0, 0, "File %s", WorkingFileGlobal.data());
     
     for (int i = 0; i + scrollLine < files.size() && i < LINES_A; i++) {
-        mvwprintw(list, i + 1, 0, "%s %d  %s", fileposition == i+scrollLine ? ">" : " ", i + scrollLine, files.at(i + scrollLine).substr(path.size()).data());
+        mvwprintw(list, i + 1, 0, "%s %d  %s", fileposition == i+scrollLine ? ">" : " ", i + scrollLine, file.at(i + scrollLine).data());
     }
 
 	wmove(list, cursorLine + 1 - scrollLine, 0);
@@ -150,12 +160,9 @@ void fileView() {
         cursorLine--;
     } else if (ch == KEY_DOWN) {
         cursorLine++;
-    } else if (ch == ENTER_REAL) {
-        wclear(list);
-        mvwprintw(list, 0, 0, "Loading File %s", files.at(cursorLine).data());
-        FileLoadGlobal(files.at(cursorLine));
-        setMode(1);
     }
+
+    windowChangeCheck(ch);
     
     cursorCheck();
 
@@ -189,10 +196,12 @@ void headerUpdate() {
 }
 
 void infoStart() {
-    wclear(info);
-    box(info, 0, 0);
-    mvwprintw(info, 0, 1, "CNC system information");
-
+    if (infoChange) {
+        infoChange = false;
+        wclear(info);
+        box(info, 0, 0);
+        mvwprintw(info, 0, 1, "CNC system information");
+    }
 }
 
 
@@ -234,24 +243,33 @@ void loadFileBuffer() {
 
 
 void filePicker() {
-    wtimeout(list, 50);
 
-    wclear(list);
+    if (cursorChange) {
+        cursorChange = false;
+        wclear(list);
+        wtimeout(list, 50);
+        
     
-   
 
-    mvwprintw(list, 0, 0, "Files list at: %s C: %d S: %d Size: %d", path.data(), cursorLine, scrollLine, files.size());
-    // buffer.append("Files list at /home/cnc/Downloads\n");
-    
-    for (int i = 0; i + scrollLine < files.size() && i < LINES_A; i++) {
-        mvwprintw(list, i + 1, 0, "%d  %s",i + scrollLine, files.at(i + scrollLine).substr(path.size()).data());
+        mvwprintw(list, 0, 0, "Files list at: %s C: %d S: %d Size: %d", path.data(), cursorLine, scrollLine, files.size());
+        // buffer.append("Files list at /home/cnc/Downloads\n");
+        
+        for (int i = 0; i + scrollLine < files.size() && i < LINES_A; i++) {
+            mvwprintw(list, i + 1, 0, "%d  %s",i + scrollLine, files.at(i + scrollLine).substr(path.size()).data());
+        }
+
     }
 
 	wmove(list, cursorLine + 1 - scrollLine, 0);
+
     int ch;
     ch = wgetch(list);
 
     wrefresh(list);
+
+    if (ch != ERR) {
+        cursorChange = true;
+    }
 
     if (ch == KEY_UP) {
         cursorLine--;
@@ -269,6 +287,8 @@ void filePicker() {
 
 
 int CLI::start() {
+    cursorChange = true;
+    infoChange = true;
     cliMode = 0;
     gantryCLI = cnc.getGantry();
     if (gantryCLI == nullptr) {
