@@ -182,7 +182,9 @@ void loadFileBuffer() {
 
 
 void filePicker() {
-    wtimeout(list, 1000);
+    wtimeout(list, -2);
+
+    wclear(list);
     
    
 
