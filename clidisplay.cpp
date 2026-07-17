@@ -206,9 +206,9 @@ void filePicker() {
     } else if (ch == KEY_DOWN) {
         cursorLine++;
     } else if (ch == ENTER_REAL) {
+	    std::cerr << "Loading file: " << files.at(cursorLine) << "\n";
         FileLoadGlobal(path + files.at(cursorLine));
         setMode(1);
-	    std::cerr << "Loading file\n";
     }
     cursorCheck();
 }
