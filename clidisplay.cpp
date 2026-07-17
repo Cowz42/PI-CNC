@@ -175,6 +175,10 @@ void fileView() {
         cursorLine--;
     } else if (ch == KEY_DOWN) {
         cursorLine++;
+    } else if (ch == KEY_LEFT) {
+        cursorCol--;
+    } else if (ch == KEY_RIGHT) {
+        cursorCol++;
     }
 
     windowChangeCheck(ch);
