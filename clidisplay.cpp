@@ -211,6 +211,8 @@ void filePicker() {
     } else if (ch == KEY_DOWN) {
         cursorLine++;
     } else if (ch == ENTER_REAL) {
+        wclear(list);
+        mvwprintw(list, 0, 0, "Loading File %s", files.at(cursorLine).data());
         FileLoadGlobal(files.at(cursorLine));
         setMode(1);
     }
