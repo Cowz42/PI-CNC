@@ -83,15 +83,16 @@ void cursorCheck() {
 
     if (cursorLine < scrollLine) {
         scrollLine = cursorLine;
-    } else if (cursorLine > scrollLine + LINES_A) {
-        scrollLine = cursorLine - LINES_A;
+    } else if (cursorLine >= scrollLine + LINES_A) {
+        scrollLine = cursorLine - LINES_A + 1;
     }
+	if (scrollLine < 0) {
+		scrollLine = 0;
+	}
 
     if (cliMode == 0) {
-        if (scrollLine < 0) {
-            scrollLine = 0;
-        } else if (scrollLine >= files.size() + LINES_A) {
-            scrollLine = files.size() + LINES_A - 1;
+        if (scrollLine + LINES_A >= files.size()) {
+            scrollLine = files.size() - 1 - LINES_A;
         }
     }
 }
@@ -183,16 +184,16 @@ void filePicker() {
     wtimeout(list, 1000);
     wclear(list);
     
-    cursorCheck();
+   
 
-    mvwprintw(list, 0, 0, "Files list at: %s\n", path.data());
+    mvwprintw(list, 0, 0, "Files list at: %s C: %d S: %d Size: %d", path.data(), cursorLine, scrollLine, files.size());
     // buffer.append("Files list at /home/cnc/Downloads\n");
     
     for (int i = 0; i + scrollLine < files.size() && i < LINES_A; i++) {
-        mvwprintw(list, i, 0, "%d  %s",i + scrollLine, files.at(i + scrollLine).substr(path.size()).data());
+        mvwprintw(list, i + 1, 0, "%d  %s",i + scrollLine, files.at(i + scrollLine).substr(path.size()).data());
     }
 
-	wmove(list, cursorLine + 1, 0);
+	wmove(list, cursorLine + 1 - scrollLine, 0);
     int ch;
     ch = wgetch(list);
 
@@ -207,6 +208,7 @@ void filePicker() {
         setMode(1);
 	    std::cerr << "Loading file\n";
     }
+	 cursorCheck();
 }
 
 
@@ -224,8 +226,8 @@ int CLI::start() {
     }
 
     header = newwin(3, COLS, 0, 0);
-    list = newwin(LINES_A, COLS, 3, 0);
-    info = newwin(5, COLS, LINES_A + 3, 0);
+    list = newwin(LINES_A + 1, COLS, 3, 0);
+    info = newwin(5, COLS, LINES_A + 8, 0);
 
     keypad(list, TRUE);
     noecho();
@@ -250,14 +252,12 @@ int CLI::start() {
 
     headerUpdate();
     infoStart();
-
+	infoDisp();
     return 0;
 }
 
 
 void CLI::update() {
-    infoDisp();
-	
     if (cliMode== 0) {
         filePicker();
     } else if (cliMode == 1) {
