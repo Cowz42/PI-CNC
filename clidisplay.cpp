@@ -158,6 +158,10 @@ void FileLoadGlobal(std::string filename) {
     file.clear();
     std::ifstream f(WorkingFileGlobal);
     std::string line = "";
+    if (!f.is_open()) {
+        std::cerr << "File Open Failure\n";
+        return;
+    }
     while(!f.eof()) {
         getline(f, line);
         file.push_back(line);
