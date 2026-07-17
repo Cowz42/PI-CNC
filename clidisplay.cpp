@@ -84,8 +84,8 @@ void cursorCheck() {
 
     if (cursorLine < scrollLine) {
         scrollLine = cursorLine;
-    } else if (cursorLine >= scrollLine + LINES_A - 1) {
-        scrollLine = cursorLine - (LINES_A - 1);
+    } else if (cursorLine >= scrollLine + (LINES_A - 1)) {
+        scrollLine = cursorLine - (LINES_A - 2);
     }
     if (scrollLine < 0) {
         scrollLine = 0;
