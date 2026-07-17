@@ -211,6 +211,7 @@ void filePicker() {
         fullpath.append(files.at(cursorLine));
         FileLoadGlobal(fullpath);
         setMode(1);
+        std::cerr << "File Loaded, switching to view mode\n";
     }
     cursorCheck();
 }
