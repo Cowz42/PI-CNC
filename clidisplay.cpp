@@ -60,6 +60,16 @@ int cliMode = 0;
 
 StepperControl* gantryCLI;
 
+void setMode(int mode);
+void fileView();
+void manual();
+void infoDisp();
+void headerUpdate();
+void infoStart();
+void filePicker();
+
+
+
 
 void setMode(int mode) {
     cliMode = mode;
