@@ -78,9 +78,9 @@ void windowChangeCheck(int charnum);
 
 
 void windowChangeCheck(int charnum) {
-    if (charnum > 0 && charnum < 4) {
-        setMode(charnum);
-        std::cerr << "Switching mode too: " << charnum << "\n";
+    if (charnum > 47 && charnum < 52) {
+        setMode(charnum - 48);
+        std::cerr << "Switching mode too: " << charnum - 48 << "\n";
         return;
     }
 }
@@ -138,34 +138,35 @@ void setMode(int mode) {
 }
 
 void fileView() {
-    wtimeout(list, 0);
+	if (cursorChange) {
+    		wtimeout(list, 0);
 
-    wclear(list);
+    		wclear(list);
     
    
 
-    mvwprintw(list, 0, 0, "File %s", WorkingFileGlobal.data());
+    		mvwprintw(list, 0, 0, "File %s", WorkingFileGlobal.data());
     
-    for (int i = 0; i + scrollLine < files.size() && i < LINES_A; i++) {
-        mvwprintw(list, i + 1, 0, "%s %d  %s", fileposition == i+scrollLine ? ">" : " ", i + scrollLine, file.at(i + scrollLine).data());
-    }
+    		for (int i = 0; i + scrollLine < files.size() && i < LINES_A; i++) {
+        		mvwprintw(list, i + 1, 0, "%s %d  %s", fileposition == i+scrollLine ? ">" : " ", i + scrollLine, file.at(i + scrollLine).data());
+    		}
 
-	wmove(list, cursorLine + 1 - scrollLine, 0);
-    int ch;
-    ch = wgetch(list);
+		wmove(list, cursorLine + 1 - scrollLine, 0);
+    		int ch;
+    		ch = wgetch(list);
 
-    wrefresh(list);
+    		wrefresh(list);
 
-    if (ch == KEY_UP) {
-        cursorLine--;
-    } else if (ch == KEY_DOWN) {
-        cursorLine++;
-    }
+    		if (ch == KEY_UP) {
+        		cursorLine--;
+    		} else if (ch == KEY_DOWN) {
+        		cursorLine++;
+    		}
 
-    windowChangeCheck(ch);
+    		windowChangeCheck(ch);
     
-    cursorCheck();
-
+    		cursorCheck();
+	}
 }
 
 void manual() {
@@ -281,6 +282,7 @@ void filePicker() {
         FileLoadGlobal(files.at(cursorLine));
         setMode(1);
     }
+	windowChangeCheck(ch);
 
     cursorCheck();
 }

@@ -1,6 +1,4 @@
 Starting cli
 Started Successfully
-Loading file: /home/cnc/Downloads/How_To_Use.txt
-File Open Failure
-File Loaded, switching to view mode
 Update Ran once
+Loading file "/home/cnc/Downloads/How_To_Use.txt" to the program
