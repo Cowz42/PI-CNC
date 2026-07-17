@@ -187,13 +187,9 @@ void filePicker() {
 
     mvwprintw(list, 0, 0, "Files list at: %s\n", path.data());
     // buffer.append("Files list at /home/cnc/Downloads\n");
-    int i = 0;
-    for (; i + scrollLine < files.size() && i < LINES_A; i++) {
-        wprintw(list, "%d  %s\n",i + scrollLine, files.at(i + scrollLine).substr(path.size()).data());
-    }
-
-    for (;i < LINES_A; i++) {
-        // wprintw(list, "\n");
+    
+    for (int i = 0; i + scrollLine < files.size() && i < LINES_A; i++) {
+        mvwprintw(list, i, 0, "%d  %s",i + scrollLine, files.at(i + scrollLine).substr(path.size()).data());
     }
 
 	wmove(list, cursorLine + 1, 0);
