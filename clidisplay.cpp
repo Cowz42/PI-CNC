@@ -215,7 +215,6 @@ void filePicker() {
 	    std::cerr << "Loading file: " << files.at(cursorLine) << "\n";
         std::string fullpath(path.data());
         fullpath.append(files.at(cursorLine));
-        fullpath = "/home/cnc/Downloads/How_To_Use.txt";
         FileLoadGlobal(fullpath);
         setMode(1);
         std::cerr << "File Loaded, switching to view mode\n";
