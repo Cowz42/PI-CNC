@@ -143,6 +143,7 @@ void cursorCheck() {
     if (cursorLine < scrollLine) {
         scrollLine = cursorLine;
     } else if (cursorLine > scrollLine + (LINES_A - 1)) {
+        std::cerr << "limit a\n";
         scrollLine = cursorLine - (LINES_A - 1);
     }
 
@@ -153,14 +154,17 @@ void cursorCheck() {
 
     if (cliMode == 0) {
         if (scrollLine + LINES_A > files.size()) {
+            std::cerr << "limit 0a\n";
             scrollLine = files.size() - LINES_A;
         }
     } else if (cliMode == 1) {
         if (scrollLine + LINES_A > file.size()) {
+            std::cerr << "limit 1a\n";
             scrollLine = file.size() - LINES_A;
         }
     } else if (cliMode == 2) {
         if (scrollLine + LINES_A > MANUAL_OPTIONS_SIZE) {
+            std::cerr << "limit 2a\n";
             scrollLine = MANUAL_OPTIONS_SIZE - LINES_A;
         }
     }
@@ -238,6 +242,8 @@ void manual() {
         cursorChange = false;
         wclear(list);
 
+        mvwprintw(list, 0, 0, "Manual Control Options");
+
         for (int i = 0; i < MANUAL_OPTIONS_SIZE; i++) {
 
             // placeholders for now, gotta add later
@@ -256,7 +262,7 @@ void manual() {
 
     }
 
-    wmove(list, cursorLine, cursorLine == 10 ? cursorCol + 4 : maunualOptions[cursorLine].size() + 3);
+    wmove(list, cursorLine + 1, cursorLine == 10 ? cursorCol + 4 : maunualOptions[cursorLine].size() + 3);
 
     int ch;
     ch = wgetch(list);
