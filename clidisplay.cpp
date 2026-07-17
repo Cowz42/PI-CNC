@@ -67,8 +67,34 @@ void infoDisp();
 void headerUpdate();
 void infoStart();
 void filePicker();
+void cursorCheck();
 
 
+void cursorCheck() {
+    if (cliMode == 0) {
+        if (cursorLine >= files.size()) {
+            cursorLine = 0;
+        } else if (cursorLine < 0) {
+            cursorLine = files.size() - 1;
+        }
+    }
+
+
+
+    if (cursorLine < scrollLine) {
+        scrollLine = cursorLine;
+    } else if (cursorLine > scrollLine + LINES_A) {
+        scrollLine = cursorLine - LINES_A;
+    }
+
+    if (cliMode == 0) {
+        if (scrollLine < 0) {
+            scrollLine = 0;
+        } else if (scrollLine >= files.size() + LINES_A) {
+            scrollLine = files.size() + LINES_A - 1;
+        }
+    }
+}
 
 
 void setMode(int mode) {
@@ -156,25 +182,8 @@ void loadFileBuffer() {
 void filePicker() {
     wtimeout(list, 1000);
     wclear(list);
-	if (cursorLine >= files.size()) {
-		cursorLine = 0;
-		scrollLine = 0;
-	}
-    if (cursorLine >= LINES_A + scrollLine) {
-        scrollLine++;
-    } else if (cursorLine < scrollLine) {
-        scrollLine--;
-    }
-	if (scrollLine < 0) {
-		scrollLine = 0;
-	} else if (scrollLine > files.size() + LINES_A) {
-		scrollLine = files.size() + LINES_A;
-	}
-    if (cursorLine > files.size() - 1) {
-        cursorLine = 0;
-    } else if (cursorLine < 0) {
-        cursorLine = files.size() - 1;
-    }
+    
+    cursorCheck();
 
     mvwprintw(list, 0, 0, "Files list at: %s\n", path.data());
     // buffer.append("Files list at /home/cnc/Downloads\n");
