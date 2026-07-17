@@ -155,12 +155,12 @@ void cursorCheck() {
     if (cliMode == 0) {
         if (scrollLine + LINES_A > files.size()) {
             std::cerr << "limit 0a\n";
-            scrollLine = files.size() - LINES_A;
+            // scrollLine = files.size() - LINES_A;
         }
     } else if (cliMode == 1) {
         if (scrollLine + LINES_A > file.size()) {
             std::cerr << "limit 1a\n";
-            scrollLine = file.size() - LINES_A;
+            // scrollLine = file.size() - LINES_A;
         }
     } else if (cliMode == 2) {
         if (scrollLine + LINES_A > MANUAL_OPTIONS_SIZE) {

@@ -46,26 +46,12 @@ string
 vector
 -
 
-/home/colin/Documents/PI-CNC/gcode.h
-string
--
-
-/home/colin/Documents/PI-CNC/gcodeinterface.h
-gcode.h
-/home/colin/Documents/PI-CNC/gcode.h
-commands.h
-/home/colin/Documents/PI-CNC/commands.h
-
-/home/colin/Documents/PI-CNC/gcodeparse.h
-gcode.h
-/home/colin/Documents/PI-CNC/gcode.h
-fstream
--
-
 /home/colin/Documents/PI-CNC/globalcommunication.h
 iostream
 -
 string
+-
+vector
 -
 
 /home/colin/Documents/PI-CNC/machine.h
@@ -79,42 +65,8 @@ commands.h
 /home/colin/Documents/PI-CNC/commands.h
 
 /home/colin/Documents/PI-CNC/programrun.h
-iostream
--
-string
--
 positioncalc.h
 /home/colin/Documents/PI-CNC/positioncalc.h
-stepper.h
-/home/colin/Documents/PI-CNC/stepper.h
-gcodeparse.h
-/home/colin/Documents/PI-CNC/gcodeparse.h
-gcodeinterface.h
-/home/colin/Documents/PI-CNC/gcodeinterface.h
-gcode.h
-/home/colin/Documents/PI-CNC/gcode.h
-machine.h
-/home/colin/Documents/PI-CNC/machine.h
-commands.h
-/home/colin/Documents/PI-CNC/commands.h
-time.h
-/home/colin/Documents/PI-CNC/time.h
-sys/time.h
--
-
-/home/colin/Documents/PI-CNC/raspi-io.h
-wiringPi.h
--
-
-/home/colin/Documents/PI-CNC/stepper.h
-F:/Network Share Colin/Code/Libraries/WiringPi/WiringPi/wiringPi.h
--
-raspi-io.h
-/home/colin/Documents/PI-CNC/raspi-io.h
-
-/home/colin/Documents/PI-CNC/time.h
-Winsock2.h
--
-stdint.h
+string
 -
 
