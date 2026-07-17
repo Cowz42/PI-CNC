@@ -52,7 +52,7 @@ std::string maunualOptions[11] = {
     "A: ",
     "B: ",
     "C: ",
-    "RPM :",
+    "RPM:",
     "HOME",
     "COOLING",
     " ",
@@ -185,10 +185,6 @@ void fileView() {
 
         wclear(list);
 
-
-
-        mvwprintw(list, 0, 0, "File %s", WorkingFileGlobal.data());
-
         if (file.size() == 0) {
             mvwprintw(list, 0, 0, "No File Loaded");
             mvwprintw(list, 1, 0, "Press any key to continue");
@@ -198,6 +194,10 @@ void fileView() {
             setMode(0);
             return;
         }
+
+        mvwprintw(list, 0, 0, "File %s", WorkingFileGlobal.data());
+
+        
 
         for (int i = 0; i + scrollLine < files.size() && i < LINES_A; i++) {
             mvwprintw(list, i + 1, 0, "%s %06d  %s", fileposition == i+scrollLine ? ">" : " ", i + scrollLine, file.at(i + scrollLine).data());
@@ -237,12 +237,24 @@ void manual() {
         wclear(list);
 
         for (int i = 0; i < MANUAL_OPTIONS_SIZE; i++) {
-            mvwprintw(list, i + 1, 0, "%s", maunualOptions[i].data());
+
+            // placeholders for now, gotta add later
+            float num = 2.85;
+            bool enabled = true;
+
+            mvwprintw(list, i + 1, 0, "%s   ", maunualOptions[i].data());
+            if (cursorLine < 7) {
+                wprintw(list, "%f", num);
+            } else if (cursorLine == 8) {
+                wprintw(list, "%s", enabled ? "ON" : "OFF");
+            } else if (cursorLine == 10) {
+                wprintw(list, "%s", manualCMD.data());
+            }
         }
 
     }
 
-    wmove(list, cursorLine, 0);
+    wmove(list, cursorLine, cursorLine == 10 ? cursorCol + 4 : maunualOptions[cursorLine].size() + 3);
 
     int ch;
     ch = wgetch(list);
