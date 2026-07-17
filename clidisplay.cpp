@@ -183,7 +183,6 @@ void loadFileBuffer() {
 
 void filePicker() {
     wtimeout(list, 1000);
-    wclear(list);
     
    
 
@@ -209,7 +208,7 @@ void filePicker() {
         setMode(1);
 	    std::cerr << "Loading file\n";
     }
-	 cursorCheck();
+    cursorCheck();
 }
 
 
@@ -249,7 +248,7 @@ int CLI::start() {
     for (const auto & entry : fs::directory_iterator(path)) {
         files.push_back(entry.path());
     }
-    std::sort(files.begin(), files.end());
+    std::sort(files.begin(), files.end(), [](std::string a, std::string b) {return a.compare(b) < 0;});
     
 
 
