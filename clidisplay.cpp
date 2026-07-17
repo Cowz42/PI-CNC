@@ -54,6 +54,7 @@ bool infoChange;
 
 
 int cursorLine;
+int cursorCol;
 int scrollLine;
 
 // 0 = file picker
@@ -99,6 +100,11 @@ void cursorCheck() {
         } else if (cursorLine < 0) {
             cursorLine = file.size() - 1;
         }
+        if (cursorCol < 0) {
+            cursorCol = 0;
+        } else if (cursorCol > file.at(cursorLine).size()) {
+            cursorCol = file.at(cursorLine).size();
+        }
     }
 
 
@@ -139,33 +145,35 @@ void setMode(int mode) {
 
 void fileView() {
 	if (cursorChange) {
-    		wtimeout(list, 0);
+        cursorChange = false;
+        wtimeout(list, 0);
 
-    		wclear(list);
-    
-   
+        wclear(list);
 
-    		mvwprintw(list, 0, 0, "File %s", WorkingFileGlobal.data());
-    
-    		for (int i = 0; i + scrollLine < files.size() && i < LINES_A; i++) {
-        		mvwprintw(list, i + 1, 0, "%s %d  %s", fileposition == i+scrollLine ? ">" : " ", i + scrollLine, file.at(i + scrollLine).data());
-    		}
 
-		wmove(list, cursorLine + 1 - scrollLine, 0);
-    		int ch;
-    		ch = wgetch(list);
 
-    		wrefresh(list);
+        mvwprintw(list, 0, 0, "File %s", WorkingFileGlobal.data());
 
-    		if (ch == KEY_UP) {
-        		cursorLine--;
-    		} else if (ch == KEY_DOWN) {
-        		cursorLine++;
-    		}
+        for (int i = 0; i + scrollLine < files.size() && i < LINES_A; i++) {
+            mvwprintw(list, i + 1, 0, "%s %06d  %s", fileposition == i+scrollLine ? ">" : " ", i + scrollLine, file.at(i + scrollLine).data());
+        }
 
-    		windowChangeCheck(ch);
-    
-    		cursorCheck();
+        wmove(list, cursorLine + 1 - scrollLine, cursorCol + 10);
+
+        int ch;
+        ch = wgetch(list);
+
+        wrefresh(list);
+
+        if (ch == KEY_UP) {
+            cursorLine--;
+        } else if (ch == KEY_DOWN) {
+            cursorLine++;
+        }
+
+        windowChangeCheck(ch);
+
+        cursorCheck();
 	}
 }
 
@@ -174,8 +182,11 @@ void manual() {
 }
 
 void infoDisp() {
-    mvwprintw(info, 1, 1, "X: %+8.3f,   Y: %+8.3f,   Z: %+8.3f", 5.3, 5.2, 5.1);
-    wrefresh(info);
+    if (infoChange) {
+        infoChange = false;
+        mvwprintw(info, 1, 1, "X: %+8.3f,   Y: %+8.3f,   Z: %+8.3f", 5.3, 5.2, 5.1);
+        wrefresh(info);
+    }
 }
 
 void headerUpdate() {
@@ -197,12 +208,9 @@ void headerUpdate() {
 }
 
 void infoStart() {
-    if (infoChange) {
-        infoChange = false;
-        wclear(info);
-        box(info, 0, 0);
-        mvwprintw(info, 0, 1, "CNC system information");
-    }
+    wclear(info);
+    box(info, 0, 0);
+    mvwprintw(info, 0, 1, "CNC system information");
 }
 
 
@@ -311,7 +319,7 @@ int CLI::start() {
     noecho();
     cbreak();
 
-	wtimeout(list, 500);
+	wtimeout(list, -2);
     wtimeout(info,0);
     wtimeout(header,0);
 
