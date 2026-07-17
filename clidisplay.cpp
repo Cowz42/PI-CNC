@@ -165,6 +165,10 @@ void fileView() {
 
         wrefresh(list);
 
+        if (ch != ERR) {
+            cursorChange = true;
+        }
+
         if (ch == KEY_UP) {
             cursorLine--;
         } else if (ch == KEY_DOWN) {
