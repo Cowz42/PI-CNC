@@ -156,13 +156,20 @@ void loadFileBuffer() {
 void filePicker() {
     wtimeout(list, 1000);
     wclear(list);
-
+	if (cursorLine >= files.size()) {
+		cursorLine = 0;
+		scrollLine = 0;
+	}
     if (cursorLine >= LINES_A + scrollLine) {
         scrollLine++;
     } else if (cursorLine < scrollLine) {
         scrollLine--;
     }
-
+	if (scrollLine < 0) {
+		scrollLine = 0;
+	} else if (scrollLine > files.size() + LINES_A) {
+		scrollLine = files.size() + LINES_A;
+	}
     if (cursorLine > files.size() - 1) {
         cursorLine = 0;
     } else if (cursorLine < 0) {
@@ -172,7 +179,7 @@ void filePicker() {
     mvwprintw(list, 0, 0, "Files list at: %s\n", path.data());
     // buffer.append("Files list at /home/cnc/Downloads\n");
     int i = 0;
-    for (; i < files.size() && i < LINES_A; i++) {
+    for (; i + scrollLine < files.size() && i < LINES_A; i++) {
         wprintw(list, "%d  %s\n",i + scrollLine, files.at(i + scrollLine).substr(path.size()).data());
     }
 
