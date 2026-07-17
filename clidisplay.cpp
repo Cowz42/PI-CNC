@@ -92,8 +92,8 @@ void cursorCheck() {
     }
 
     if (cliMode == 0) {
-        if (scrollLine + LINES_A >= files.size()) {
-            scrollLine = files.size() - 1 - LINES_A;
+        if (scrollLine + LINES_A > files.size()) {
+            scrollLine = files.size() - LINES_A;
         }
     }
 }
