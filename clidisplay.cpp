@@ -158,27 +158,28 @@ void fileView() {
             mvwprintw(list, i + 1, 0, "%s %06d  %s", fileposition == i+scrollLine ? ">" : " ", i + scrollLine, file.at(i + scrollLine).data());
         }
 
-        wmove(list, cursorLine + 1 - scrollLine, cursorCol + 10);
-
-        int ch;
-        ch = wgetch(list);
-
-        wrefresh(list);
-
-        if (ch != ERR) {
-            cursorChange = true;
-        }
-
-        if (ch == KEY_UP) {
-            cursorLine--;
-        } else if (ch == KEY_DOWN) {
-            cursorLine++;
-        }
-
-        windowChangeCheck(ch);
-
-        cursorCheck();
+        
 	}
+    wmove(list, cursorLine + 1 - scrollLine, cursorCol + 10);
+
+    int ch;
+    ch = wgetch(list);
+
+    wrefresh(list);
+
+    if (ch != ERR) {
+        cursorChange = true;
+    }
+
+    if (ch == KEY_UP) {
+        cursorLine--;
+    } else if (ch == KEY_DOWN) {
+        cursorLine++;
+    }
+
+    windowChangeCheck(ch);
+
+    cursorCheck();
 }
 
 void manual() {
