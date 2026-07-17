@@ -17,6 +17,7 @@
 #include<iostream>
 #include<filesystem>
 #include"file.h"
+#include<algorithm>
 
 namespace fs = std::filesystem;
 
@@ -83,12 +84,12 @@ void cursorCheck() {
 
     if (cursorLine < scrollLine) {
         scrollLine = cursorLine;
-    } else if (cursorLine >= scrollLine + LINES_A) {
-        scrollLine = cursorLine - LINES_A + 1;
+    } else if (cursorLine >= scrollLine + LINES_A - 1) {
+        scrollLine = cursorLine - (LINES_A - 1);
     }
-	if (scrollLine < 0) {
-		scrollLine = 0;
-	}
+    if (scrollLine < 0) {
+        scrollLine = 0;
+    }
 
     if (cliMode == 0) {
         if (scrollLine + LINES_A >= files.size()) {
@@ -248,6 +249,8 @@ int CLI::start() {
     for (const auto & entry : fs::directory_iterator(path)) {
         files.push_back(entry.path());
     }
+    std::sort(files.begin(), files.end());
+    
 
 
     headerUpdate();
