@@ -50,9 +50,10 @@ WINDOW* header;
 
 
 int cursorLine;
+int scrollLine;
 
 // 0 = file picker
-// 1 = non run
+// 1 = preview
 // 2 = running
 // 3 = error log
 int cliMode = 0;
@@ -60,13 +61,22 @@ int cliMode = 0;
 StepperControl* gantryCLI;
 
 
+void setMode(int mode) {
+    cliMode = mode;
 
+    headerUpdate();
+    infoStart();
+    infoDisp();
+    scrollLine = 0;
+    cursorLine = 0;
 
-void nonRunning() {
-    std::cerr << "Hopefully Loaded the file, gotta figure that out too\n";
 }
 
-void running() {
+void fileView() {
+
+}
+
+void manual() {
 
 }
 
@@ -137,6 +147,12 @@ void filePicker() {
     wtimeout(list, 1000);
     wclear(list);
 
+    if (cursorLine >= LINES_A + scrollLine) {
+        scrollLine++;
+    } else if (cursorLine < scrollLine) {
+        scrollLine--;
+    }
+
     if (cursorLine > files.size() - 1) {
         cursorLine = 0;
     } else if (cursorLine < 0) {
@@ -147,7 +163,7 @@ void filePicker() {
     // buffer.append("Files list at /home/cnc/Downloads\n");
     int i = 0;
     for (; i < files.size() && i < LINES_A; i++) {
-        wprintw(list, "%d  %s\n",i, files.at(i).substr(path.size()).data());
+        wprintw(list, "%d  %s\n",i + scrollLine, files.at(i + scrollLine).substr(path.size()).data());
     }
 
     for (;i < LINES_A; i++) {
@@ -166,7 +182,7 @@ void filePicker() {
         cursorLine++;
     } else if (ch == ENTER_REAL) {
         FileLoadGlobal(path + files.at(cursorLine));
-        cliMode = 1;
+        setMode(1);
 	    std::cerr << "Loading file\n";
     }
 }
@@ -223,13 +239,14 @@ void CLI::update() {
     if (cliMode== 0) {
         filePicker();
     } else if (cliMode == 1) {
-        std::cerr << "edit mode enabled\n";
-        nonRunning();
+        fileView();
     } else if (cliMode == 2) {
-        running();
+        manual();
+    } else if (cliMode == 3) {
+
     } else {
         std::cerr << "CLI Mode error, returning to file select\n";
-        cliMode = 0;
+        setMode(0);
     }
 	// refresh();
 }
