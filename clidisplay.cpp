@@ -166,8 +166,6 @@ void FileLoadGlobal(std::string filename) {
     while(!f.eof()) {
         getline(f, line);
         file.push_back(line);
-        std::cerr << "First Line: " << line << "\n";
-        break;
     }
     f.close();
     cursorLine = 0;
@@ -213,12 +211,8 @@ void filePicker() {
     } else if (ch == KEY_DOWN) {
         cursorLine++;
     } else if (ch == ENTER_REAL) {
-	    std::cerr << "Loading file: " << files.at(cursorLine) << "\n";
-        std::string fullpath(path.data());
-        fullpath.append(files.at(cursorLine));
-        FileLoadGlobal(fullpath);
+        FileLoadGlobal(files.at(cursorLine));
         setMode(1);
-        std::cerr << "File Loaded, switching to view mode\n";
     }
     cursorCheck();
 }
