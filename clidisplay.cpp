@@ -36,6 +36,7 @@ uint fileposition = 0;
 std::string path = "/home/cnc/Downloads/";
 
 #define HEADERS_LIST_SIZE 4
+#define MANUAL_OPTIONS_SIZE 11
 
 std::string headers[HEADERS_LIST_SIZE] = {
     "FILES",
@@ -43,6 +44,22 @@ std::string headers[HEADERS_LIST_SIZE] = {
     "CONTROL",
     "ERROR"
 };
+
+std::string maunualOptions[11] = {
+    "X: ",                          // 0
+    "Y: ",
+    "Z: ",
+    "A: ",
+    "B: ",
+    "C: ",
+    "RPM :",
+    "HOME",
+    "COOLING",
+    " ",
+    "CMD: "                         // 10
+};
+
+std::string manualCMD;
 
 
 WINDOW* list;
@@ -81,7 +98,6 @@ void windowChangeCheck(int charnum);
 void windowChangeCheck(int charnum) {
     if (charnum > 47 && charnum < 52) {
         setMode(charnum - 48);
-        std::cerr << "Switching mode too: " << charnum - 48 << "\n";
         return;
     }
 }
@@ -100,10 +116,25 @@ void cursorCheck() {
         } else if (cursorLine < 0) {
             cursorLine = file.size() - 1;
         }
+
         if (cursorCol < 0) {
             cursorCol = 0;
         } else if (cursorCol > file.at(cursorLine).size()) {
             cursorCol = file.at(cursorLine).size();
+        }
+    } else if (cliMode == 2) {
+        if (cursorLine >= MANUAL_OPTIONS_SIZE) {
+            cursorLine = 0;
+        } else if (cursorLine < 0) {
+            cursorLine = MANUAL_OPTIONS_SIZE - 1;
+        }
+
+        if (cursorLine == 10) {
+            if (cursorCol < 0) {
+                cursorCol = 0;
+            } else if (cursorCol > manualCMD.size()) {
+                cursorCol = manualCMD.size();
+            }
         }
     }
 
@@ -125,6 +156,10 @@ void cursorCheck() {
     } else if (cliMode == 1) {
         if (scrollLine + LINES_A > file.size()) {
             scrollLine = file.size() - LINES_A;
+        }
+    } else if (cliMode == 2) {
+        if (scrollLine + LINES_A > MANUAL_OPTIONS_SIZE) {
+            scrollLine = MANUAL_OPTIONS_SIZE - LINES_A;
         }
     }
 }
@@ -188,6 +223,30 @@ void fileView() {
 
 void manual() {
 
+    for (int i = 0; i < MANUAL_OPTIONS_SIZE; i++) {
+        mvwprintw(list, i + 1, 0, "%s", maunualOptions[i].data());
+    }
+
+    wmove(list, cursorLine, 0);
+
+    int ch;
+    ch = wgetch(list);
+
+    wrefresh(list);
+
+    if (ch != ERR) {
+        cursorChange = true;
+    }
+
+    if (ch == KEY_UP) {
+        cursorLine--;
+    } else if (ch == KEY_DOWN) {
+        cursorLine++;
+    }
+
+    windowChangeCheck(ch);
+
+    cursorCheck();
 }
 
 void infoDisp() {
