@@ -161,6 +161,8 @@ void FileLoadGlobal(std::string filename) {
     while(!f.eof()) {
         getline(f, line);
         file.push_back(line);
+        std::cerr << "First Line: " << line << "\n";
+        break;
     }
     f.close();
     cursorLine = 0;
