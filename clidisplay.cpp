@@ -186,6 +186,8 @@ void cursorCheck() {
             } else if (cursorCol > manualCMD.size()) {
                 cursorCol = manualCMD.size();
             }
+        } else {
+            cursorCol = 0;
         }
     }
 
@@ -205,17 +207,14 @@ void cursorCheck() {
 
     if (cliMode == 0) {
         if (scrollLine + LINES_A > files.size()) {
-            std::cerr << "limit 0a\n";
             // scrollLine = files.size() - LINES_A;
         }
     } else if (cliMode == 1) {
         if (scrollLine + LINES_A > file.size()) {
-            std::cerr << "limit 1a\n";
             // scrollLine = file.size() - LINES_A;
         }
     } else if (cliMode == 2) {
         if (scrollLine + LINES_A > MANUAL_OPTIONS_SIZE) {
-            std::cerr << "limit 2a\n";
             scrollLine = MANUAL_OPTIONS_SIZE - LINES_A;
         }
     }
@@ -322,10 +321,10 @@ void manual() {
 
     wrefresh(list);
 
-    
+    bool streditnumlock = true;
 
     if (ch != ERR) {
-        cursorChange = stredit(&manualCMD, ch);
+        streditnumlock = !stredit(&manualCMD, ch);
         cursorChange = true;
     }
 
@@ -333,9 +332,15 @@ void manual() {
         cursorLine--;
     } else if (ch == KEY_DOWN) {
         cursorLine++;
+    } else if (ch == KEY_LEFT) {
+        cursorCol--;
+    } else if (ch == KEY_RIGHT) {
+        cursorCol++;
     }
 
-    windowChangeCheck(ch);
+    if (streditnumlock) {
+        windowChangeCheck(ch);
+    }
 
     cursorCheck();
 }
