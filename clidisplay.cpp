@@ -108,7 +108,7 @@ bool stredit(std::string* str, int chin) {
         out.push_back((char)chin);
 
         if (cursorCol != (*str).size()) {
-            out.append((*str).substr(cursorCol - 1));
+            out.append((*str).substr(cursorCol));
         }
 
         (*str).clear();
@@ -135,7 +135,7 @@ bool stredit(std::string* str, int chin) {
         (*str).clear();
         (*str).append(a);
         (*str).append(b);
-
+        cursorCol--;
         return true;
 
 
