@@ -276,6 +276,8 @@ void setMode(int mode) {
 
 }
 
+int chstore;
+
 void fileView() {
 	if (cursorChange) {
         cursorChange = false;
@@ -303,12 +305,14 @@ void fileView() {
 
         
 	}
+
+    mvwprintw(list, 11, 10, "key code %s %d", keyname(chstore), chstore);
+
     wmove(list, cursorLine + 1 - scrollLine, cursorCol + 10);
 
     int ch;
     ch = wgetch(list);
-
-    mvwprintw(list, 0, 10, "key code %s %d", keyname(ch), ch);
+    chstore = ch;
 
     wrefresh(list);
 
