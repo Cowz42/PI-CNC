@@ -45,7 +45,7 @@ std::string headers[HEADERS_LIST_SIZE] = {
     "ERROR"
 };
 
-std::string maunualOptions[11] = {
+std::string manualOptions[11] = {
     "X: ",                          // 0
     "Y: ",
     "Z: ",
@@ -60,7 +60,8 @@ std::string maunualOptions[11] = {
 };
 
 std::string manualCMD;
-
+std::string manualnumstr;
+bool numedit;
 
 WINDOW* list;
 WINDOW* info;
@@ -95,7 +96,7 @@ bool stredit(std::string* str, int chin);
 
 // returns true if an edit has taken place, false otherwise
 bool stredit(std::string* str, int chin) {
-    if (str == nullptr || cursorLine != 10) {
+    if (str == nullptr) {
         return false;
     }
     if (chin > 31 && chin < 127) {
@@ -231,6 +232,9 @@ void setMode(int mode) {
     cursorLine = 0;
     infoChange = true;
     cursorChange = true;
+    numedit = false;
+    manualCMD.clear();
+    manualnumstr.clear();
 
 }
 
@@ -300,9 +304,9 @@ void manual() {
             float num = 2.85;
             bool enabled = true;
 
-            mvwprintw(list, i + 1, 0, "%s   ", maunualOptions[i].data());
+            mvwprintw(list, i + 1, 0, "%s   ", manualOptions[i].data());
             if (i < 7) {
-                wprintw(list, "%f", num);
+                wprintw(list, "%f", numedit && i == cursorLine ? std::stof(manualnumstr) : num);
             } else if (i == 8) {
                 wprintw(list, "%s", enabled ? "ON" : "OFF");
             } else if (i == 10) {
@@ -314,7 +318,7 @@ void manual() {
 
     }
 
-    wmove(list, cursorLine + 1, cursorLine == 10 ? cursorCol + 8 : maunualOptions[cursorLine].size() + 3);
+    wmove(list, cursorLine + 1, cursorLine == 10 ? cursorCol + 8 : numedit ? manualOptions[cursorLine].size() + cursorCol + 3 : manualOptions[cursorLine].size() + 3);
 
     int ch;
     ch = wgetch(list);
@@ -324,18 +328,59 @@ void manual() {
     bool streditnumlock = true;
 
     if (ch != ERR) {
-        streditnumlock = !stredit(&manualCMD, ch);
+        if (cursorLine == 10) {
+            streditnumlock = !stredit(&manualCMD, ch);
+        } else if (cursorLine > 0 && cursorLine < 7 && numedit) {
+            streditnumlock = !stredit(&manualnumstr, ch);
+        }
         cursorChange = true;
     }
 
     if (ch == KEY_UP) {
+        numedit = false;
         cursorLine--;
     } else if (ch == KEY_DOWN) {
+        numedit = false;
         cursorLine++;
     } else if (ch == KEY_LEFT) {
         cursorCol--;
     } else if (ch == KEY_RIGHT) {
         cursorCol++;
+    } else if (ch == ENTER_REAL) {
+        if (cursorLine == 10) {
+            // cnc.execute(manualCMD)
+            // or whatever it is
+        } else if (numedit) {
+            numedit = false;
+            switch(cursorLine) {
+                case 0:
+                // x set
+                break;
+                case 1:
+                // y set
+                break;
+                case 2:
+                // z set
+                break;
+                case 3:
+                // a set
+                break;
+                case 4:
+                // b set
+                break;
+                case 5:
+                // c set
+                break;
+                case 6:
+                // rpm set
+                break;
+                default:
+                std::cerr << "Illegal value write\n";
+                break;
+            }
+        } else if (cursorLine > 0 && cursorLine < 7) {
+            numedit = true;
+        }
     }
 
     if (streditnumlock) {
