@@ -105,6 +105,7 @@ bool stredit(std::string* str, int chin) {
             out.append(*str);
             (*str).clear();
             (*str).append(out);
+            cursorCol++;
             return true;
         }
 
@@ -115,12 +116,15 @@ bool stredit(std::string* str, int chin) {
         (*str).append(a);
         (*str).push_back((char)chin);
         if (cursorCol == (*str).size()) {
+            cursorCol++;
             return true;
         }
 
         std::string b = (*str).substr(cursorCol - 1);
         (*str).append(b);
+        cursorCol++;
         return true;
+
     } else if (chin == KEY_BACKSPACE) {
         if (cursorCol == 0) {
             return false;
