@@ -99,29 +99,20 @@ bool stredit(std::string* str, int chin) {
         return false;
     }
     if (chin > 31 && chin < 127) {
-        if (cursorCol == 0) {
-            std::string out = "";
-            out.push_back((char)chin);
-            out.append(*str);
-            (*str).clear();
-            (*str).append(out);
-            cursorCol++;
-            return true;
+        std::string out = "";
+
+        if (cursorCol != 0) {
+            out.append((*str).substr(0, cursorCol));
         }
 
-        std::string a = (*str).substr(0, cursorCol);
-        
-        
+        out.push_back((char)chin);
+
+        if (cursorCol != (*str).size()) {
+            out.append((*str).substr(cursorCol - 1));
+        }
+
         (*str).clear();
-        (*str).append(a);
-        (*str).push_back((char)chin);
-        if (cursorCol == (*str).size()) {
-            cursorCol++;
-            return true;
-        }
-
-        std::string b = (*str).substr(cursorCol - 1);
-        (*str).append(b);
+        (*str).append(out);
         cursorCol++;
         return true;
 
