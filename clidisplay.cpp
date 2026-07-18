@@ -95,7 +95,7 @@ bool stredit(std::string* str, int chin);
 
 // returns true if an edit has taken place, false otherwise
 bool stredit(std::string* str, int chin) {
-    if (str == nullptr || cursorCol != 10) {
+    if (str == nullptr || cursorLine != 10) {
         return false;
     }
     if (chin > 31 && chin < 127) {
