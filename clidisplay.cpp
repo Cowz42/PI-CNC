@@ -59,6 +59,16 @@ std::string manualOptions[11] = {
     "CMD: "                         // 10
 };
 
+std::string numstrs[7] = {
+    "FILL BUFFER TEXT",
+    "FILL BUFFER TEXT",
+    "FILL BUFFER TEXT",
+    "FILL BUFFER TEXT",
+    "FILL BUFFER TEXT",
+    "FILL BUFFER TEXT",
+    "FILL BUFFER TEXT"
+};
+
 std::string manualCMD;
 std::string manualnumstr;
 bool numedit;
@@ -93,6 +103,36 @@ void filePicker();
 void cursorCheck();
 void windowChangeCheck(int charnum);
 bool stredit(std::string* str, int chin);
+void numstrbuild();
+
+
+void numstrbuild() {
+    // needs to be replaced by respective get statements
+    
+    float x = 1.3;
+    float y = 1.5;
+    float z = 3.1415926535897932;
+    float a = 2.718281828;
+    float b = 1.414;
+    float c = 1.6;
+    float rpm = 101.5;
+
+    float vals[7] = {
+        x, y, z, a, b, c, rpm
+    };
+
+
+    char buff[100];
+
+    for (int i = 0; i < 7; i++) {
+        if (cursorLine != i || !numedit) {
+            std::snprintf(buff, 50, "%+8.3", vals[i]);
+            numstrs[i].clear();
+            numstrs[i].append(buff);
+        }
+    }
+}
+
 
 // returns true if an edit has taken place, false otherwise
 bool stredit(std::string* str, int chin) {
@@ -297,6 +337,7 @@ void manual() {
         wclear(list);
 
         mvwprintw(list, 0, 0, "Manual Control Options");
+        numstrbuild();
 
         for (int i = 0; i < MANUAL_OPTIONS_SIZE; i++) {
 
@@ -306,19 +347,28 @@ void manual() {
 
             mvwprintw(list, i + 1, 0, "%s   ", manualOptions[i].data());
             if (i < 7) {
-                wprintw(list, "%f", numedit && i == cursorLine ? std::stof(manualnumstr) : num);
+                wprintw(list, "%s", numstrs[i].data());
             } else if (i == 8) {
                 wprintw(list, "%s", enabled ? "ON" : "OFF");
             } else if (i == 10) {
                 wprintw(list, "%s", manualCMD.data());
             } else if (i == 9) {
-                wprintw(list, "L: %d, C: %d, S: %d", cursorLine, cursorCol, manualCMD.size());
+                wprintw(list, "Debug L: %d, C: %d, S: %d", cursorLine, cursorCol, manualCMD.size());
             }
         }
 
     }
 
-    wmove(list, cursorLine + 1, cursorLine == 10 ? cursorCol + 8 : numedit ? manualOptions[cursorLine].size() + cursorCol + 3 : manualOptions[cursorLine].size() + 3);
+    
+
+    if (numedit) {
+        wmove(list, cursorLine + 1, manualOptions[cursorLine].size() + 3 + cursorCol);
+    } else if (cursorLine == 10) {
+        wmove(list, cursorLine + 1, cursorCol + 8);
+    } else {
+        wmove(list, cursorLine + 1, manualOptions[cursorLine].size() + 3);
+    }
+    // wmove(list, cursorLine + 1, cursorLine == 10 ? cursorCol + 8 : numedit ? manualOptions[cursorLine].size() + cursorCol + 3 : manualOptions[cursorLine].size() + 3);
 
     int ch;
     ch = wgetch(list);
@@ -331,7 +381,7 @@ void manual() {
         if (cursorLine == 10) {
             streditnumlock = !stredit(&manualCMD, ch);
         } else if (cursorLine > 0 && cursorLine < 7 && numedit) {
-            streditnumlock = !stredit(&manualnumstr, ch);
+            streditnumlock = !stredit((numstrs + cursorLine), ch);
         }
         cursorChange = true;
     }
