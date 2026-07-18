@@ -30,6 +30,7 @@ std::vector<std::string> files;
 uint fileposition = 0;
 
 #define ENTER_REAL 10
+#define CTRL_E 5
 
 std::string path = "/home/cnc/Downloads/";
 
@@ -316,9 +317,11 @@ void fileView() {
 
     wrefresh(list);
 
+    bool streditnumlock = true;
+
     if (ch != ERR) {
         if (fileedit) {
-            stredit(file.data() + cursorLine, ch);
+            streditnumlock = !stredit(file.data() + cursorLine, ch);
         }
         cursorChange = true;
     }
@@ -333,9 +336,15 @@ void fileView() {
         cursorCol++;
     } else if (ch == 'e' || ch == 'E') {
         fileedit = true;
-    } // else if (ch == )
+    } else if (ch == CTRL_E) {
+        fileedit = false;
+    } else if (ch == KEY_BACKSPACE && file.at(cursorLine).size() == 0 && cursorLine != 0) {
 
-    windowChangeCheck(ch);
+    }
+
+    if (streditnumlock) {
+        windowChangeCheck(ch);
+    }
 
     cursorCheck();
 }
