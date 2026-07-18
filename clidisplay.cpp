@@ -313,13 +313,14 @@ void fileView() {
 
     int ch;
     ch = wgetch(list);
-    chstore = ch;
+    
 
     wrefresh(list);
 
     bool streditnumlock = true;
 
     if (ch != ERR) {
+	chstore = ch;
         if (fileedit) {
             streditnumlock = !stredit(file.data() + cursorLine, ch);
         }
