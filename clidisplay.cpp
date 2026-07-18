@@ -220,8 +220,13 @@ void cursorCheck() {
         } else if (cursorLine < 0) {
             cursorLine = MANUAL_OPTIONS_SIZE - 1;
         }
-
-        if (cursorLine == 10) {
+        if (cursorLine < 7 && cursorLine >= 0) {
+            if (cursorCol > numstrs[cursorLine].size()) {
+                cursorCol = numstrs[cursorLine].size();
+            } else if (cursorCol < 0) {
+                cursorCol = 0;
+            }
+        } else if (cursorLine == 10) {
             if (cursorCol < 0) {
                 cursorCol = 0;
             } else if (cursorCol > manualCMD.size()) {
