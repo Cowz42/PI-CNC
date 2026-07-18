@@ -312,11 +312,12 @@ void fileView() {
 
     int ch;
     ch = wgetch(list);
-    chstore = ch;
+    
 
     wrefresh(list);
 
     if (ch != ERR) {
+	chstore = ch;
         if (fileedit) {
             stredit(file.data() + cursorLine, ch);
         }
