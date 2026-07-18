@@ -91,6 +91,60 @@ void infoStart();
 void filePicker();
 void cursorCheck();
 void windowChangeCheck(int charnum);
+bool stredit(std::string* str, int chin);
+
+// returns true if an edit has taken place, false otherwise
+bool stredit(std::string* str, int chin) {
+    if (str == nullptr) {
+        return false;
+    }
+    if (chin > 31 && chin < 127) {
+        if (cursorCol == 0) {
+            std::string out = "";
+            out.push_back((char)chin);
+            out.append(*str);
+            (*str).clear();
+            (*str).append(out);
+            return true;
+        }
+
+        std::string a = (*str).substr(0, cursorCol);
+        
+        
+        (*str).clear();
+        (*str).append(a);
+        (*str).push_back((char)chin);
+        if (cursorCol == (*str).size()) {
+            return true;
+        }
+
+        std::string b = (*str).substr(cursorCol - 1);
+        (*str).append(b);
+        return true;
+    } else if (chin == KEY_BACKSPACE) {
+        if (cursorCol == 0) {
+            return false;
+        } else if (cursorCol == 1) {
+            (*str) = (*str).substr(1);
+            return true;
+        } else if (cursorCol == (*str).size()) {
+            (*str) = (*str).substr(0, (*str).size() - 1);
+            return true;
+        }
+
+        std::string a = (*str).substr(0, cursorCol - 1);
+        std::string b = (*str).substr(cursorCol);
+
+        (*str).clear();
+        (*str).append(a);
+        (*str).append(b);
+
+        return true;
+
+
+    }
+    return false;
+}
 
 
 
@@ -269,6 +323,8 @@ void manual() {
 
     wrefresh(list);
 
+    cursorChange = stredit(&manualCMD, ch);
+
     if (ch != ERR) {
         cursorChange = true;
     }
@@ -336,6 +392,7 @@ void FileLoadGlobal(std::string filename) {
         file.push_back(line);
     }
     f.close();
+    file.shrink_to_fit();
     cursorLine = 0;
 }
 
