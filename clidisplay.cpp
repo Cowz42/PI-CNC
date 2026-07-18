@@ -27,8 +27,6 @@ std::vector<std::string> file;
 
 std::vector<std::string> files;
 
-std::vector<std::string> fileBuffer;
-
 uint fileposition = 0;
 
 #define ENTER_REAL 10
@@ -59,19 +57,13 @@ std::string manualOptions[11] = {
     "CMD: "                         // 10
 };
 
-std::string numstrs[7] = {
-    "FILL BUFFER TEXT",
-    "FILL BUFFER TEXT",
-    "FILL BUFFER TEXT",
-    "FILL BUFFER TEXT",
-    "FILL BUFFER TEXT",
-    "FILL BUFFER TEXT",
-    "FILL BUFFER TEXT"
-};
+std::string numstrs[7];
 
 std::string manualCMD;
 std::string manualnumstr;
 bool numedit;
+
+bool fileedit;
 
 WINDOW* list;
 WINDOW* info;
@@ -278,6 +270,7 @@ void setMode(int mode) {
     infoChange = true;
     cursorChange = true;
     numedit = false;
+    fileedit = false;
     manualCMD.clear();
     manualnumstr.clear();
 
@@ -315,9 +308,14 @@ void fileView() {
     int ch;
     ch = wgetch(list);
 
+    mvwprintw(list, 0, 10, "key code %s %d", keyname(ch), ch);
+
     wrefresh(list);
 
     if (ch != ERR) {
+        if (fileedit) {
+            stredit(file.data() + cursorLine, ch);
+        }
         cursorChange = true;
     }
 
@@ -329,7 +327,9 @@ void fileView() {
         cursorCol--;
     } else if (ch == KEY_RIGHT) {
         cursorCol++;
-    }
+    } else if (ch == 'e' || ch == 'E') {
+        fileedit = true;
+    } // else if (ch == )
 
     windowChangeCheck(ch);
 
@@ -490,6 +490,7 @@ void FileLoadGlobal(std::string filename) {
     std::string line = "";
     if (!f.is_open()) {
         std::cerr << "File Open Failure\n";
+        setMode(0);
         return;
     }
     while(!f.eof()) {
@@ -499,19 +500,7 @@ void FileLoadGlobal(std::string filename) {
     f.close();
     file.shrink_to_fit();
     cursorLine = 0;
-}
-
-void loadFileBuffer() {
-	if (cliMode == 1 || cliMode == 2) {
-        fileBuffer.clear();
-        for (uint i = cursorLine; i < cursorLine + LINES_A; i++) {
-            fileBuffer.push_back(file.at(i));
-        }
-    } else if (cliMode == 3) {
-        for (uint i = cursorLine; i < cursorLine + (errArr.size() > LINES_A ? LINES_A : errArr.size()); i++) {
-
-        }
-    }
+    setMode(1);
 }
 
 
@@ -553,7 +542,6 @@ void filePicker() {
         wclear(list);
         mvwprintw(list, 0, 0, "Loading File %s", files.at(cursorLine).data());
         FileLoadGlobal(files.at(cursorLine));
-        setMode(1);
     }
 	windowChangeCheck(ch);
 
