@@ -315,16 +315,17 @@ void manual() {
 
     }
 
-    wmove(list, cursorLine + 1, cursorLine == 10 ? cursorCol + 4 : maunualOptions[cursorLine].size() + 7);
+    wmove(list, cursorLine + 1, cursorLine == 10 ? cursorCol + 8 : maunualOptions[cursorLine].size() + 3);
 
     int ch;
     ch = wgetch(list);
 
     wrefresh(list);
 
-    cursorChange = stredit(&manualCMD, ch);
+    
 
     if (ch != ERR) {
+        cursorChange = stredit(&manualCMD, ch);
         cursorChange = true;
     }
 
