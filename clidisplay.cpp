@@ -308,12 +308,14 @@ void manual() {
                 wprintw(list, "%s", enabled ? "ON" : "OFF");
             } else if (i == 10) {
                 wprintw(list, "%s", manualCMD.data());
+            } else if (i == 9) {
+                wprintw(list, "L: %d, C: %d, S: %d", cursorLine, cursorCol, manualCMD.size());
             }
         }
 
     }
 
-    wmove(list, cursorLine + 1, cursorLine == 10 ? cursorCol + 4 : maunualOptions[cursorLine].size() + 3);
+    wmove(list, cursorLine + 1, cursorLine == 10 ? cursorCol + 4 : maunualOptions[cursorLine].size() + 7);
 
     int ch;
     ch = wgetch(list);
