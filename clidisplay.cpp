@@ -180,7 +180,7 @@ bool stredit(std::string* str, int chin) {
     return false;
 }
 
-bool strvecedit(std::vector<std::string>* strvec, int chin, int offset = 0) {
+bool strvecedit(std::vector<std::string>* strvec, int chin, int offset) {
     if (chin == KEY_BACKSPACE) {
         if (cursorCol == 0 && cursorLine != 0) {
             (*strvec).at(cursorLine + offset - 1).append((*strvec).at(cursorLine + offset));
@@ -345,7 +345,7 @@ void fileView() {
     if (ch != ERR) {
 	chstore = ch;
         if (fileedit) {
-            streditnumlock = !strvecedit(&file, ch);
+            streditnumlock = !strvecedit(&file, ch, 0);
         }
         cursorChange = true;
     }
