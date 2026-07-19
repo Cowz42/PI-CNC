@@ -271,7 +271,7 @@ void cursorCheck() {
     if (cursorLine < scrollLine) {
         scrollLine = cursorLine;
     } else if (cursorLine > scrollLine + (LINES_A - 1)) {
-        std::cerr << "limit a\n";
+        // std::cerr << "limit a\n";
         scrollLine = cursorLine - (LINES_A - 1);
     }
 
