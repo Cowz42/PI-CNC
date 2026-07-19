@@ -183,6 +183,8 @@ bool stredit(std::string* str, int chin) {
 bool strvecedit(std::vector<std::string>* strvec, int chin) {
     if (chin == KEY_BACKSPACE) {
         if (cursorCol == 0 && cursorLine != 0) {
+            cursorCol = (*strvec).at(cursorLine - 1).size();
+
             if ((*strvec).size() - 1 != cursorLine) {
                 (*strvec).at(cursorLine  - 1).append((*strvec).at(cursorLine ));
                 (*strvec).erase((*strvec).begin() + cursorLine );
@@ -191,7 +193,6 @@ bool strvecedit(std::vector<std::string>* strvec, int chin) {
                 (*strvec).pop_back();
             }
             cursorLine--;
-            cursorCol = (*strvec).at(cursorLine).size();
 
             return true;
         }
@@ -234,7 +235,7 @@ void cursorCheck() {
         if (cursorLine >= file.size()) {
             cursorLine = file.size() - 1;
         } else if (cursorLine < 0) {
-            cursorLine = file.size() - 1;
+            cursorLine = 0;
         }
 
         if (cursorCol < 0) {
