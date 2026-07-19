@@ -99,7 +99,7 @@ void windowChangeCheck(int charnum);
 bool stredit(std::string* str, int chin);
 void numstrbuild();
 void FileWriteOut();
-bool strvecedit(std::vector<std::string>* strvec, int chin, int offset = 0);
+bool strvecedit(std::vector<std::string>* strvec, int chin);
 
 
 void numstrbuild() {
@@ -180,26 +180,38 @@ bool stredit(std::string* str, int chin) {
     return false;
 }
 
-bool strvecedit(std::vector<std::string>* strvec, int chin, int offset) {
+bool strvecedit(std::vector<std::string>* strvec, int chin) {
     if (chin == KEY_BACKSPACE) {
         if (cursorCol == 0 && cursorLine != 0) {
-            (*strvec).at(cursorLine + offset - 1).append((*strvec).at(cursorLine + offset));
-            (*strvec).erase((*strvec).begin() + cursorLine + offset);
+            if ((*strvec).size() - 1 != cursorLine) {
+                (*strvec).at(cursorLine  - 1).append((*strvec).at(cursorLine ));
+                (*strvec).erase((*strvec).begin() + cursorLine );
+            } else {
+                (*strvec).at(cursorLine - 1).append((*strvec).at(cursorLine));
+                (*strvec).pop_back();
+            }
+            cursorLine--;
+            cursorCol = (*strvec).at(cursorLine).size();
+
             return true;
         }
     } else if (chin == ENTER_REAL) {
-        if (cursorCol - 1 == (*strvec).at(cursorLine + offset).size()) {
-            (*strvec).insert((*strvec).begin() + cursorLine + offset, "");
+        if (cursorCol - 1 == (*strvec).at(cursorLine ).size()) {
+            (*strvec).insert((*strvec).begin() + cursorLine , "");
+            cursorLine++;
+            cursorCol = 0;
             return true;
         } else {
-            std::string a = (*strvec).at(cursorLine + offset).substr(0, cursorCol);
-            (*strvec).insert((*strvec).begin() + cursorLine + 1, (*strvec).at(cursorLine + offset).substr(cursorCol, (*strvec).at(cursorLine + offset).size()));
-            (*strvec).at(cursorLine + offset) = a;
+            std::string a = (*strvec).at(cursorLine ).substr(0, cursorCol);
+            (*strvec).insert((*strvec).begin() + cursorLine + 1, (*strvec).at(cursorLine ).substr(cursorCol, (*strvec).at(cursorLine ).size()));
+            (*strvec).at(cursorLine ) = a;
+            cursorLine++;
+            cursorCol = 0;
             return true;
         }
     }
 
-    return stredit((*strvec).data() + cursorLine + offset, chin);
+    return stredit((*strvec).data() + cursorLine, chin);
 }
 
 
@@ -345,7 +357,7 @@ void fileView() {
     if (ch != ERR) {
 	chstore = ch;
         if (fileedit) {
-            streditnumlock = !strvecedit(&file, ch, 0);
+            streditnumlock = !strvecedit(&file, ch);
         }
         cursorChange = true;
     }
@@ -649,7 +661,7 @@ void CLI::update() {
     } else if (cliMode == 2) {
         manual();
     } else if (cliMode == 3) {
-
+        setMode(0);
     } else {
         std::cerr << "CLI Mode error, returning to file select\n";
         setMode(0);
