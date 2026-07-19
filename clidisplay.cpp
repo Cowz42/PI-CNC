@@ -122,7 +122,7 @@ void numstrbuild() {
 
     for (int i = 0; i < 7; i++) {
         if (cursorLine != i || !numedit) {
-            std::snprintf(buff, 50, "%+8.3", vals[i]);
+            std::snprintf(buff, 50, "%+8.3f", vals[i]);
             numstrs[i].clear();
             numstrs[i].append(buff);
         }
