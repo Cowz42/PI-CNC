@@ -345,7 +345,7 @@ void fileView() {
     if (ch != ERR) {
 	chstore = ch;
         if (fileedit) {
-            streditnumlock = !stredit(file.data() + cursorLine, ch);
+            streditnumlock = !strvecedit(&file, ch);
         }
         cursorChange = true;
     }
