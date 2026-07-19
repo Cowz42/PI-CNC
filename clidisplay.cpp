@@ -220,7 +220,7 @@ void cursorCheck() {
         }
     } else if (cliMode == 1) {
         if (cursorLine >= file.size()) {
-            cursorLine = 0;
+            cursorLine = file.size() - 1;
         } else if (cursorLine < 0) {
             cursorLine = file.size() - 1;
         }
