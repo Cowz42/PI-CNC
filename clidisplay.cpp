@@ -31,6 +31,7 @@ uint fileposition = 0;
 
 #define ENTER_REAL 10
 #define CTRL_E 5
+#define CTRL_X 24
 
 std::string path = "/home/cnc/Downloads/";
 
@@ -97,6 +98,8 @@ void cursorCheck();
 void windowChangeCheck(int charnum);
 bool stredit(std::string* str, int chin);
 void numstrbuild();
+void FileWriteOut();
+bool strvecedit(std::vector<std::string>* strvec, int chin, int offset = 0);
 
 
 void numstrbuild() {
@@ -177,7 +180,27 @@ bool stredit(std::string* str, int chin) {
     return false;
 }
 
+bool strvecedit(std::vector<std::string>* strvec, int chin, int offset = 0) {
+    if (chin == KEY_BACKSPACE) {
+        if (cursorCol == 0 && cursorLine != 0) {
+            (*strvec).at(cursorLine + offset - 1).append((*strvec).at(cursorLine + offset));
+            (*strvec).erase((*strvec).begin() + cursorLine + offset);
+            return true;
+        }
+    } else if (chin == ENTER_REAL) {
+        if (cursorCol - 1 == (*strvec).at(cursorLine + offset).size()) {
+            (*strvec).insert((*strvec).begin() + cursorLine + offset, "");
+            return true;
+        } else {
+            std::string a = (*strvec).at(cursorLine + offset).substr(0, cursorCol);
+            (*strvec).insert((*strvec).begin() + cursorLine + 1, (*strvec).at(cursorLine + offset).substr(cursorCol, (*strvec).at(cursorLine + offset).size()));
+            (*strvec).at(cursorLine + offset) = a;
+            return true;
+        }
+    }
 
+    return stredit((*strvec).data() + cursorLine + offset, chin);
+}
 
 
 void windowChangeCheck(int charnum) {
@@ -341,6 +364,8 @@ void fileView() {
         fileedit = false;
     } else if (ch == KEY_BACKSPACE && file.at(cursorLine).size() == 0 && cursorLine != 0) {
 
+    } else if (ch == CTRL_X) {
+        FileWriteOut();
     }
 
     if (streditnumlock) {
@@ -517,6 +542,9 @@ void FileLoadGlobal(std::string filename) {
     setMode(1);
 }
 
+void FileWriteOut() {
+
+}
 
 
 void filePicker() {
