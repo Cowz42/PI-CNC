@@ -5,19 +5,19 @@ CMakeFiles/pi-cnc.dir/clidisplay.cpp.o
  /home/colin/Documents/PI-CNC/clidisplay.cpp
  /home/colin/Documents/PI-CNC/clidisplay.h
  /home/colin/Documents/PI-CNC/commands.h
- /home/colin/Documents/PI-CNC/gcode.h
- /home/colin/Documents/PI-CNC/gcodeinterface.h
- /home/colin/Documents/PI-CNC/gcodeparse.h
+ /home/colin/Documents/PI-CNC/file.h
  /home/colin/Documents/PI-CNC/globalcommunication.h
  /home/colin/Documents/PI-CNC/machine.h
  /home/colin/Documents/PI-CNC/positioncalc.h
  /home/colin/Documents/PI-CNC/programrun.h
- /home/colin/Documents/PI-CNC/raspi-io.h
- /home/colin/Documents/PI-CNC/stepper.h
- /home/colin/Documents/PI-CNC/time.h
 CMakeFiles/pi-cnc.dir/gcode.cpp.o
  /home/colin/Documents/PI-CNC/gcode.cpp
  /home/colin/Documents/PI-CNC/gcode.h
+CMakeFiles/pi-cnc.dir/gcodeinterface.cpp.o
+ /home/colin/Documents/PI-CNC/commands.h
+ /home/colin/Documents/PI-CNC/gcode.h
+ /home/colin/Documents/PI-CNC/gcodeinterface.cpp
+ /home/colin/Documents/PI-CNC/gcodeinterface.h
 CMakeFiles/pi-cnc.dir/gcodeparse.cpp.o
  /home/colin/Documents/PI-CNC/gcode.h
  /home/colin/Documents/PI-CNC/gcodeparse.cpp
@@ -32,7 +32,11 @@ CMakeFiles/pi-cnc.dir/iocontroller.cpp.o
  /home/colin/Documents/PI-CNC/raspi-io.h
 CMakeFiles/pi-cnc.dir/main.cpp.o
  /home/colin/Documents/PI-CNC/clidisplay.h
+ /home/colin/Documents/PI-CNC/commands.h
+ /home/colin/Documents/PI-CNC/machine.h
  /home/colin/Documents/PI-CNC/main.cpp
+ /home/colin/Documents/PI-CNC/positioncalc.h
+ /home/colin/Documents/PI-CNC/programrun.h
 CMakeFiles/pi-cnc.dir/positioncalc.cpp.o
  /home/colin/Documents/PI-CNC/commands.h
  /home/colin/Documents/PI-CNC/machine.h
@@ -49,7 +53,6 @@ CMakeFiles/pi-cnc.dir/programrun.cpp.o
  /home/colin/Documents/PI-CNC/programrun.h
  /home/colin/Documents/PI-CNC/raspi-io.h
  /home/colin/Documents/PI-CNC/stepper.h
- /home/colin/Documents/PI-CNC/time.h
 CMakeFiles/pi-cnc.dir/stepper.cpp.o
  /home/colin/Documents/PI-CNC/raspi-io.h
  /home/colin/Documents/PI-CNC/stepper.cpp

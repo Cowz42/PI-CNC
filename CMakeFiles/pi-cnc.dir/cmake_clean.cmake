@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/pi-cnc.dir/clidisplay.cpp.o"
   "CMakeFiles/pi-cnc.dir/gcode.cpp.o"
+  "CMakeFiles/pi-cnc.dir/gcodeinterface.cpp.o"
   "CMakeFiles/pi-cnc.dir/gcodeparse.cpp.o"
   "CMakeFiles/pi-cnc.dir/globalcommunication.cpp.o"
   "CMakeFiles/pi-cnc.dir/iocontroller.cpp.o"

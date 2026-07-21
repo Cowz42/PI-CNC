@@ -47,7 +47,7 @@ target_link_libraries(
 	PRIVATE ${CURSES_LIBRARIES}
 )
 
-target_line_libraries(
+target_link_libraries(
     pi-cnc-service-exec
 
 	PRIVATE wiringPi

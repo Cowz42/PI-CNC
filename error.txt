@@ -2,6 +2,5 @@ Starting CNC
 Starting cli
 Started Successfully
 Update Ran once
+Loading file "/home/cnc/Downloads/longfile.txt" to the program
 Loading file "/home/cnc/Downloads/How_To_Use.txt" to the program
-terminate called after throwing an instance of 'std::out_of_range'
-  what():  vector::_M_range_check: __n (which is 12) >= this->size() (which is 12)

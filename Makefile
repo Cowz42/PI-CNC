@@ -196,6 +196,33 @@ gcode.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pi-cnc.dir/build.make CMakeFiles/pi-cnc.dir/gcode.cpp.s
 .PHONY : gcode.cpp.s
 
+gcodeinterface.o: gcodeinterface.cpp.o
+
+.PHONY : gcodeinterface.o
+
+# target to build an object file
+gcodeinterface.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pi-cnc.dir/build.make CMakeFiles/pi-cnc.dir/gcodeinterface.cpp.o
+.PHONY : gcodeinterface.cpp.o
+
+gcodeinterface.i: gcodeinterface.cpp.i
+
+.PHONY : gcodeinterface.i
+
+# target to preprocess a source file
+gcodeinterface.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pi-cnc.dir/build.make CMakeFiles/pi-cnc.dir/gcodeinterface.cpp.i
+.PHONY : gcodeinterface.cpp.i
+
+gcodeinterface.s: gcodeinterface.cpp.s
+
+.PHONY : gcodeinterface.s
+
+# target to generate assembly for a file
+gcodeinterface.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pi-cnc.dir/build.make CMakeFiles/pi-cnc.dir/gcodeinterface.cpp.s
+.PHONY : gcodeinterface.cpp.s
+
 gcodeparse.o: gcodeparse.cpp.o
 
 .PHONY : gcodeparse.o
@@ -427,6 +454,9 @@ help:
 	@echo "... gcode.o"
 	@echo "... gcode.i"
 	@echo "... gcode.s"
+	@echo "... gcodeinterface.o"
+	@echo "... gcodeinterface.i"
+	@echo "... gcodeinterface.s"
 	@echo "... gcodeparse.o"
 	@echo "... gcodeparse.i"
 	@echo "... gcodeparse.s"

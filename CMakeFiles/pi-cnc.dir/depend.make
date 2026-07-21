@@ -4,19 +4,19 @@
 CMakeFiles/pi-cnc.dir/clidisplay.cpp.o: clidisplay.cpp
 CMakeFiles/pi-cnc.dir/clidisplay.cpp.o: clidisplay.h
 CMakeFiles/pi-cnc.dir/clidisplay.cpp.o: commands.h
-CMakeFiles/pi-cnc.dir/clidisplay.cpp.o: gcode.h
-CMakeFiles/pi-cnc.dir/clidisplay.cpp.o: gcodeinterface.h
-CMakeFiles/pi-cnc.dir/clidisplay.cpp.o: gcodeparse.h
+CMakeFiles/pi-cnc.dir/clidisplay.cpp.o: file.h
 CMakeFiles/pi-cnc.dir/clidisplay.cpp.o: globalcommunication.h
 CMakeFiles/pi-cnc.dir/clidisplay.cpp.o: machine.h
 CMakeFiles/pi-cnc.dir/clidisplay.cpp.o: positioncalc.h
 CMakeFiles/pi-cnc.dir/clidisplay.cpp.o: programrun.h
-CMakeFiles/pi-cnc.dir/clidisplay.cpp.o: raspi-io.h
-CMakeFiles/pi-cnc.dir/clidisplay.cpp.o: stepper.h
-CMakeFiles/pi-cnc.dir/clidisplay.cpp.o: time.h
 
 CMakeFiles/pi-cnc.dir/gcode.cpp.o: gcode.cpp
 CMakeFiles/pi-cnc.dir/gcode.cpp.o: gcode.h
+
+CMakeFiles/pi-cnc.dir/gcodeinterface.cpp.o: commands.h
+CMakeFiles/pi-cnc.dir/gcodeinterface.cpp.o: gcode.h
+CMakeFiles/pi-cnc.dir/gcodeinterface.cpp.o: gcodeinterface.cpp
+CMakeFiles/pi-cnc.dir/gcodeinterface.cpp.o: gcodeinterface.h
 
 CMakeFiles/pi-cnc.dir/gcodeparse.cpp.o: gcode.h
 CMakeFiles/pi-cnc.dir/gcodeparse.cpp.o: gcodeparse.cpp
@@ -31,7 +31,11 @@ CMakeFiles/pi-cnc.dir/iocontroller.cpp.o: iocontroller.h
 CMakeFiles/pi-cnc.dir/iocontroller.cpp.o: raspi-io.h
 
 CMakeFiles/pi-cnc.dir/main.cpp.o: clidisplay.h
+CMakeFiles/pi-cnc.dir/main.cpp.o: commands.h
+CMakeFiles/pi-cnc.dir/main.cpp.o: machine.h
 CMakeFiles/pi-cnc.dir/main.cpp.o: main.cpp
+CMakeFiles/pi-cnc.dir/main.cpp.o: positioncalc.h
+CMakeFiles/pi-cnc.dir/main.cpp.o: programrun.h
 
 CMakeFiles/pi-cnc.dir/positioncalc.cpp.o: commands.h
 CMakeFiles/pi-cnc.dir/positioncalc.cpp.o: machine.h
@@ -48,7 +52,6 @@ CMakeFiles/pi-cnc.dir/programrun.cpp.o: programrun.cpp
 CMakeFiles/pi-cnc.dir/programrun.cpp.o: programrun.h
 CMakeFiles/pi-cnc.dir/programrun.cpp.o: raspi-io.h
 CMakeFiles/pi-cnc.dir/programrun.cpp.o: stepper.h
-CMakeFiles/pi-cnc.dir/programrun.cpp.o: time.h
 
 CMakeFiles/pi-cnc.dir/stepper.cpp.o: raspi-io.h
 CMakeFiles/pi-cnc.dir/stepper.cpp.o: stepper.cpp

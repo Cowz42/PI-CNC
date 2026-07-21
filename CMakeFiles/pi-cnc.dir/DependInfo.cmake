@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/colin/Documents/PI-CNC/clidisplay.cpp" "/home/colin/Documents/PI-CNC/CMakeFiles/pi-cnc.dir/clidisplay.cpp.o"
   "/home/colin/Documents/PI-CNC/gcode.cpp" "/home/colin/Documents/PI-CNC/CMakeFiles/pi-cnc.dir/gcode.cpp.o"
+  "/home/colin/Documents/PI-CNC/gcodeinterface.cpp" "/home/colin/Documents/PI-CNC/CMakeFiles/pi-cnc.dir/gcodeinterface.cpp.o"
   "/home/colin/Documents/PI-CNC/gcodeparse.cpp" "/home/colin/Documents/PI-CNC/CMakeFiles/pi-cnc.dir/gcodeparse.cpp.o"
   "/home/colin/Documents/PI-CNC/globalcommunication.cpp" "/home/colin/Documents/PI-CNC/CMakeFiles/pi-cnc.dir/globalcommunication.cpp.o"
   "/home/colin/Documents/PI-CNC/iocontroller.cpp" "/home/colin/Documents/PI-CNC/CMakeFiles/pi-cnc.dir/iocontroller.cpp.o"
