@@ -4,18 +4,25 @@ project(pi-cnc)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(SOURCE_FILES
-    gcode.cpp
-    gcodeparse.cpp
-    iocontroller.cpp
-    positioncalc.cpp
-    programrun.cpp
-    stepper.cpp
-    vfdcontrol.cpp
-    globalcommunication.cpp
-    clidisplay.cpp
-    gcodeinterface.cpp
-    main.cpp
+set(SERVICE_SOURCE_FILES
+    ./service/gcode.cpp
+    ./service/gcodeparse.cpp
+    ./service/iocontroller.cpp
+    ./service/positioncalc.cpp
+    ./service/programrun.cpp
+    ./service/stepper.cpp
+    ./service/vfdcontrol.cpp
+    ./service/globalcommunication.cpp
+    ./service/clidisplay.cpp
+    ./service/gcodeinterface.cpp
+    ./service/socketmanager.cpp
+    ./service/servicemain.cpp
+)
+
+set(CLIENT_SOURCE_FILES
+    ./service/socketmanager.cpp
+    ./clientcli/clidisplay.cpp
+    ./clientcli/clientmain.cpp
 )
 
 
@@ -27,12 +34,10 @@ find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIR})
 
 
-add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+add_executable(pi-cnc-service-exec ${SOURCE_FILES})
 
+add_executable(${PROJECT_NAME} ${CLIENT_SOURCE_FILES})
 
-
-#add_subdirectory(./lib/glfw-3.4/)
-#target_link_libraries(${PROJECT_NAME} glfw)
 
 
 
@@ -40,8 +45,11 @@ target_link_libraries(
 	${PROJECT_NAME}
 
 	PRIVATE ${CURSES_LIBRARIES}
+)
+
+target_line_libraries(
+    pi-cnc-service-exec
 
 	PRIVATE wiringPi
 )
-
 

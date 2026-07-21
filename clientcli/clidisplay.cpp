@@ -10,8 +10,6 @@
 #include<string>
 #include<iostream>
 #include<curses.h>
-#include"globalcommunication.h"
-#include"programrun.h"
 #include<vector>
 #include<fstream>
 #include<iostream>
@@ -84,8 +82,6 @@ int scrollLine;
 // 2 = running
 // 3 = error log
 int cliMode = 0;
-
-StepperControl* gantryCLI;
 
 void setMode(int mode);
 void fileView();
@@ -608,8 +604,7 @@ int CLI::start() {
     cursorChange = true;
     infoChange = true;
     cliMode = 0;
-    gantryCLI = cnc.getGantry();
-    if (gantryCLI == nullptr) {
+    if (false) {
         std::cerr << "No gantry detected\n";
         return -1;
     }

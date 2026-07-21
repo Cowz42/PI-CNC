@@ -8,6 +8,7 @@
 
 #include"positioncalc.h"
 #include<string>
+#define SERVICE_SOCKET
 
 class CNC {
 public:

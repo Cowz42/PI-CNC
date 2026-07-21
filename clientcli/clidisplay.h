@@ -8,6 +8,7 @@
 
 #include<string>
 #include<vector>
+#define CLIENT_SOCKET
 
 
 
@@ -25,8 +26,8 @@ extern uint fileposition;
 
 extern std::string WorkingFileGlobal;
 
-extern std::vector<std::string> errArr;
-extern std::vector<std::string> msgArr;
+// extern std::vector<std::string> errArr;
+// extern std::vector<std::string> msgArr;
 
 
 #endif

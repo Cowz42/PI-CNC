@@ -1,0 +1,13 @@
+
+
+
+[Unit]
+Description=IO and backend CNC manager
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/pi-cnc-service-exec
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
