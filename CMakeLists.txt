@@ -13,7 +13,6 @@ set(SERVICE_SOURCE_FILES
     ./service/stepper.cpp
     ./service/vfdcontrol.cpp
     ./service/globalcommunication.cpp
-    ./service/clidisplay.cpp
     ./service/gcodeinterface.cpp
     ./service/socketmanager.cpp
     ./service/servicemain.cpp
@@ -34,7 +33,7 @@ find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIR})
 
 
-add_executable(pi-cnc-service-exec ${SOURCE_FILES})
+add_executable(pi-cnc-service-exec ${SERVICE_SOURCE_FILES})
 
 add_executable(${PROJECT_NAME} ${CLIENT_SOURCE_FILES})
 

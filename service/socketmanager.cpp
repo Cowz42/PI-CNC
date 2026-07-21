@@ -122,12 +122,13 @@ bool Socket::start() {
         return false;
     }
 
-    char* start = "Version Alpha, bing chillin";
+    char start[] = "Version Alpha, bing chillin";
 
     if (send(server_socket, start, strlen(start), 0) < 0) {
         std::cerr << "Send Failure, being sad :(\n";
         return false;
     }
+	return false;
 }
 
 
