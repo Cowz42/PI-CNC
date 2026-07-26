@@ -6,7 +6,7 @@
 
 #include<iostream>
 #include"clidisplay.h"
-#include"../service/socketmanager.h"
+#include"../globaldef/socketmanager.h"
 
 
 

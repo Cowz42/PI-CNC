@@ -8,24 +8,17 @@
 
 #include"clidisplay.h"
 #include<string>
-#include<iostream>
 #include<curses.h>
 #include<vector>
 #include<fstream>
 #include<iostream>
 #include<filesystem>
-#include"../service/file.h"
+#include"../globaldef/file.h"
 #include<algorithm>
 
 namespace fs = std::filesystem;
 
-std::string WorkingFileGlobal = "";
-
-std::vector<std::string> file;
-
 std::vector<std::string> files;
-
-uint fileposition = 0;
 
 #define ENTER_REAL 10
 #define CTRL_E 5
@@ -528,28 +521,6 @@ void infoStart() {
 
 
 
-void FileLoadGlobal(std::string filename) {
-    if (filename.compare("") != 0) {
-        WorkingFileGlobal = filename;
-    }
-    file.clear();
-    std::cerr << "Loading file \"" << WorkingFileGlobal << "\" to the program\n";
-    std::ifstream f(WorkingFileGlobal);
-    std::string line = "";
-    if (!f.is_open()) {
-        std::cerr << "File Open Failure\n";
-        setMode(0);
-        return;
-    }
-    while(!f.eof()) {
-        getline(f, line);
-        file.push_back(line);
-    }
-    f.close();
-    file.shrink_to_fit();
-    cursorLine = 0;
-    setMode(1);
-}
 
 void FileWriteOut() {
 

@@ -12,8 +12,29 @@
 #include<stdlib.h>
 #include<unistd.h>
 
+#define STR2(x) #x
+#define STR(y) STR2(y)
+
 #define BUFFER_SIZE 256
+#define BUFFER_SIZE_STR "" STR(BUFFER_SIZE)
+
+
 #define SOCKET_NUM 9001
+
+
+
+enum KEYS {
+    X_P,
+    Y_P,
+    Z_P,
+    A_P,
+    B_P,
+    C_B,
+    R_S,
+    F_N,
+    L_S,
+    E_S
+};
 
 
 char socketbuffer[BUFFER_SIZE];
@@ -29,7 +50,7 @@ struct sockaddr_in serv_addr;
 Socket s;
 
 #ifndef CLIENT_SOCKET
-#define CLIENT_SOCKET
+#define DFSDLKFJSDKJFSLKDJF
 #endif
 
 
@@ -161,4 +182,8 @@ void Socket::end() {
 #endif
 #endif
 
-
+void sendVal(KEYS key, std::string value) {
+    char b[BUFFER_SIZE];
+    snprintf(b, BUFFER_SIZE, "%" BUFFER_SIZE_STR "s", value.data());
+    s.transmit(b);
+}

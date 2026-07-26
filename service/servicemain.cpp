@@ -7,7 +7,7 @@
 
 
 #include"programrun.h"
-#include"socketmanager.h"
+#include"../globaldef/socketmanager.h"
 #include<unistd.h>
 #include<string>
 

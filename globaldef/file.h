@@ -10,7 +10,8 @@
 
 extern std::string WorkingFileGlobal;
 extern std::vector<std::string> file;
+extern uint fileposition;
 
-void FileLoadGlobal(std::string filename);
+int FileLoadGlobal(std::string filename);
 
 #endif
