@@ -8,11 +8,16 @@
 
 class Socket {
     public:
-    static bool start();
-    static void end();
-    static void transmit(std::string msg);
-    static void transmit(const char*);
-    static std::string recieve();
+    static bool starts();
+    static bool startc();
+    static void ends();
+    static void endc();
+    static void transmits(std::string msg);
+    static void transmits(const char*);
+    static void transmitc(std::string msg);
+    static void transmitc(const char*);
+    static std::string recieves();
+    static std::string recievec();
 };
 
 extern Socket s;

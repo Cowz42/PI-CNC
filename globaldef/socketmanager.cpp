@@ -49,17 +49,13 @@ struct sockaddr_in serv_addr;
 
 Socket s;
 
-#ifndef CLIENT_SOCKET
-#define DFSDLKFJSDKJFSLKDJF
-#endif
 
 
-#ifdef SERVICE_SOCKET
 
 struct sockaddr_in cli_addr;
 int client_socket;
 
-bool Socket::start() {
+bool Socket::starts() {
     server_socket = socket(AF_INET, SOCK_STREAM, 0);
     if (server_socket < 0) {
         std::cerr << "Socket Establishment failure\n";
@@ -100,7 +96,7 @@ bool Socket::start() {
 }
 
 
-std::string Socket::recieve() {
+std::string Socket::recieves() {
     std::memset(socketbuffer, 0, BUFFER_SIZE);
     if (recv(client_socket, socketbuffer, BUFFER_SIZE, 0) == -1) {
         return "";
@@ -108,27 +104,25 @@ std::string Socket::recieve() {
     return std::string(socketbuffer);
 }
 
-void Socket::transmit(std::string message) {
+void Socket::transmits(std::string message) {
     if (!socketinit) {return;}
     send(client_socket, message.data(), message.size(), 0);
 }
 
-void Socket::transmit(const char* message) {
+void Socket::transmits(const char* message) {
     if (!socketinit) {return;}
     send(client_socket, message, strlen(message), 0);
 }
 
-void Socket::end() {
+void Socket::ends() {
     close(client_socket);
     close(server_socket);
     socketinit = false;
 }
 
 
-#else
-#ifdef CLIENT_SOCKET
 
-bool Socket::start() {
+bool Socket::startc() {
     server_socket = socket(AF_INET, SOCK_STREAM, 0);
     if (server_socket < 0) {
         std::cerr << "Socket Establishment failure\n";
@@ -153,7 +147,7 @@ bool Socket::start() {
 }
 
 
-std::string Socket::recieve() {
+std::string Socket::recievec() {
     std::memset(socketbuffer, 0, BUFFER_SIZE);
     if (recv(server_socket, socketbuffer, BUFFER_SIZE, 0) == -1) {
         return "";
@@ -161,29 +155,24 @@ std::string Socket::recieve() {
     return std::string(socketbuffer);
 }
 
-void Socket::transmit(std::string message) {
+void Socket::transmitc(std::string message) {
     if (!socketinit) {return;}
     send(server_socket, message.data(), message.size(), 0);
 }
 
-void Socket::transmit(const char* message) {
+void Socket::transmitc(const char* message) {
     if (!socketinit) {return;}
     send(server_socket, message, strlen(message), 0);
 }
 
-void Socket::end() {
+void Socket::endc() {
     close(server_socket);
     socketinit = false;
 }
 
 
-#else
-#error "Specify what socket is being compilied"
-#endif
-#endif
-
-void sendVal(KEYS key, std::string value) {
-    char b[BUFFER_SIZE];
-    snprintf(b, BUFFER_SIZE, "%" BUFFER_SIZE_STR "s", value.data());
-    s.transmit(b);
-}
+// void sendVal(KEYS key, std::string value) {
+//     char b[BUFFER_SIZE];
+//     snprintf(b, BUFFER_SIZE, "%" BUFFER_SIZE_STR "s", value.data());
+//     s.transmit(b);
+// }

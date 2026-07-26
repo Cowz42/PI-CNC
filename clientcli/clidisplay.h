@@ -8,7 +8,6 @@
 
 #include<string>
 #include<vector>
-#define CLIENT_SOCKET
 
 
 
