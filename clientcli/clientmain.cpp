@@ -17,12 +17,11 @@ int main(int argc, char** argv) {
 
     std::cout << "This is not going to work first try\n";
 
-    s.start();
+    s.start(false);
 
     std::cout << s.recieve() << "\n";
 
-    s.transmit("Hello there :)");
-
+    s.transmit("Hi, this is john client :)");
 
     std::cout << s.recieve() << "\n";
     std::cout << s.recieve() << "\n";

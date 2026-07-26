@@ -10,20 +10,23 @@
 #include"../globaldef/socketmanager.h"
 #include<unistd.h>
 #include<string>
+#include<iostream>
 
 
 int main(int argc, char** argv) {
 
     cnc.start();
-    while(!s.start()) {
+    while(!s.start(true)) {
         usleep(15000);
     }
 
-    s.transmit("Hello Client :)");
+    s.transmit("Hello, this is joseph server :)");
 
     std::string hello = s.recieve();
 
-    s.transmit("Right back at you");
+    std::cout << hello << "\n";
+
+    s.transmit("Hello client, sending back :) ");
     s.transmit(hello);
     
 
