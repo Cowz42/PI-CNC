@@ -14,12 +14,14 @@ set(SERVICE_SOURCE_FILES
     ./service/vfdcontrol.cpp
     ./service/globalcommunication.cpp
     ./service/gcodeinterface.cpp
-    ./service/socketmanager.cpp
+    ./globaldef/socketmanager.cpp
+    ./globaldef/file.cpp
     ./service/servicemain.cpp
 )
 
 set(CLIENT_SOURCE_FILES
-    ./service/socketmanager.cpp
+    ./globaldef/socketmanager.cpp
+    ./globaldef/file.cpp
     ./clientcli/clidisplay.cpp
     ./clientcli/clientmain.cpp
 )
