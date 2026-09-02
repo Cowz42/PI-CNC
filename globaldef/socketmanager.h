@@ -5,20 +5,8 @@
 
 
 #include<string>
+#include"netpacket.h"
 
-
-enum KEYS {
-    X_P,
-    Y_P,
-    Z_P,
-    A_P,
-    B_P,
-    C_B,
-    R_S,
-    F_N,
-    L_S,
-    E_S
-};
 
 
 

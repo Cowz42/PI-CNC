@@ -2,6 +2,7 @@
 
 
 #include"socketmanager.h"
+#include"netpacket.h"
 #include<iostream>
 #include <arpa/inet.h>
 #include <netinet/in.h>
@@ -156,6 +157,10 @@ bool startClient() {
     return true;
 }
 
+void autoParseBuffer() {
+    
+}
+
 bool Socket::start(bool mode) {
     config = mode;
 
@@ -169,7 +174,6 @@ bool Socket::start(bool mode) {
 }
 
 void Socket::end() {
-
     if (config == true) {
         close(new_socket);
     }
@@ -193,7 +197,15 @@ void Socket::transmit(const char* msg) {
 }
 
 std::string Socket::getLatestPacket() {
-
+    int ret_val = 0;
+    do {
+        ret_val = recv(new_socket, recieve_buffer, BUFFER_SIZE, 0);
+        if (ret_val == -1) {
+            prgm_error("Socket Read Error\n");
+            return;
+        }
+        autoParseBuffer();
+    } while(ret_val == 0);
 }
 
 std::string Socket::searchPacket(std::string key) {
