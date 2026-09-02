@@ -1,8 +1,22 @@
+
+
+
+# Version on the PI is this one, so I am going with the greatest
+# common denominator
 cmake_minimum_required(VERSION 3.18)
 
 project(pi-cnc)
 
+# I forgot why but I needed this one for a reason
 set(CMAKE_CXX_STANDARD 17)
+
+# Need to rebuild some of the headers for the arduino, because it
+# can't find the headers in other folders easy, so lowtech it is
+execute_process(
+    COMMAND cpheader.sh
+)
+
+
 
 set(SERVICE_SOURCE_FILES
     ./service/gcode.cpp
