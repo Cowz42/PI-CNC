@@ -1,8 +1,8 @@
 #include <fstream>
 #include <string>
 #include <iostream>
-#include "gcodeparse.h"
-#include "gcode.h"
+#include "gcodeparse.hpp"
+#include "gcode.hpp"
 using namespace std;
 
 

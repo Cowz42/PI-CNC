@@ -4,8 +4,8 @@
 
 
 
-#include"vfdcommands.h"
-#include"motor.h"
+#include"vfdcommands.hpp"
+#include"motor.hpp"
 
 
 #define SYNCPIN 2

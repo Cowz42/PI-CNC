@@ -1,5 +1,5 @@
 
-#include"stepper.h"
+#include"stepper.hpp"
 
 
 Stepper::Stepper(int pin1, int pin2, int pin3, int pin4, float gear_ratio, int steps, bool invert) {

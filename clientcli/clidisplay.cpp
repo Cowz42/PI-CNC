@@ -6,14 +6,14 @@
 
 
 
-#include"clidisplay.h"
+#include"clidisplay.hpp"
 #include<string>
 #include<curses.h>
 #include<vector>
 #include<fstream>
 #include<iostream>
 #include<filesystem>
-#include"../globaldef/file.h"
+#include"../globaldef/file.hpp"
 #include<algorithm>
 
 namespace fs = std::filesystem;

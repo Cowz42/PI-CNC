@@ -13,7 +13,7 @@
 #endif
 
 
-#include"raspi-io.h"
+#include"raspi-io.hpp"
 
 #ifndef __x86_64__
 #include<pcf8574.h>
@@ -22,7 +22,7 @@
 #define pcf8574Setup(x, y)
 #endif
 
-#include"buttoninfo.h"
+#include"buttoninfo.hpp"
 
 // Virtual ports by the i2c bus
 #define VIRTUAL_PORTA 0x38

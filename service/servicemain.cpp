@@ -6,8 +6,8 @@
 
 
 
-#include"programrun.h"
-#include"../globaldef/socketmanager.h"
+#include"programrun.hpp"
+#include"../globaldef/socketmanager.hpp"
 #include<unistd.h>
 #include<string>
 #include<iostream>

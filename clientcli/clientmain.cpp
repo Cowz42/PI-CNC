@@ -5,8 +5,8 @@
 
 
 #include<iostream>
-#include"clidisplay.h"
-#include"../globaldef/socketmanager.h"
+#include"clidisplay.hpp"
+#include"../globaldef/socketmanager.hpp"
 
 
 

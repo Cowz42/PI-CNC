@@ -5,7 +5,7 @@
 
 
 #include<string>
-#include"netpacket.h"
+#include"netpacket.hpp"
 
 
 
@@ -23,6 +23,10 @@ class Socket {
     static void transmit(std::string msg);
     // Sends a string packet, of either a std::string or char*
     static void transmit(const char*);
+
+    // Extra call for getLatestPacket cause I changed the call
+    // and I also didn't want to re-write a bunch of other code
+    static std::string recieve();
 
     // Gets the most recent packet sent from the other device
     static std::string getLatestPacket();

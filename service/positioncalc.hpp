@@ -12,9 +12,9 @@ angles are in degrees starting with zero being positive x rotating around the z 
 
 
 
-#include"machine.h"
+#include"machine.hpp"
 #include<math.h>
-#include"commands.h"
+#include"commands.hpp"
 
 class StepperControl
 {

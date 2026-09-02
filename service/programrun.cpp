@@ -3,20 +3,20 @@
 
 
 
-#include"programrun.h"
+#include"programrun.hpp"
 
 
 
 #include<wiringPi.h>
 #include<iostream>
 #include<string>
-#include"positioncalc.h"
-#include"stepper.h"
-#include"gcodeparse.h"
-#include"gcodeinterface.h"
-#include"gcode.h"
-#include"machine.h"
-#include"commands.h"
+#include"positioncalc.hpp"
+#include"stepper.hpp"
+#include"gcodeparse.hpp"
+#include"gcodeinterface.hpp"
+#include"gcode.hpp"
+#include"machine.hpp"
+#include"commands.hpp"
 #include<sys/time.h>
 
 CNC cnc;

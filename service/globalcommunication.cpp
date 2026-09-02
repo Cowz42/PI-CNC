@@ -2,7 +2,7 @@
 
 
 
-#include"globalcommunication.h"
+#include"globalcommunication.hpp"
 
 #include<vector>
 

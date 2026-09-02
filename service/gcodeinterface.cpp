@@ -1,5 +1,5 @@
 
-#include"gcodeinterface.h"
+#include"gcodeinterface.hpp"
 
 Cmd convertGCode(GCodeInstruction a) {
     Cmd out;

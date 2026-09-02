@@ -1,8 +1,8 @@
 
 
 
-#include"socketmanager.h"
-#include"netpacket.h"
+#include"socketmanager.hpp"
+#include"netpacket.hpp"
 #include<iostream>
 #include <arpa/inet.h>
 #include <netinet/in.h>
@@ -158,7 +158,7 @@ bool startClient() {
 }
 
 void autoParseBuffer() {
-    
+
 }
 
 bool Socket::start(bool mode) {
@@ -206,6 +206,10 @@ std::string Socket::getLatestPacket() {
         }
         autoParseBuffer();
     } while(ret_val == 0);
+}
+
+std::string Socket::recieve() {
+    return getLatestPacket();
 }
 
 std::string Socket::searchPacket(std::string key) {

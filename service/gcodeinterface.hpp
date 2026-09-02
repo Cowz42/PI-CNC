@@ -2,8 +2,8 @@
 
 
 
-#include"gcode.h"
-#include"commands.h"
+#include"gcode.hpp"
+#include"commands.hpp"
 
 
 #ifndef GCODE_INTERFACE_H
