@@ -3,14 +3,16 @@
 
 #include"socketmanager.h"
 #include<iostream>
-#include<sys/socket.h>
-#include<sys/types.h>
-#include<arpa/inet.h>
-#include<netinet/in.h>
-#include<string>
-#include<cstring>
-#include<stdlib.h>
-#include<unistd.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <unistd.h>
+#include<vector>
+
+
 
 #define STR2(x) #x
 #define STR(y) STR2(y)
@@ -19,135 +21,185 @@
 #define BUFFER_SIZE_STR "" STR(BUFFER_SIZE)
 
 
-#define SOCKET_NUM 15268
+#define PORT_NUM 15268
+
+void prgm_error(std::string) {};
+void prgm_log(std::string) {};
 
 
 
-enum KEYS {
-    X_P,
-    Y_P,
-    Z_P,
-    A_P,
-    B_P,
-    C_B,
-    R_S,
-    F_N,
-    L_S,
-    E_S
-};
+int connection_fd;
+int new_socket;
+
+struct sockaddr_in address;
+socklen_t addrlen;
+
+int opt = 1;
 
 
-char socketbuffer[BUFFER_SIZE];
+char recieve_buffer[BUFFER_SIZE];
+char transmit_buffer[BUFFER_SIZE];
+
+std::vector<std::string> packet_buffer;
+
+bool config;
 
 
-int server_socket;
+// internal transmits for the server and client respectivly
+void transmitServer(const char* msg) {
+    send(new_socket, transmit_buffer, strlen(transmit_buffer), 0);
+}
 
-bool socketinit;
-bool server = false;
+void transmitClient(const char* msg) {
+    send(connection_fd, transmit_buffer, strlen(transmit_buffer), 0);
+}
 
+bool startServer() {
 
-struct sockaddr_in serv_addr;
-
-Socket s;
-
-
-struct sockaddr_in cli_addr;
-int client_socket;
-
-
-
-bool Socket::start(bool mode) {
-    server = mode;
-
-    server_socket = socket(AF_INET, SOCK_STREAM, 0);
-    if (server_socket < 0) {
-        std::cerr << "Socket Establishment failure\n";
+    // Create the file descriptor for the socket
+    if ((connection_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
+        prgm_error("Socket init failed\n");
         return false;
     }
 
-    serv_addr.sin_family = AF_INET;
-    serv_addr.sin_port = htons(SOCKET_NUM);
-
-
-    if (server) {
-        int opt = 1;
-
-        serv_addr.sin_addr.s_addr = INADDR_ANY;
-
-        if (setsockopt(server_socket, SOL_SOCKET,
-                   SO_REUSEADDR | SO_REUSEPORT, &opt,
-                   sizeof(opt))) {
-            std::cerr << "Option set failure\n";
-            return false;
-        }
-
-        if (bind(server_socket, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0) {
-            std::cerr << "Unable to bind socket\n";
-            return false;
-        }
-
-
-        listen(server_socket, 1);
-
-        int c = sizeof(struct sockaddr_in);
-
-        client_socket = accept(server_socket, (struct sockaddr*)&cli_addr, (socklen_t*)&c);
-
-        if (client_socket < 0) {
-            std::cerr << "Client connection failure\n";
-            return false;
-        }
-
-        if (recv(client_socket, socketbuffer, BUFFER_SIZE, 0) == -1) {
-            std::cerr << "Invalid packet\n";
-            return false;
-        }
-        if (socketbuffer[0] != 'V') {
-            std::cerr << "Invalid connection\n";
-            return false;
-        }
-
-        socketinit = true;
-    } else {
-        if (connect(server_socket, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0) {
-            std::cerr << "Connection Failure\n";
-            return false;
-        }
+    // Attaching the socket to the port
+    if (setsockopt(
+        connection_fd,
+        SOL_SOCKET,
+        SO_REUSEADDR | SO_REUSEPORT,
+        &opt,
+        sizeof(opt)
+    )) {
+        prgm_error("Socket Failed\n");
+        return false;
     }
+
+    // Configure things
+    address.sin_family = AF_INET;
+    address.sin_addr.s_addr = INADDR_ANY;
+    address.sin_port = htons(PORT_NUM);
+
+
+    // Binding socket
+    if (bind(
+        connection_fd,
+        (struct sockaddr*)&address,
+        sizeof(address)
+    ) < 0) {
+        prgm_error("Bind Error\n");
+        return false;
+    }
+
+    // Listen for the other device to connect
+    if (listen(connection_fd, 3) < 0) {
+        prgm_error("No Connection Started\n");
+        return false;
+    }
+
+
+    if ((new_socket = accept(
+        connection_fd,
+        (struct sockaddr*)&address,
+        &addrlen)
+    ) < 0) {
+        prgm_error("Acceptance Failure\n");
+        return false;
+    }
+
+    prgm_log("Network Port Start Successful @");
+    prgm_log(std::to_string(PORT_NUM));
+    prgm_log(", Starting Control\n");
+
     return true;
 }
 
+bool startClient() {
 
-std::string Socket::recieve() {
-    std::memset(socketbuffer, 0, BUFFER_SIZE);
-    if (recv(server?client_socket:server_socket, socketbuffer, BUFFER_SIZE, 0) == -1) {
-        return "";
+    // Setup the socket file descriptor
+    if ((connection_fd = 
+    socket(
+        AF_INET,
+        SOCK_STREAM,
+    0)) < 0) {
+        prgm_error("Socket Creation Error\n");
+        return false;
     }
-    return std::string(socketbuffer);
+
+    // Configure the port
+    address.sin_family = AF_INET;
+    address.sin_port = htons(PORT_NUM);
+
+    // IP stuff ig idk
+    if (inet_pton(AF_INET, "127.0.0.1", &address.sin_addr) <= 0) {
+        prgm_error("Address not supported, I have no idea what this does, but it was on geeks for geeks\n");
+        return false;
+    }
+
+    // I also don't know what this does, but I don't remember how evaluating
+    // within setting a varible works
+    int status;
+
+    // Set up the connection to the server
+    if ((status = 
+        connect(
+            connection_fd,
+            (struct sockaddr*)&address,
+            sizeof(address)
+        )
+    ) < 0) {
+        prgm_error("Connection Failed\n");
+        return false;
+    }
+
+    prgm_log("Connection to the server started, yapping time\n");
+
+    return true;
 }
 
-void Socket::transmit(std::string message) {
-    if (!socketinit) {return;}
-    send(server?client_socket:server_socket, message.data(), message.size(), 0);
-}
+bool Socket::start(bool mode) {
+    config = mode;
 
-void Socket::transmit(const char* message) {
-    if (!socketinit) {return;}
-    send(server?client_socket:server_socket, message, strlen(message), 0);
+    addrlen = sizeof(address);
+
+    if (config) {
+        return startServer();
+    }
+    return startClient();
+    
 }
 
 void Socket::end() {
-    if (server) {
-        close(client_socket);
+
+    if (config == true) {
+        close(new_socket);
     }
-    close(server_socket);
-    socketinit = false;
+    close(connection_fd);
 }
 
-
-
-void sendVal(KEYS key, std::string value) {
-    char b[BUFFER_SIZE];
-    snprintf(b, BUFFER_SIZE, "%" BUFFER_SIZE_STR "s", value.data());
-    s.transmit(b);
+void Socket::transmit(std::string msg) {
+    if (config) {
+        transmitServer(msg.data());
+        return;
+    }
+    transmitClient(msg.data());
 }
+
+void Socket::transmit(const char* msg) {
+    if (config) {
+        transmitServer(msg);
+        return;
+    }
+    transmitClient(msg);
+}
+
+std::string Socket::getLatestPacket() {
+
+}
+
+std::string Socket::searchPacket(std::string key) {
+
+}
+
+void Socket::reloadSocket() {
+
+};
