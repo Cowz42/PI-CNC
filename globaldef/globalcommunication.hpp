@@ -13,17 +13,26 @@
 #include<string>
 #include<vector>
 
-void pushError(std::string err);
-void pushMessage(std::string msg);
 
-std::string getMessage();
-std::string getError();
+// Send error to local program
+void prgm_error(std::string msg);
 
-bool checkError();
-bool checkMessage();
+// Log to local program
+void prgm_log(std::string msg);
 
-extern std::vector<std::string> errArr;
-extern std::vector<std::string> msgArr;
+// Send system error to other program(client/server)
+void sys_error(std::string msg);
 
+// Send system log to other program(client/server)
+void sys_log(std::string msg);
+
+// Set the file used for the program log
+void mountLogFile(std::string name);
+
+// Set the file used for the program error
+void mountErrorFile(std::string name);
+
+// Deattach the files that are used for logging and errors
+void umountFiles();
 
 #endif

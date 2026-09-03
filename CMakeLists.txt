@@ -31,6 +31,7 @@ set(SERVICE_SOURCE_FILES
     ./globaldef/socketmanager.cpp
     ./globaldef/file.cpp
     ./globaldef/globalcommunication.cpp
+    ./globaldef/netpacket.cpp
 
     ./service/servicemain.cpp
 )
@@ -39,6 +40,7 @@ set(CLIENT_SOURCE_FILES
     ./globaldef/socketmanager.cpp
     ./globaldef/file.cpp
     ./globaldef/globalcommunication.cpp
+    ./globaldef/netpacket.cpp
 
     ./clientcli/clidisplay.cpp
 

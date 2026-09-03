@@ -16,18 +16,18 @@
 int main(int argc, char** argv) {
 
     cnc.start();
-    while(!s.start(true)) {
+    while(!net_socket.start(true)) {
         usleep(15000);
     }
 
-    s.transmit("Hello, this is joseph server :)");
+    net_socket.transmit("Hello, this is joseph server :)");
 
-    std::string hello = s.recieve();
+    std::string hello = net_socket.recieve();
 
     std::cout << hello << "\n";
 
-    s.transmit("Hello client, sending back :) ");
-    s.transmit(hello);
+    net_socket.transmit("Hello client, sending back :) ");
+    net_socket.transmit(hello);
     
 
     return 0;

@@ -203,7 +203,7 @@ std::string Socket::getLatestPacket() {
         ret_val = recv(new_socket, recieve_buffer, BUFFER_SIZE, 0);
         if (ret_val == -1) {
             prgm_error("Socket Read Error\n");
-            return;
+            return "";
         }
         autoParseBuffer();
     } while(ret_val == 0);
@@ -220,3 +220,23 @@ std::string Socket::searchPacket(std::string key) {
 void Socket::reloadSocket() {
 
 };
+
+void Socket::sendError(std::string msg) {
+    NetworkPacket p;
+    p.code = ERROR;
+    p.key = NONE;
+    p.data = msg;
+    transmit(stringBuilder(p));
+}
+
+
+void Socket::sendLog(std::string msg) {
+    NetworkPacket p;
+    p.code = LOG;
+    p.key = NONE;
+    p.data = msg;
+    transmit(stringBuilder(p));
+}
+
+
+Socket net_socket;

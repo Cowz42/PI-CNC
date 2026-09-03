@@ -17,14 +17,14 @@ int main(int argc, char** argv) {
 
     std::cout << "This is not going to work first try\n";
 
-    s.start(false);
+    net_socket.start(false);
 
-    std::cout << s.recieve() << "\n";
+    std::cout << net_socket.recieve() << "\n";
 
-    s.transmit("Hi, this is john client :)");
+    net_socket.transmit("Hi, this is john client :)");
 
-    std::cout << s.recieve() << "\n";
-    std::cout << s.recieve() << "\n";
+    std::cout << net_socket.recieve() << "\n";
+    std::cout << net_socket.recieve() << "\n";
 
     return 0;
 }

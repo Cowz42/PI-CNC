@@ -3,56 +3,65 @@
 
 
 #include"globalcommunication.hpp"
+#include"socketmanager.hpp"
 
 #include<vector>
+#include<iostream>
+#include<fstream>
 
 
 
-std::vector<std::string> errArr;
-std::vector<std::string> msgArr;
+std::vector<std::string> prgmErrorArr;
+std::vector<std::string> prgmLogArr;
+std::vector<std::string> sysErrorArr;
+std::vector<std::string> sysLogArr;
+
+
+
+std::string logFileName;
+std::string errorFileName;
+
+
+std::ofstream logFile;
+std::ofstream errorFile;
+
+void mountLogFile(std::string name) {
+    logFileName = name;
+    logFile.open(logFileName);
+}
+
+void mountErrorFile(std::string name) {
+    errorFileName = name;
+    errorFile.open(errorFileName);
+}
+
+
 
 
 void prgm_error(std::string msg) {
-    prgm_error(msg.data());
-}
+    errorFile << msg;
+    prgmErrorArr.push_back(msg);
 
-void prgm_error(const char* msg) {
-    
 }
 
 void prgm_log(std::string msg) {
-    prgm_log(msg.data());
-}
-
-void prgm_log(const char* msg) {
-    
+    logFile << msg;
+    prgmLogArr.push_back(msg);
 }
 
 void sys_error(std::string msg) {
-    sys_error(msg.data());
-}
-
-void sys_error(const char* msg) {
-    
+    prgm_error("SYS: " + msg);
+    prgmErrorArr.push_back(msg);
+    net_socket.sendError(msg);
 }
 
 void sys_log(std::string msg) {
-    sys_log(msg.data());
+    prgm_log("SYS: " + msg);
+    prgmLogArr.push_back(msg);
+    net_socket.sendLog(msg);
 }
 
-void sys_log(const char* msg) {
-    
+void umMountFiles() {
+    errorFile.close();
+    logFile.close();
 }
-
-
-
-
-bool checkError() {
-    return !errArr.empty();
-}
-
-
-bool checkMessage() {
-    return !msgArr.empty();
-}
-

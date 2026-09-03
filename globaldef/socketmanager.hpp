@@ -36,8 +36,14 @@ class Socket {
 
     // clears the backlog of packets, and sends a reload command
     static void reloadSocket();
+
+    // Function to send errors to the other program
+    static void sendError(std::string msg);
+
+    // Function to send log messages to the other program
+    static void sendLog(std::string msg);
 };
 
-extern Socket s;
+extern Socket net_socket;
 
 #endif
