@@ -22,6 +22,8 @@
 #define HIGH 1
 #endif
 
+// Macros for the basic pin functions when compiling for x86_64
+
 #include<string>
 #include"../globaldef/globalcommunication.hpp"
 
