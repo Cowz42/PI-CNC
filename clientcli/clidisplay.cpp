@@ -24,7 +24,7 @@ std::vector<std::string> files;
 #define CTRL_E 5
 #define CTRL_X 24
 
-std::string path = "/home/cnc/Downloads/";
+std::string path = getenv("HOME") + std::string("/Downloads");
 
 #define HEADERS_LIST_SIZE 4
 #define MANUAL_OPTIONS_SIZE 11
@@ -332,7 +332,7 @@ void fileView() {
         
 	}
 
-    mvwprintw(list, 11, 10, "key code %s %d", keyname(chstore), chstore);
+    // mvwprintw(list, 11, 10, "key code %s %d", keyname(chstore), chstore);
 
     wmove(list, cursorLine + 1 - scrollLine, cursorCol + 10);
 
@@ -540,7 +540,7 @@ void filePicker() {
         // buffer.append("Files list at /home/cnc/Downloads\n");
         
         for (int i = 0; i + scrollLine < files.size() && i < LINES_A; i++) {
-            mvwprintw(list, i + 1, 0, "%d  %s",i + scrollLine, files.at(i + scrollLine).substr(path.size()).data());
+            mvwprintw(list, i + 1, 0, "%3d  %s",i + scrollLine, files.at(i + scrollLine).substr(path.size()).data());
         }
 
     }

@@ -35,9 +35,6 @@ void mountErrorFile(std::string name) {
     errorFile.open(errorFileName);
 }
 
-
-
-
 void prgm_error(std::string msg) {
     errorFile << msg;
     prgmErrorArr.push_back(msg);
@@ -50,18 +47,18 @@ void prgm_log(std::string msg) {
 }
 
 void sys_error(std::string msg) {
-    prgm_error("SYS: " + msg);
+    prgm_error("SYS_ERR: " + msg);
     prgmErrorArr.push_back(msg);
     net_socket.sendError(msg);
 }
 
 void sys_log(std::string msg) {
-    prgm_log("SYS: " + msg);
+    prgm_log("SYS_LOG: " + msg);
     prgmLogArr.push_back(msg);
     net_socket.sendLog(msg);
 }
 
-void umMountFiles() {
+void unMountFiles() {
     errorFile.close();
     logFile.close();
 }

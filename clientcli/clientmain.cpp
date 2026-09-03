@@ -10,6 +10,8 @@
 
 
 
+CLI cli;
+
 
 int main(int argc, char** argv) {
 
@@ -17,14 +19,16 @@ int main(int argc, char** argv) {
 
     std::cout << "This is not going to work first try\n";
 
-    net_socket.start(false);
+    cli.start();
 
-    std::cout << net_socket.recieve() << "\n";
+    while(true) {
+        cli.update();
+    }
 
-    net_socket.transmit("Hi, this is john client :)");
+    cli.end();
 
-    std::cout << net_socket.recieve() << "\n";
-    std::cout << net_socket.recieve() << "\n";
+
+    // net_socket.start(false);
 
     return 0;
 }

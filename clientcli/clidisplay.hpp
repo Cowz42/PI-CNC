@@ -17,6 +17,7 @@ class CLI {
     int start();
     void end();
     void update();
+    
 };
 
 #define LINES_A 13

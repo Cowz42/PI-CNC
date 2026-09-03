@@ -33,6 +33,6 @@ void mountLogFile(std::string name);
 void mountErrorFile(std::string name);
 
 // Deattach the files that are used for logging and errors
-void umountFiles();
+void unMountFiles();
 
 #endif
