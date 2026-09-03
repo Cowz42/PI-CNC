@@ -9,9 +9,11 @@ I am also making the hardware part as I go, so lets see how it goes
 # Installation
 
 Dependencies
-cmake		Building
-Ncurses		Client CLI
-wiringPI	Under the hood hardware access
+cmake          Building
+
+Ncurses        Client CLI
+
+wiringPI       Under the hood hardware access
 
 https://github.com/WiringPi/WiringPi
 
