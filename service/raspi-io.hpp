@@ -22,8 +22,16 @@
 #define HIGH 1
 #endif
 
-void pinMode(int p, char d) {}
-void digitalWrite(int p, int d) {}
+#include<string>
+#include"../globaldef/globalcommunication.hpp"
+
+#define pinMode(p, d) sys_log("pinMode " + std::to_string(p) + ", " + std::to_string(d) + "Not defined when compilied on x86_64\n");
+#define digitalWrite(p, d) sys_log("digitalWrite " + std::to_string(p) + ", " + std::to_string(d) + "Not defined when compilied on x86_64\n");
+
+
+// void digitalWrite(int p, int d) {}
+
+
 
 #endif
 

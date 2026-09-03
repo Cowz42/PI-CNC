@@ -29,10 +29,10 @@ class Socket {
     static std::string recieve();
 
     // Gets the most recent packet sent from the other device
-    static std::string getLatestPacket();
+    static NetworkPacket getLatestPacket();
 
     // Search for a specific keys in the message
-    static std::string searchPacket(std::string key);
+    static NetworkPacket searchPacket(std::string key);
 
     // clears the backlog of packets, and sends a reload command
     static void reloadSocket();

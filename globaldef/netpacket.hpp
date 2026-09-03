@@ -31,7 +31,8 @@ enum REQUEST {
     READ,
     ERROR,
     LOG,
-    FUNNY
+    FUNNY,
+    ACK
 };
 
 

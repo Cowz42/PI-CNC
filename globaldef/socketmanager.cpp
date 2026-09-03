@@ -25,8 +25,6 @@
 
 #define PORT_NUM 15268
 
-void prgm_error(std::string) {};
-void prgm_log(std::string) {};
 
 
 
@@ -41,8 +39,6 @@ int opt = 1;
 
 char recieve_buffer[BUFFER_SIZE];
 char transmit_buffer[BUFFER_SIZE];
-
-std::vector<std::string> packet_buffer;
 
 bool config;
 
@@ -158,10 +154,6 @@ bool startClient() {
     return true;
 }
 
-void autoParseBuffer() {
-
-}
-
 bool Socket::start(bool mode) {
     config = mode;
 
@@ -197,28 +189,26 @@ void Socket::transmit(const char* msg) {
     transmitClient(msg);
 }
 
-std::string Socket::getLatestPacket() {
-    int ret_val = 0;
-    do {
-        ret_val = recv(new_socket, recieve_buffer, BUFFER_SIZE, 0);
-        if (ret_val == -1) {
-            prgm_error("Socket Read Error\n");
-            return "";
-        }
-        autoParseBuffer();
-    } while(ret_val == 0);
+NetworkPacket Socket::getLatestPacket() {
+    recv(new_socket, recieve_buffer, BUFFER_SIZE, 0);
+    return parser(std::string(recieve_buffer));
 }
 
 std::string Socket::recieve() {
-    return getLatestPacket();
+    return stringBuilder(getLatestPacket());
 }
 
-std::string Socket::searchPacket(std::string key) {
-
+NetworkPacket Socket::searchPacket(std::string key) {
+    NetworkPacket p;
+    NetworkPacket out = getLatestPacket();
+    if (stringBuilder(out).find(key) == -1) {
+        return p;
+    }
+    return out;
 }
 
 void Socket::reloadSocket() {
-
+    sys_error("IDK what to make this do\n");
 };
 
 void Socket::sendError(std::string msg) {
