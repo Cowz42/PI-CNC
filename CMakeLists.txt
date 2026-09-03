@@ -26,17 +26,22 @@ set(SERVICE_SOURCE_FILES
     ./service/programrun.cpp
     ./service/stepper.cpp
     ./service/vfdcontrol.cpp
-    ./service/globalcommunication.cpp
     ./service/gcodeinterface.cpp
+
     ./globaldef/socketmanager.cpp
     ./globaldef/file.cpp
+    ./globaldef/globalcommunication.cpp
+
     ./service/servicemain.cpp
 )
 
 set(CLIENT_SOURCE_FILES
     ./globaldef/socketmanager.cpp
     ./globaldef/file.cpp
+    ./globaldef/globalcommunication.cpp
+
     ./clientcli/clidisplay.cpp
+
     ./clientcli/clientmain.cpp
 )
 
