@@ -3,6 +3,7 @@
 
 #include"socketmanager.hpp"
 #include"netpacket.hpp"
+#include"globalcommunication.hpp"
 #include<iostream>
 #include <arpa/inet.h>
 #include <netinet/in.h>
