@@ -1,6 +1,0 @@
-Starting CNC
-Starting cli
-Started Successfully
-Update Ran once
-Loading file "/home/cnc/Downloads/longfile.txt" to the program
-Loading file "/home/cnc/Downloads/How_To_Use.txt" to the program
