@@ -1,3 +1,6 @@
 Build/
 error.txt
 build/
+log.txt
+error.txt
+vfd/vfdcommand.hpp

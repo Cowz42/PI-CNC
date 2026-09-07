@@ -1,1 +1,1 @@
-cp vfdcommands.h ./vfd/
+cp ./service/vfdcommands.hpp ./vfd/

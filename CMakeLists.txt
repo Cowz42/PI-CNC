@@ -10,14 +10,21 @@ project(pi-cnc)
 # I forgot why but I needed this one for a reason
 set(CMAKE_CXX_STANDARD 17)
 
+
+
+
+
 # Need to rebuild some of the headers for the arduino, because it
 # can't find the headers in other folders easy, so lowtech it is
+# I fucking hate you arduino
+# WHY CAN"T YOU BE NORMAL AND HAVE RELATIVE BUILD PATHS
+# AOIEFJLIADJFLSJGOSJDFJNOSDFJHOSFIJ
+
 execute_process(
-    COMMAND cpheader.sh
+    COMMAND bash -c "../scripts/cpheaderCMAKE.sh"
 )
 
-
-
+# The background service source files
 set(SERVICE_SOURCE_FILES
     ./service/gcode.cpp
     ./service/gcodeparse.cpp
@@ -36,7 +43,8 @@ set(SERVICE_SOURCE_FILES
     ./service/servicemain.cpp
 )
 
-set(CLIENT_SOURCE_FILES
+# The cli client source files
+set(CLIENT_CLI_SOURCE_FILES
     ./globaldef/socketmanager.cpp
     ./globaldef/file.cpp
     ./globaldef/globalcommunication.cpp
@@ -58,13 +66,13 @@ include_directories(${CURSES_INCLUDE_DIR})
 
 add_executable(pi-cnc-service-exec ${SERVICE_SOURCE_FILES})
 
-add_executable(${PROJECT_NAME} ${CLIENT_SOURCE_FILES})
+add_executable(pi-cnc-cli ${CLIENT_CLI_SOURCE_FILES})
 
 
 
 
 target_link_libraries(
-	${PROJECT_NAME}
+	pi-cnc-cli
 
 	PRIVATE ${CURSES_LIBRARIES}
 )

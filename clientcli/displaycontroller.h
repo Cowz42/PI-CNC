@@ -9,7 +9,7 @@
 #include<iostream>
 
 #define GLFW_INCLUDE_NONE
-#include "./lib/glfw-3.4/include/GLFW/glfw3.h"
+#include "../lib/glfw-3.4/include/GLFW/glfw3.h"
 
 
 

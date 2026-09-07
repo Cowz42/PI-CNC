@@ -7,7 +7,7 @@
 #ifndef VFD_MOTOR_H
 #define VFD_MOTOR_H
 
-#include"vfdcommands.h"
+#include"vfdcommands.hpp"
 
 float modFloatAngle(float n) {
     while (n > 360) {
