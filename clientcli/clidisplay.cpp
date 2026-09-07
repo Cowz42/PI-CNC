@@ -14,6 +14,7 @@
 #include<iostream>
 #include<filesystem>
 #include"../globaldef/file.hpp"
+#include"../globaldef/globalcommunication.hpp"
 #include<algorithm>
 
 namespace fs = std::filesystem;
@@ -206,6 +207,9 @@ bool strvecedit(std::vector<std::string>* strvec, int chin) {
 
 
 void windowChangeCheck(int charnum) {
+    if (charnum == 'q' || charnum == 'Q') {
+        prgm_exit = true;
+    }
     if (charnum > 47 && charnum < 52) {
         setMode(charnum - 48);
         return;
@@ -260,7 +264,6 @@ void cursorCheck() {
     if (cursorLine < scrollLine) {
         scrollLine = cursorLine;
     } else if (cursorLine > scrollLine + (LINES_A - 1)) {
-        // std::cerr << "limit a\n";
         scrollLine = cursorLine - (LINES_A - 1);
     }
 
@@ -286,11 +289,16 @@ void cursorCheck() {
 
 
 void setMode(int mode) {
+    if (mode == 1 && WorkingFileGlobal == "") {
+        return;
+    }
+
     cliMode = mode;
 
     headerUpdate();
     infoStart();
     infoDisp();
+
     scrollLine = 0;
     cursorLine = 0;
     infoChange = true;
@@ -399,7 +407,7 @@ void manual() {
             } else if (i == 10) {
                 wprintw(list, "%s", manualCMD.data());
             } else if (i == 9) {
-                wprintw(list, "Debug L: %d, C: %d, S: %d", cursorLine, cursorCol, manualCMD.size());
+                wprintw(list, "Debug L: %d, C: %d, S: %d", cursorLine, cursorCol, (int)manualCMD.size());
             }
         }
 
@@ -471,7 +479,7 @@ void manual() {
                 // rpm set
                 break;
                 default:
-                std::cerr << "Illegal value write\n";
+                prgm_error("Illegal value write\n");
                 break;
             }
         } else if (cursorLine > 0 && cursorLine < 7) {
@@ -536,7 +544,7 @@ void filePicker() {
         
     
 
-        mvwprintw(list, 0, 0, "Files list at: %s C: %d S: %d Size: %d", path.data(), cursorLine, scrollLine, files.size());
+        mvwprintw(list, 0, 0, "Files list at: %s C: %d S: %d Size: %d", path.data(), cursorLine, scrollLine, (int)files.size());
         // buffer.append("Files list at /home/cnc/Downloads\n");
         
         for (int i = 0; i + scrollLine < files.size() && i < LINES_A; i++) {
@@ -564,6 +572,8 @@ void filePicker() {
         wclear(list);
         mvwprintw(list, 0, 0, "Loading File %s", files.at(cursorLine).data());
         FileLoadGlobal(files.at(cursorLine));
+        setMode(1);
+
     }
 	windowChangeCheck(ch);
 
@@ -576,12 +586,12 @@ int CLI::start() {
     infoChange = true;
     cliMode = 0;
     if (false) {
-        std::cerr << "No gantry detected\n";
+        sys_error("Client no gantry detected\n");
         return -1;
     }
 
     if (initscr() == NULL) {
-        std::cerr << "Unable to start ncurses\n";
+        prgm_error("Unable to start ncurses\n");
         return -1;
     }
 
@@ -630,7 +640,7 @@ void CLI::update() {
     } else if (cliMode == 3) {
         setMode(0);
     } else {
-        std::cerr << "CLI Mode error, returning to file select\n";
+        prgm_error("CLI Mode error, returning to file select\n");
         setMode(0);
     }
     infoDisp();

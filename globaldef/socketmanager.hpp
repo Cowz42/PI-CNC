@@ -14,7 +14,8 @@ class Socket {
     public:
     // Starts the port and awaits response, returns false if it fails
     // mode being true sets the socket to server mode, false is for the client
-    static bool start(bool mode);
+    static bool start(std::string server_ip);
+    static bool start();
 
     // Exits the port and frees memory
     static void end();

@@ -16,7 +16,7 @@
 int main(int argc, char** argv) {
 
     cnc.start();
-    while(!net_socket.start(true)) {
+    while(!net_socket.start()) {
         usleep(15000);
     }
 

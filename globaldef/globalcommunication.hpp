@@ -13,6 +13,8 @@
 #include<string>
 #include<vector>
 
+extern bool prgm_exit;
+
 
 // Send error to local program
 void prgm_error(std::string msg);

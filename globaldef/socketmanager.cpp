@@ -111,7 +111,7 @@ bool startServer() {
     return true;
 }
 
-bool startClient() {
+bool startClient(std::string ip_target) {
 
     // Setup the socket file descriptor
     if ((connection_fd = 
@@ -127,8 +127,10 @@ bool startClient() {
     address.sin_family = AF_INET;
     address.sin_port = htons(PORT_NUM);
 
+    prgm_log("Attempting connection @ " + ip_target + "\n");
+
     // IP stuff ig idk
-    if (inet_pton(AF_INET, "127.0.0.1", &address.sin_addr) <= 0) {
+    if (inet_pton(AF_INET, ip_target.data(), &address.sin_addr) <= 0) {
         prgm_error("Address not supported, I have no idea what this does, but it was on geeks for geeks\n");
         return false;
     }
@@ -154,16 +156,18 @@ bool startClient() {
     return true;
 }
 
-bool Socket::start(bool mode) {
-    config = mode;
+bool Socket::start() {
+    config = true;
 
     addrlen = sizeof(address);
+    return startServer();    
+}
 
-    if (config) {
-        return startServer();
-    }
-    return startClient();
-    
+bool Socket::start(std::string server_ip) {
+    config = false;
+
+    addrlen = sizeof(address);
+    return startClient(server_ip);
 }
 
 void Socket::end() {

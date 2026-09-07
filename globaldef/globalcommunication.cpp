@@ -9,6 +9,7 @@
 #include<iostream>
 #include<fstream>
 
+bool prgm_exit = false;
 
 
 std::vector<std::string> prgmErrorArr;
@@ -36,13 +37,27 @@ void mountErrorFile(std::string name) {
 }
 
 void prgm_error(std::string msg) {
-    errorFile << msg;
+    if (msg.substr(0,8) == "SYS_ERR:") {
+        std::cerr << msg;
+    } else {
+        std::cerr << "ERR: " << msg;
+    }
+    if (errorFile.is_open()){
+        errorFile << msg;
+    }
     prgmErrorArr.push_back(msg);
 
 }
 
 void prgm_log(std::string msg) {
-    logFile << msg;
+    if (msg.substr(0,8) == "SYS_LOG:") {
+        std::cerr << msg;
+    } else {
+        std::cerr << "LOG: " << msg;
+    }
+    if (logFile.is_open()){
+        logFile << msg;
+    }
     prgmLogArr.push_back(msg);
 }
 
