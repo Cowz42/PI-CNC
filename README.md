@@ -19,10 +19,21 @@ https://github.com/WiringPi/WiringPi
 
 run in project directory
 
+cmake -B build
+
 cmake --build build --parallel
+
 sudo ./install.sh
 
 needs sudo to mount into systemctl
+
+
+# Building Arduino code
+
+run in project directory
+
+arduino-cli -b arduino:avr:nano compile ./vfd/vfd.ino
+
 
 # Usage
 

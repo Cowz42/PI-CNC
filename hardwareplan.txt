@@ -40,7 +40,7 @@ IO Card Assignment
 
 these will be I2C devices that can be a relay out, relay in, or GPIO @ 5v
 
-GPIO 0
+0x70 @I2C   GPIO
     0: Start Button
     1: Stop Button
     2: Door Sensor?
@@ -50,7 +50,7 @@ GPIO 0
     6:
     7:
 
-Relay out 1
+0x72 @I2C   Relay out
     0: VFD Power
     1: Stepper Power
     2: 
@@ -61,5 +61,5 @@ Relay out 1
     7:
 
 
-vfd will be controled by a usb serial port on the pi, and communicate with a protocol described in vfdcommands.h
+vfd will be controled by a usb serial port on the pi, and communicate with the a protocol described in vfdcommands.hpp
 
