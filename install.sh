@@ -14,7 +14,7 @@ systemctl stop pi-cnc-service.service
 
 
 
-cp ./build/pi-cnc-service-exec /usr/sbin/pi-cnc-service-exec
+cp ./build/pi-cnc-service-exec /usr/local/sbin/pi-cnc-service-exec
 cp ./service/pi-cnc-service.service /etc/systemd/system/pi-cnc-service.service
 
 
