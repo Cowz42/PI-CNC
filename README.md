@@ -32,8 +32,9 @@ needs sudo to mount into systemctl
 
 run in project directory
 
-arduino-cli -b arduino:avr:nano compile ./vfd/vfd.ino
+arduino-cli compile -b arduino:avr:nano ./vfd/vfd.ino
 
+arduino-cli upload ./vfd -p {USB DEVICE HERE} -b arduino:avr:nano
 
 # Usage
 

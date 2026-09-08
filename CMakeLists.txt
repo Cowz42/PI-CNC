@@ -24,6 +24,12 @@ execute_process(
     COMMAND bash -c "../scripts/cpheaderCMAKE.sh"
 )
 
+# Compile Arduino code
+execute_process(
+    COMMAND bash -c "arduino-cli compile -b arduino:avr:nano  ../vfd/vfd.ino
+"
+)
+
 # The background service source files
 set(SERVICE_SOURCE_FILES
     ./service/gcode.cpp
