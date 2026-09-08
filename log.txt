@@ -1,3 +1,0 @@
-LOG: CLI Starting
-LOG: Attempting connection @ 127.0.0.1
-ERR: Connection Failed
