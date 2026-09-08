@@ -6,7 +6,7 @@ Description=IO and backend CNC manager
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/pi-cnc-service-exec
+ExecStart=/usr/sbin/pi-cnc-service-exec
 Restart=always
 
 [Install]

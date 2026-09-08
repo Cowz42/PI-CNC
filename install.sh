@@ -1,15 +1,20 @@
 
 
+if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+    echo "Not running as root"
+    exit
+fi
+
 
 echo "Installing background service"
-echo "Needs sudo and I forgot how to check"
+
 
 systemctl disable pi-cnc-service.service
 systemctl stop pi-cnc-service.service
 
 
 
-cp ./build/pi-cnc-service-exec /usr/bin/pi-cnc-service-exec
+cp ./build/pi-cnc-service-exec /usr/sbin/pi-cnc-service-exec
 cp ./service/pi-cnc-service.service /etc/systemd/system/pi-cnc-service.service
 
 
